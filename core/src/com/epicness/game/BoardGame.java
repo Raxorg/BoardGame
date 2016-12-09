@@ -1,0 +1,41 @@
+package com.epicness.game;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.ScreenManager;
+import com.epicness.game.organizers.Text;
+import com.epicness.game.screens.MenuScreen;
+import com.epicness.game.ui.buttons.MenuButtonListener;
+
+public class BoardGame extends Game {
+    private SpriteBatch batch;
+    public static MenuButtonListener buttonListener;
+
+    @Override
+    public void create() {
+        Text.load();
+        Assets.load();
+        batch = new SpriteBatch();
+        buttonListener = new MenuButtonListener();
+        Gdx.input.setInputProcessor(buttonListener);
+        ScreenManager.setCurrentScreen(MenuScreen.getInstance());
+    }
+
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(Assets.bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ScreenManager.getCurrentScreen().render(Gdx.graphics.getDeltaTime(), batch);
+        batch.end();
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
+}
