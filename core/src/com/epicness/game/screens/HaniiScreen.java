@@ -7,7 +7,7 @@ import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.ui.buttons.Button;
 
-// Hola amor, aqui haz tus cosas :3
+// Hola amor, aqui has tus cosas :3
 
 public class HaniiScreen extends MyScreen {
 
@@ -23,9 +23,8 @@ public class HaniiScreen extends MyScreen {
 
     @Override
     void makeButtons() {
-        // AQUI HACES TUS BOTONES :D
-        // SI  NO TIENES BOTONES DEJALO ASI
-        buttons = new Button[1];
+        // Aquì haces tus botones :3
+        buttons = new Button[1];    // Si añades un botón agranda el arreglo
         buttons[0] = new Button(
                 Assets.button1,
                 Gdx.graphics.getWidth() - Gdx.graphics.getHeight() / 6,
