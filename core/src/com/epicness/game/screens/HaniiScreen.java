@@ -7,9 +7,8 @@ import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.ui.buttons.Button;
 
-/**
- * Created by Luchox on 09/12/2016.
- */
+// Hola amor, aqui haz tus cosas :3
+
 public class HaniiScreen extends MyScreen {
 
     private static HaniiScreen instance = new HaniiScreen();
