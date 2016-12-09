@@ -34,7 +34,7 @@ public class GameScreen extends MyScreen {
     }
 
     public void makeButtons() {
-        buttons = new Button[2];
+        buttons = new Button[3];
         buttons[0] = new Button(
                 Assets.button1,
                 0,
@@ -64,6 +64,19 @@ public class GameScreen extends MyScreen {
                     dice.resetTime();
                     dice.setVisible(true);
                 }
+            }
+        };
+        buttons[2] = new Button(
+                Assets.button1,
+                2 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 6,
+                Color.BLUE
+        ) {
+            @Override
+            public void onTouchUp() {
+                ScreenManager.setCurrentScreen(HaniiScreen.getInstance());
             }
         };
     }
