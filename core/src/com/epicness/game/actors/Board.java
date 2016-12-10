@@ -30,37 +30,10 @@ public class Board {
     }
 
     private void makeCells() {
-        float playerWidth = side * 0.1f;
         cells = new Cell[17];
-        cells[0] = new Cell(
-                CellType.AZUL,
-                x + side / 2 - playerWidth / 2,
-                y
-        );
-        cells[1] = new Cell(
-                CellType.AZUL,
-                40,
-                40
-        );
-        cells[2] = new Cell(
-                CellType.AZUL,
-                40,
-                40
-        );
-        cells[3] = new Cell(CellType.AZUL, 40, 40);
-        cells[4] = new Cell(CellType.AZUL, 40, 40);
-        cells[5] = new Cell(CellType.AZUL, 40, 40);
-        cells[6] = new Cell(CellType.AZUL, 40, 40);
-        cells[7] = new Cell(CellType.AZUL, 40, 40);
-        cells[8] = new Cell(CellType.AZUL, 40, 40);
-        cells[9] = new Cell(CellType.AZUL, 40, 40);
-        cells[10] = new Cell(CellType.AZUL, 40, 40);
-        cells[11] = new Cell(CellType.AZUL, 40, 40);
-        cells[12] = new Cell(CellType.AZUL, 40, 40);
-        cells[13] = new Cell(CellType.AZUL, 40, 40);
-        cells[14] = new Cell(CellType.AZUL, 40, 40);
-        cells[15] = new Cell(CellType.AZUL, 40, 40);
-        cells[16] = new Cell(CellType.AZUL, 40, 40);
+        for (int i = 0; i < cells.length; i++) {
+            cells[i] = new Cell(CellType.AZUL, i * 21.175f);
+        }
     }
 
     public static Board getInstance() {
@@ -85,22 +58,25 @@ public class Board {
         return side;
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     public class Cell {
-        private float x, y;
         private CellType type;
+        private float angle;
 
-        public Cell(CellType type, float x, float y) {
+        public Cell(CellType type, float angle) {
             this.type = type;
-            this.x = x;
-            this.y = y;
+            this.angle = angle;
         }
 
-        public float getX() {
-            return x;
-        }
-
-        public float getY() {
-            return y;
+        public float getAngle() {
+            return angle;
         }
     }
 }

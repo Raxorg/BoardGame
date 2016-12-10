@@ -53,6 +53,5 @@ public class HaniiScreen extends MyScreen {
                     b.getHeight()
             );
         }
-        batch.setColor(Color.WHITE);
     }
 }

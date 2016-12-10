@@ -18,15 +18,18 @@ import com.epicness.game.ui.buttons.Button;
 public class GameScreen extends MyScreen {
 
     private Dice dice = null;
-    private Player[] players = new Player[2];
+    private Player[] players = new Player[4];
 
     private static GameScreen instance = new GameScreen();
 
     private GameScreen() {
         dice = new Dice();
         makeButtons();
-        players[0] = new Player();
-        players[1] = new Player();
+        players[0] = new Player(Color.ORANGE, 0, 0);
+        players[1] = new Player(Color.CYAN, 1, 0);
+        players[2] = new Player(Color.YELLOW, 0, 1);
+        players[3] = new Player(Color.GREEN, 1, 1);
+
     }
 
     public static GameScreen getInstance() {
@@ -85,6 +88,7 @@ public class GameScreen extends MyScreen {
     public void render(float delta, SpriteBatch batch) {
         Board.getInstance().draw(batch);
         for (Player p : players) {
+            batch.setColor(p.getColor());
             p.draw(delta, batch);
         }
         batch.setColor(0, 0.75f, 0.75f, 1);
@@ -101,6 +105,5 @@ public class GameScreen extends MyScreen {
                     b.getHeight()
             );
         }
-        batch.setColor(Color.WHITE);
     }
 }

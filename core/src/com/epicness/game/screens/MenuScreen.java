@@ -66,6 +66,5 @@ public class MenuScreen extends MyScreen {
                 Gdx.graphics.getWidth() / 2 - playWidth / 2,
                 Gdx.graphics.getHeight() / 2 + playHeight / 2
         );
-        batch.setColor(Color.WHITE);
     }
 }

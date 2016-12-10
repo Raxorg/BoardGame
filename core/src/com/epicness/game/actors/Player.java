@@ -1,9 +1,9 @@
 package com.epicness.game.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.organizers.Assets;
 
 /**
@@ -14,19 +14,28 @@ import com.epicness.game.organizers.Assets;
 public class Player {
 
     private int money;
-    private Texture texture;
-    private float x = 0, y = 0, width = 0, height = 0;
+    private TextureRegion texture;
+    private float x = 0, y = 0, width = 0, height = 0, offsetX = 0, offsetY = 0;
     private Board.Cell cell;
+    private Color color = null;
+    private int time = 0;
+    private int timecell = 0;
 
-    public Player() {
+    public Player(Color color, float offsetX, float offsetY) {
         money = 1000;
-        texture = Assets.player;
-        width = Board.getInstance().getSide() * 0.1f;
-        height = Board.getInstance().getSide() * 0.15f;
-        cell = Board.getInstance().getCell(0);
-        x = cell.getX();
-        y = cell.getY();
+        texture = new TextureRegion(Assets.player);
+        width = Board.getInstance().getSide() * 0.05f;
+        height = Board.getInstance().getSide() * 0.075f;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        move(Board.getInstance().getCell(0));
+        this.color = color;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
 
     public int getMoney() {
         return money;
@@ -38,17 +47,33 @@ public class Player {
 
     public void move(Board.Cell cell) {
         this.cell = cell;
-        x = cell.getX();
-        y = cell.getY();
+        x = Gdx.graphics.getWidth() / 2 - width;
+        x += (float) (Math.cos(Math.toRadians(-cell.getAngle() + 80f))) * Board.getInstance().getSide() * 0.425;
+        x += offsetX * width;
+        y = Gdx.graphics.getHeight() / 2 - height;
+        y += (float) (Math.sin(Math.toRadians(-cell.getAngle() + 80f))) * Board.getInstance().getSide() * 0.425;
+        y += offsetY * height;
     }
 
     public void draw(float delta, SpriteBatch batch) {
+        time++;
+        if (time >= 17 * 40) {
+            time = 0;
+        }
+        timecell = time / 40;
+        System.out.println(timecell);
+        move(Board.getInstance().getCell(timecell));
         batch.draw(
-                texture,
-                x,
-                y,
-                width,
-                height
+                texture,        // texture region
+                x,              // xpos
+                y,              // ypos
+                width / 2,      // originx
+                height / 2,     // originy
+                width,          // width
+                height,         // height
+                1,              // scalex
+                1,              // scaley
+                -cell.getAngle() - 10f // rotation
         );
     }
 
