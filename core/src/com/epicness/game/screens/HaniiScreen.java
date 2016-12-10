@@ -31,7 +31,7 @@ public class HaniiScreen extends MyScreen {
                 Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
                 Gdx.graphics.getHeight() / 6,
                 Gdx.graphics.getHeight() / 6,
-                Color.RED
+                Color.BLUE
         ) {
 
             @Override

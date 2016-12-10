@@ -72,7 +72,7 @@ public class GameScreen extends MyScreen {
                 Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
                 Gdx.graphics.getHeight() / 6,
                 Gdx.graphics.getHeight() / 6,
-                Color.RED
+                Color.BLUE
         ) {
             @Override
             public void onTouchUp() {
