@@ -14,7 +14,7 @@ public class Assets {
     private static boolean loaded;
     public static TextureRegion dado1, dado2, dado3, dado4, dado5, dado6;
     public static TextureRegion button1, button2, button3, button4, button5;
-    public static Texture bg, board, player;
+    public static Texture bg, board, player, tab;
 
     public static void load() {
         if (!loaded) {
@@ -39,6 +39,8 @@ public class Assets {
             board.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             player = new Texture(Gdx.files.internal("player.png"));
             player.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            tab = new Texture(Gdx.files.internal("tab.png"));
+            tab.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         }
         loaded = true;
     }

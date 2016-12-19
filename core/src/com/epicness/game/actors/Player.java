@@ -47,10 +47,10 @@ public class Player {
 
     public void move(Board.Cell cell) {
         this.cell = cell;
-        x = Gdx.graphics.getWidth() / 2 - width;
+        x = Board.getInstance().getSide() / 2 - width;
         x += (float) (Math.cos(Math.toRadians(-cell.getAngle() + 80f))) * Board.getInstance().getSide() * 0.425;
         x += offsetX * width;
-        y = Gdx.graphics.getHeight() / 2 - height;
+        y = Board.getInstance().getSide() / 2 - height;
         y += (float) (Math.sin(Math.toRadians(-cell.getAngle() + 80f))) * Board.getInstance().getSide() * 0.425;
         y += offsetY * height;
     }

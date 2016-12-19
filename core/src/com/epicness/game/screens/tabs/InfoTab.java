@@ -1,6 +1,7 @@
 package com.epicness.game.screens.tabs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.ui.buttons.Button;
 
 /**
  * Created by Groxar on 18/12/2016.
@@ -21,7 +22,7 @@ public class InfoTab extends Tab {
 
     @Override
     void makeButtons() {
-
+        buttons = new Button[0];
     }
 
     @Override

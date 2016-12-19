@@ -31,11 +31,6 @@ public class Game extends MyScreen {
         rightTab = InfoTab.getInstance().setLeft(false);
         dice = new Dice();
         makeButtons();
-        players[0] = new Player(Color.ORANGE, 0, 0);
-        players[1] = new Player(Color.CYAN, 1, 0);
-        players[2] = new Player(Color.YELLOW, 0, 1);
-        players[3] = new Player(Color.GREEN, 1, 1);
-
     }
 
     public static Game getInstance() {

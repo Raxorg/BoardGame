@@ -25,7 +25,7 @@ public class BoardTab extends Tab {
 
     @Override
     void makeButtons() {
-
+        buttons = new Button[0];
     }
 
     @Override
@@ -33,7 +33,7 @@ public class BoardTab extends Tab {
         Board.getInstance().draw(batch);
         for (Player p : PlayerManager.getInstance().getPlayers()) {
             batch.setColor(p.getColor());
-            p.draw(left,delta, batch);
+            p.draw(left, delta, batch);
         }
         /*batch.setColor(0, 0.75f, 0.75f, 1);
         if (dice.isVisible()) {
