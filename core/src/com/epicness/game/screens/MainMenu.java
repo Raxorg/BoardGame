@@ -13,21 +13,21 @@ import com.epicness.game.ui.buttons.Button;
  * :D
  */
 
-public class MenuScreen extends MyScreen {
+public class MainMenu extends MyScreen {
 
     private String play = "PLAY";
     private float playWidth, playHeight;
 
-    private static MenuScreen instance = new MenuScreen();
+    private static MainMenu instance = new MainMenu();
 
-    private MenuScreen() {
+    private MainMenu() {
         Text.setScale(0.35f);
         playWidth = Text.getTextWidth(play);
         playHeight = Text.getTextHeight(play);
         makeButtons();
     }
 
-    public static MenuScreen getInstance() {
+    public static MainMenu getInstance() {
         return instance;
     }
 
@@ -43,7 +43,7 @@ public class MenuScreen extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(GameScreen.getInstance());
+                ScreenManager.setCurrentScreen(Game.getInstance());
             }
         };
     }

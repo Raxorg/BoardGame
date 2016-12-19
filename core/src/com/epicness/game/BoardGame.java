@@ -5,15 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.firebase.FirebaseInterface;
+import com.epicness.game.firebase.Updater;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
-import com.epicness.game.screens.MenuScreen;
+import com.epicness.game.screens.MainMenu;
 import com.epicness.game.ui.buttons.MenuButtonListener;
 
 public class BoardGame extends Game {
+
+    private Updater updater;
     private SpriteBatch batch;
     public static MenuButtonListener buttonListener;
+
+    public void setFirebaseConnection(FirebaseInterface firebaseInterface) {
+        updater = new Updater(firebaseInterface);
+    }
 
     @Override
     public void create() {
@@ -22,7 +30,7 @@ public class BoardGame extends Game {
         batch = new SpriteBatch();
         buttonListener = new MenuButtonListener();
         Gdx.input.setInputProcessor(buttonListener);
-        ScreenManager.setCurrentScreen(MenuScreen.getInstance());
+        ScreenManager.setCurrentScreen(MainMenu.getInstance());
     }
 
     @Override

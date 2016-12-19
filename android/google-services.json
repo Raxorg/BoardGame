@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "505948332967",
+    "firebase_url": "https://gameconomics-15e5b.firebaseio.com",
+    "project_id": "gameconomics-15e5b",
+    "storage_bucket": "gameconomics-15e5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505948332967:android:87b3b52541c16afc",
+        "android_client_info": {
+          "package_name": "com.epicness.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505948332967-hu3gpq8a8guokhb8vv23vl7ineel275b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK-tU9gfhK4dcck1MhUKXfG2yuvUhpUbg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

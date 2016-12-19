@@ -9,15 +9,15 @@ import com.epicness.game.ui.buttons.Button;
 
 // Hola amor, aqui has tus cosas :3
 
-public class HaniiScreen extends MyScreen {
+public class Hanii extends MyScreen {
 
-    private static HaniiScreen instance = new HaniiScreen();
+    private static Hanii instance = new Hanii();
 
-    private HaniiScreen() {
+    private Hanii() {
         makeButtons();
     }
 
-    public static HaniiScreen getInstance() {
+    public static Hanii getInstance() {
         return instance;
     }
 
@@ -36,7 +36,7 @@ public class HaniiScreen extends MyScreen {
 
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(GameScreen.getInstance());
+                ScreenManager.setCurrentScreen(Game.getInstance());
             }
         };
     }

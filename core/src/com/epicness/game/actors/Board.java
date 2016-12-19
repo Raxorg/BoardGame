@@ -24,8 +24,8 @@ public class Board {
     private Board() {
         texture = Assets.board;
         side = Gdx.graphics.getHeight() * 0.7f;
-        x = Gdx.graphics.getWidth() / 2 - side / 2;
-        y = Gdx.graphics.getHeight() / 2 - side / 2;
+        x = 0;
+        y = 0;
         makeCells();
     }
 

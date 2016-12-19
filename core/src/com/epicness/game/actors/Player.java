@@ -56,13 +56,6 @@ public class Player {
     }
 
     public void draw(float delta, SpriteBatch batch) {
-        time++;
-        if (time >= 17 * 40) {
-            time = 0;
-        }
-        timecell = time / 40;
-        System.out.println(timecell);
-        move(Board.getInstance().getCell(timecell));
         batch.draw(
                 texture,        // texture region
                 x,              // xpos

@@ -8,6 +8,9 @@ import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
+import com.epicness.game.screens.tabs.BoardTab;
+import com.epicness.game.screens.tabs.InfoTab;
+import com.epicness.game.screens.tabs.Tab;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -15,14 +18,17 @@ import com.epicness.game.ui.buttons.Button;
  * :D
  */
 
-public class GameScreen extends MyScreen {
+public class Game extends MyScreen {
 
+    private Tab leftTab, rightTab;
     private Dice dice = null;
     private Player[] players = new Player[4];
 
-    private static GameScreen instance = new GameScreen();
+    private static Game instance = new Game();
 
-    private GameScreen() {
+    private Game() {
+        leftTab = BoardTab.getInstance();
+        rightTab = InfoTab.getInstance();
         dice = new Dice();
         makeButtons();
         players[0] = new Player(Color.ORANGE, 0, 0);
@@ -32,7 +38,7 @@ public class GameScreen extends MyScreen {
 
     }
 
-    public static GameScreen getInstance() {
+    public static Game getInstance() {
         return instance;
     }
 
@@ -48,7 +54,7 @@ public class GameScreen extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(MenuScreen.getInstance());
+                ScreenManager.setCurrentScreen(MainMenu.getInstance());
             }
         };
         buttons[1] = new Button(
@@ -79,13 +85,16 @@ public class GameScreen extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(HaniiScreen.getInstance());
+                ScreenManager.setCurrentScreen(Hanii.getInstance());
             }
         };
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
+        leftTab.render(delta, batch);
+        rightTab.render(delta, batch);
+
         Board.getInstance().draw(batch);
         for (Player p : players) {
             batch.setColor(p.getColor());
