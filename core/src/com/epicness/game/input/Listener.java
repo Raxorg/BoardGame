@@ -14,8 +14,8 @@ public class Listener extends InputAdapter {
     private MenuButtonListener menuButtonListener;
     private static boolean loading = true;
 
-    public static void doneLoading() {
-        loading = false;
+    public static void setLoading(boolean l) {
+        loading = l;
     }
 
     public Listener(MenuButtonListener menuButtonListener) {

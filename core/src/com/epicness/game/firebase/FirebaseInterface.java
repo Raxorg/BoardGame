@@ -7,4 +7,7 @@ package com.epicness.game.firebase;
 
 public interface FirebaseInterface {
 
+    void updateMoney(int player, int money);
+
+    void updatePosition(int player, int position);
 }

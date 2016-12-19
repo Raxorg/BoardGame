@@ -55,10 +55,12 @@ public class Player {
         y += offsetY * height;
     }
 
-    public void draw(float delta, SpriteBatch batch) {
+    public void draw(boolean left, float delta, SpriteBatch batch) {
+        float offset = 0;
+        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         batch.draw(
                 texture,        // texture region
-                x,              // xpos
+                x + offset,     // xpos
                 y,              // ypos
                 width / 2,      // originx
                 height / 2,     // originy
@@ -69,5 +71,4 @@ public class Player {
                 -cell.getAngle() - 10f // rotation
         );
     }
-
 }

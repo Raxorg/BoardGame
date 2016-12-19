@@ -27,8 +27,8 @@ public class Game extends MyScreen {
     private static Game instance = new Game();
 
     private Game() {
-        leftTab = BoardTab.getInstance();
-        rightTab = InfoTab.getInstance();
+        leftTab = BoardTab.getInstance().setLeft(true);
+        rightTab = InfoTab.getInstance().setLeft(false);
         dice = new Dice();
         makeButtons();
         players[0] = new Player(Color.ORANGE, 0, 0);
@@ -95,15 +95,6 @@ public class Game extends MyScreen {
         leftTab.render(delta, batch);
         rightTab.render(delta, batch);
 
-        Board.getInstance().draw(batch);
-        for (Player p : players) {
-            batch.setColor(p.getColor());
-            p.draw(delta, batch);
-        }
-        batch.setColor(0, 0.75f, 0.75f, 1);
-        if (dice.isVisible()) {
-            dice.draw(delta, batch);
-        }
         for (Button b : buttons) {
             batch.setColor(b.getColor());
             batch.draw(

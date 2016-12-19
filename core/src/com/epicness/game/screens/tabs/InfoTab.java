@@ -28,4 +28,5 @@ public class InfoTab extends Tab {
     public void render(float delta, SpriteBatch batch) {
 
     }
+
 }
