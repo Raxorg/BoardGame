@@ -35,7 +35,7 @@ public class PlayerManager {
         return players;
     }
 
-    public void updatePosition(int player, Integer position) {
+    public void updatePosition(int player, int position) {
         players[player].move(Board.getInstance().getCell(position));
     }
 }

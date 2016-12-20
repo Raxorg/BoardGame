@@ -1,6 +1,9 @@
 package com.epicness.game.screens.tabs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.Metrics;
+import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -27,7 +30,17 @@ public class InfoTab extends Tab {
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-
+        for (int i = 0; i < PlayerManager.getInstance().getPlayers().length; i++) {
+            float xoffset = i == 1 || i == 3 ? Metrics.tabHeight / 2 : 0;
+            float yoffset = i == 0 || i == 1 ? Metrics.tabHeight / 2 : 0;
+            batch.draw(
+                    Assets.infocard,
+                    offset + xoffset,
+                    yoffset,
+                    Metrics.tabHeight / 2,
+                    Metrics.tabHeight / 2
+            );
+        }
     }
 
 }

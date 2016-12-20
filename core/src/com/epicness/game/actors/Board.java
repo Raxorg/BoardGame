@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.Metrics;
 
 /**
  * Created by Groxar on 07/12/2016.
@@ -23,7 +24,7 @@ public class Board {
 
     private Board() {
         texture = Assets.board;
-        side = Gdx.graphics.getHeight() * 0.7f;
+        side = Metrics.tabHeight;
         x = 0;
         y = 0;
         makeCells();

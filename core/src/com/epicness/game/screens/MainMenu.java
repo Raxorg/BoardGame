@@ -21,9 +21,9 @@ public class MainMenu extends MyScreen {
     private static MainMenu instance = new MainMenu();
 
     private MainMenu() {
-        Text.setScale(0.35f);
-        playWidth = Text.getTextWidth(play);
-        playHeight = Text.getTextHeight(play);
+        Text.setScale(true, 0.35f);
+        playWidth = Text.getTextWidth(true, play);
+        playHeight = Text.getTextHeight(true, play);
         makeButtons();
     }
 
@@ -43,7 +43,7 @@ public class MainMenu extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(Game.getInstance());
+                ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
             }
         };
     }
@@ -60,7 +60,8 @@ public class MainMenu extends MyScreen {
                     b.getHeight()
             );
         }
-        Text.font.draw(
+        Text.setScale(true, 0.35f);
+        Text.bordered.draw(
                 batch,
                 play,
                 Gdx.graphics.getWidth() / 2 - playWidth / 2,

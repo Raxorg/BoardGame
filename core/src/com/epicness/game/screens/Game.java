@@ -3,6 +3,7 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
@@ -39,26 +40,28 @@ public class Game extends MyScreen {
 
     public void makeButtons() {
         buttons = new Button[3];
+        TextureRegion tab = new TextureRegion(Assets.tab);
         buttons[0] = new Button(
-                Assets.button1,
+                tab,
                 0,
-                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
                 Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() / 6,
-                Color.GREEN
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
         ) {
             @Override
             public void onTouchUp() {
                 ScreenManager.setCurrentScreen(MainMenu.getInstance());
             }
         };
+        buttons[0].setImage(new TextureRegion(Assets.miniplayer));
         buttons[1] = new Button(
-                Assets.button1,
+                tab,
                 Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
                 Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() / 6,
-                Color.ORANGE
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
         ) {
             @Override
             public void onTouchUp() {
@@ -71,16 +74,16 @@ public class Game extends MyScreen {
             }
         };
         buttons[2] = new Button(
-                Assets.button1,
+                tab,
                 2 * Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
                 Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() / 6,
-                Color.BLUE
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(Hanii.getInstance());
+
             }
         };
     }
@@ -88,17 +91,11 @@ public class Game extends MyScreen {
     @Override
     public void render(float delta, SpriteBatch batch) {
         leftTab.render(delta, batch);
+        batch.setColor(Color.WHITE);
         rightTab.render(delta, batch);
 
         for (Button b : buttons) {
-            batch.setColor(b.getColor());
-            batch.draw(
-                    b.getTexture(),
-                    b.getX(),
-                    b.getY(),
-                    b.getWidth(),
-                    b.getHeight()
-            );
+            b.draw(batch);
         }
     }
 }

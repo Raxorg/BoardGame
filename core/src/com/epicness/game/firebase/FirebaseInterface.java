@@ -10,4 +10,8 @@ public interface FirebaseInterface {
     void updateMoney(int player, int money);
 
     void updatePosition(int player, int position);
+
+    void addCharacterListener(String character);
+
+    void updateCharacterOwner(String character, String owner);
 }

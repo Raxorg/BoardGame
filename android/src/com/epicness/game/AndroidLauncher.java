@@ -8,14 +8,15 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.epicness.game.BoardGame;
 
 public class AndroidLauncher extends AndroidApplication {
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		BoardGame game = new BoardGame();
-		FirebaseConnection firebaseConnection = new FirebaseConnection(game);
-		game.setFirebaseConnection(firebaseConnection);
-		initialize(game, config);
-	}
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        BoardGame game = new BoardGame();
+        FirebaseConnection firebaseConnection = new FirebaseConnection(game);
+        game.setFirebaseConnection(firebaseConnection);
+        initialize(game, config);
+    }
 }

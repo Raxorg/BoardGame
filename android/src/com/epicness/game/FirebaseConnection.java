@@ -3,6 +3,7 @@ package com.epicness.game;
 import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.PlayerManager;
+import com.epicness.game.screens.CharacterSelection;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 class FirebaseConnection implements FirebaseInterface {
 
+    private DatabaseReference charactersReference;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] positionReferences;
 
@@ -26,6 +28,8 @@ class FirebaseConnection implements FirebaseInterface {
         DatabaseReference playersReference = gameReference.child("players");
         moneyReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
+
+        charactersReference = gameReference.child("characters");
 
         // PLAYER 1
         DatabaseReference player1Reference = playersReference.child("player1");
@@ -154,6 +158,30 @@ class FirebaseConnection implements FirebaseInterface {
     public void updatePosition(int player, int position) {
         positionReferences[player].setValue(position);
         Listener.setLoading(true);
+    }
+
+    @Override
+    public void addCharacterListener(final String character) {
+        charactersReference.child(character).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CharacterSelection.getInstance().updateFromDatabase(
+                        character,
+                        dataSnapshot.getValue(String.class)
+                );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    // La base de datos debe actualizar el dueño de un personaje
+    @Override
+    public void updateCharacterOwner(String character, String owner) {
+        charactersReference.child(character).setValue(owner);
     }
 
 }
