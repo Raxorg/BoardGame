@@ -3,6 +3,10 @@ package com.epicness.game.organizers;
 import com.badlogic.gdx.graphics.Color;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
+import com.epicness.game.firebase.GetterManager;
+import com.epicness.game.firebase.SetterManager;
+import com.epicness.game.input.Listener;
+import com.epicness.game.screens.CharacterSelection;
 
 /**
  * Created by Groxar on 18/12/2016.
@@ -14,6 +18,7 @@ public class PlayerManager {
     private static PlayerManager instance = new PlayerManager();
 
     private Player[] players;
+    private String assignedPlayer;
 
     private PlayerManager() {
         players = new Player[4];
@@ -37,5 +42,29 @@ public class PlayerManager {
 
     public void updatePosition(int player, int position) {
         players[player].move(Board.getInstance().getCell(position));
+    }
+
+    public void updatePlayerAssignmentFromDatabase(int player, boolean taken) {
+        if (!taken) {
+            SetterManager.getInstance().setTaken(
+                    player,
+                    true
+            );
+            assignedPlayer = "player" + (player + 1);
+            Listener.setLoading(false);
+            ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
+        } else {
+            if (player <= 3) {
+                GetterManager.getInstance().getPlayerAssignment(player + 1);
+            }
+        }
+    }
+
+    public String getAssignedPlayer() {
+        return assignedPlayer;
+    }
+
+    public void updateTaken(int player, boolean taken) {
+        players[player].setTaken(taken);
     }
 }

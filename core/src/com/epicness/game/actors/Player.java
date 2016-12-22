@@ -20,6 +20,7 @@ public class Player {
     private Color color = null;
     private int time = 0;
     private int timecell = 0;
+    private boolean taken;
 
     public Player(Color color, float offsetX, float offsetY) {
         money = 1000;
@@ -39,6 +40,10 @@ public class Player {
 
     public int getMoney() {
         return money;
+    }
+
+    public boolean getTaken() {
+        return taken;
     }
 
     public void setMoney(int money) {
@@ -70,5 +75,9 @@ public class Player {
                 1,              // scaley
                 -cell.getAngle() - 10f - 5f * offsetX // rotation
         );
+    }
+
+    public void setTaken(boolean taken) {
+        this.taken = taken;
     }
 }

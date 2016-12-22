@@ -3,8 +3,9 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.firebase.GetterManager;
+import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
-import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.ui.buttons.Button;
 
@@ -15,6 +16,8 @@ import com.epicness.game.ui.buttons.Button;
 
 public class MainMenu extends MyScreen {
 
+    private String requestingPlayer;
+    private String loadingText = "loading";
     private String play = "PLAY";
     private float playWidth, playHeight;
 
@@ -43,7 +46,10 @@ public class MainMenu extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
+                GetterManager.getInstance().getPlayerAssignment(0);
+                requestingPlayer = "player1";
+                loadingText = "Loading...";
+                Listener.setLoading(true);
             }
         };
     }

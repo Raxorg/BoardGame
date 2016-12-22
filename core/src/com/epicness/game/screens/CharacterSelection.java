@@ -3,11 +3,12 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.epicness.game.firebase.RequestManager;
-import com.epicness.game.firebase.Updater;
+import com.epicness.game.firebase.GetterManager;
+import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
+import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.ui.buttons.Button;
@@ -21,7 +22,7 @@ public class CharacterSelection extends MyScreen {
 
     private String requestingCharacter;
     private String loadingText = "loading";
-    private final String chooseText = "Elegir personaje y color";
+    private final String chooseText = "Elige tu personaje";
     private float textHeight, textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize;
@@ -80,7 +81,7 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                RequestManager.getInstance().requestCharacterAvailable("hayek");
+                GetterManager.getInstance().getCharacterAvailable("hayek");
                 requestingCharacter = "hayek";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
@@ -96,7 +97,7 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                RequestManager.getInstance().requestCharacterAvailable("keynes");
+                GetterManager.getInstance().getCharacterAvailable("keynes");
                 requestingCharacter = "keynes";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
@@ -112,7 +113,7 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                RequestManager.getInstance().requestCharacterAvailable("marx");
+                GetterManager.getInstance().getCharacterAvailable("marx");
                 requestingCharacter = "marx";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
@@ -128,7 +129,7 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                RequestManager.getInstance().requestCharacterAvailable("smith");
+                GetterManager.getInstance().getCharacterAvailable("smith");
                 requestingCharacter = "smith";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
@@ -143,7 +144,7 @@ public class CharacterSelection extends MyScreen {
                 imageYPos - colorButtonSize * 2,
                 colorButtonSize,
                 colorButtonSize,
-                Color.WHITE
+                Color.ORANGE
         ) {
             @Override
             public void onTouchUp() {
@@ -156,7 +157,7 @@ public class CharacterSelection extends MyScreen {
                 imageYPos - colorButtonSize * 2,
                 colorButtonSize,
                 colorButtonSize,
-                Color.WHITE
+                Color.CYAN
         ) {
             @Override
             public void onTouchUp() {
@@ -169,7 +170,7 @@ public class CharacterSelection extends MyScreen {
                 imageYPos - colorButtonSize * 2,
                 colorButtonSize,
                 colorButtonSize,
-                Color.WHITE
+                Color.YELLOW
         ) {
             @Override
             public void onTouchUp() {
@@ -182,7 +183,7 @@ public class CharacterSelection extends MyScreen {
                 imageYPos - colorButtonSize * 2,
                 colorButtonSize,
                 colorButtonSize,
-                Color.WHITE
+                Color.GREEN
         ) {
             @Override
             public void onTouchUp() {
@@ -221,15 +222,13 @@ public class CharacterSelection extends MyScreen {
         }
     }
 
-    public void updateFromDatabase(String character, String owner) {
-        if (requestingCharacter.equals(character)) {
-            if (owner.equals("none")) {
-                Updater.characterOwnerUpdate();
-            } else {
-
-            }
+    public void updateCharacterOwnerFromDatabase(String character, String owner) {
+        if (requestingCharacter.equals(character) && owner.equals("none")) {
+            SetterManager.getInstance().setOwner(
+                    character,
+                    PlayerManager.getInstance().getAssignedPlayer()
+            );
         }
-
         requestingCharacter = "";
         loadingText = "";
         Listener.setLoading(false);

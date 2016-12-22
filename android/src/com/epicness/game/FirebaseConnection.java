@@ -17,10 +17,13 @@ import com.google.firebase.database.ValueEventListener;
 
 class FirebaseConnection implements FirebaseInterface {
 
+    // Referencias que se crean en el constructor y se usan en otros métodos
     private DatabaseReference charactersReference;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] positionReferences;
+    private DatabaseReference[] playerTakenReferences;
 
+    // Constructor, crea las referencias
     FirebaseConnection(final BoardGame game) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference gameReference = database.getReference("Game");
@@ -28,6 +31,7 @@ class FirebaseConnection implements FirebaseInterface {
         DatabaseReference playersReference = gameReference.child("players");
         moneyReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
+        playerTakenReferences = new DatabaseReference[4];
 
         charactersReference = gameReference.child("characters");
 
@@ -51,6 +55,19 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PlayerManager.getInstance().updatePosition(0, dataSnapshot.getValue(Integer.class));
+                Listener.setLoading(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        playerTakenReferences[0] = player1Reference.child("taken");
+        playerTakenReferences[0].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateTaken(0, dataSnapshot.getValue(Boolean.class));
                 Listener.setLoading(false);
             }
 
@@ -88,6 +105,19 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        playerTakenReferences[1] = player2Reference.child("taken");
+        playerTakenReferences[1].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateTaken(1, dataSnapshot.getValue(Boolean.class));
+                Listener.setLoading(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         // PLAYER 3
         DatabaseReference player3Reference = playersReference.child("player3");
@@ -109,6 +139,19 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PlayerManager.getInstance().updatePosition(2, dataSnapshot.getValue(Integer.class));
+                Listener.setLoading(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        playerTakenReferences[2] = player3Reference.child("taken");
+        playerTakenReferences[2].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateTaken(2, dataSnapshot.getValue(Boolean.class));
                 Listener.setLoading(false);
             }
 
@@ -146,26 +189,58 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        playerTakenReferences[3] = player4Reference.child("taken");
+        playerTakenReferences[3].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateTaken(3, dataSnapshot.getValue(Boolean.class));
+                Listener.setLoading(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
+    // Updates que vienen desde la aplicación hacia la base de datos
+
+    // La base de datos debe actualizar el dueño de un personaje
     @Override
-    public void updateMoney(int player, int money) {
+    public void setCharacterOwner(String character, String owner) {
+        charactersReference.child(character).setValue(owner);
+    }
+
+    // La base de datos debe actualizar el dinero de un jugador
+    @Override
+    public void setMoney(int player, int money) {
         moneyReferences[player].setValue(money);
         Listener.setLoading(true);
     }
 
+    // La base de datos debe actualizar la posición de un jugador
     @Override
-    public void updatePosition(int player, int position) {
+    public void setPosition(int player, int position) {
         positionReferences[player].setValue(position);
         Listener.setLoading(true);
     }
 
+    // La base de datos debe actualizar un jugador que ha sido tomado o dejado
     @Override
-    public void addCharacterListener(final String character) {
+    public void setPlayerTaken(int player, boolean taken) {
+        playerTakenReferences[player].setValue(taken);
+    }
+
+    // Los requests necesitan un listener
+
+    // Listener para ver el valor del dueño de un personaje
+    @Override
+    public void getCharacterAvailable(final String character) {
         charactersReference.child(character).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                CharacterSelection.getInstance().updateFromDatabase(
+                CharacterSelection.getInstance().updateCharacterOwnerFromDatabase(
                         character,
                         dataSnapshot.getValue(String.class)
                 );
@@ -178,10 +253,23 @@ class FirebaseConnection implements FirebaseInterface {
         });
     }
 
-    // La base de datos debe actualizar el dueño de un personaje
     @Override
-    public void updateCharacterOwner(String character, String owner) {
-        charactersReference.child(character).setValue(owner);
+    public void getPlayerAssignment(final int player) {
+        playerTakenReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updatePlayerAssignmentFromDatabase(
+                        player,
+                        dataSnapshot.getValue(Boolean.class)
+                );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

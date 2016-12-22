@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.firebase.FirebaseInterface;
-import com.epicness.game.firebase.Updater;
+import com.epicness.game.firebase.GetterManager;
+import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
@@ -15,12 +16,12 @@ import com.epicness.game.ui.buttons.MenuButtonListener;
 
 public class BoardGame extends Game {
 
-    private Updater updater;
     private SpriteBatch batch;
     public static MenuButtonListener buttonListener;
 
-    public void setFirebaseConnection(FirebaseInterface firebaseInterface) {
-        updater = new Updater(firebaseInterface);
+    void setFirebaseConnection(FirebaseInterface firebaseInterface) {
+        SetterManager.getInstance().setFirebaseInterface(firebaseInterface);
+        GetterManager.getInstance().setFirebaseInterface(firebaseInterface);
     }
 
     @Override

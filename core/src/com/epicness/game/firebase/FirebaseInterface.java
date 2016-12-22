@@ -7,11 +7,23 @@ package com.epicness.game.firebase;
 
 public interface FirebaseInterface {
 
-    void updateMoney(int player, int money);
+    //------------------
+    //     SETTERS
+    //------------------
 
-    void updatePosition(int player, int position);
+    void setMoney(int player, int money);
 
-    void addCharacterListener(String character);
+    void setPosition(int player, int position);
 
-    void updateCharacterOwner(String character, String owner);
+    void setCharacterOwner(String character, String owner);
+
+    void setPlayerTaken(int player, boolean taken);
+
+    //------------------
+    //     GETTERS
+    //------------------
+
+    void getCharacterAvailable(String character);
+
+    void getPlayerAssignment(int player);
 }
