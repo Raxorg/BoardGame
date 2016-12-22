@@ -8,7 +8,7 @@ package com.epicness.game.firebase;
 public class GetterManager {
 
     //---------------------------
-    //           BASE
+    //           BASEx
     //---------------------------
 
     private static GetterManager instance = new GetterManager();
