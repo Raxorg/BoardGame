@@ -19,16 +19,17 @@ class FirebaseConnection implements FirebaseInterface {
 
     // Referencias que se crean en el constructor y se usan en otros métodos
     private DatabaseReference charactersReference;
+    private DatabaseReference playersReference;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] positionReferences;
     private DatabaseReference[] playerTakenReferences;
 
     // Constructor, crea las referencias
-    FirebaseConnection(final BoardGame game) {
+    FirebaseConnection() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference gameReference = database.getReference("Game");
 
-        DatabaseReference playersReference = gameReference.child("players");
+        playersReference = gameReference.child("players");
         moneyReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
         playerTakenReferences = new DatabaseReference[4];
@@ -230,6 +231,24 @@ class FirebaseConnection implements FirebaseInterface {
     @Override
     public void setPlayerTaken(int player, boolean taken) {
         playerTakenReferences[player].setValue(taken);
+    }
+
+    @Override
+    public void addTempPlayerListener(int player, String value) {
+        Listener.setLoading(true);
+        playersReference.child("player" + player).child(value).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Listener.setLoading(false);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
     }
 
     // Los requests necesitan un listener

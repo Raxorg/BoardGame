@@ -23,6 +23,12 @@ public interface FirebaseInterface {
     //     GETTERS
     //------------------
 
+    /**
+     * Creates a temporary listener for the players' attributes
+     * @param value the value to listen for
+     */
+    void addTempPlayerListener(int player, String value);
+
     void getCharacterAvailable(String character);
 
     void getPlayerAssignment(int player);
