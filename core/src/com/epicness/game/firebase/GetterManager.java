@@ -8,24 +8,32 @@ package com.epicness.game.firebase;
 public class GetterManager {
 
     //---------------------------
-    //           BASEx
+    //           BASE
     //---------------------------
 
     private static GetterManager instance = new GetterManager();
 
     private FirebaseInterface firebaseInterface;
 
-    // Constructor privado
+    /**
+     * Private constructor
+     */
     private GetterManager() {
 
     }
 
-    // Instancia de la clase singleton
+    /**
+     * Instance of the singleton class
+     * @return singleton instance
+     */
     public static GetterManager getInstance() {
         return instance;
     }
 
-    // Setter de la conexión con firebase
+    /**
+     * Connection setter with Firebase
+     * @param firebaseInterface
+     */
     public void setFirebaseInterface(FirebaseInterface firebaseInterface) {
         this.firebaseInterface = firebaseInterface;
     }
@@ -34,12 +42,18 @@ public class GetterManager {
     //           BODY
     //---------------------------
 
-    // Ve si un personaje está disponible
+    /**
+     * Checks if the character is available
+     * @param requestedCharacter  is the name of the character
+     */
     public void getCharacterAvailable(String requestedCharacter) {
         firebaseInterface.getCharacterAvailable(requestedCharacter);
     }
 
-    // Pide la asignación de un player
+    /**
+     * Gets a player assignment
+     * @param requestedPlayer is the number of the player requested
+     */
     public void getPlayerAssignment(int requestedPlayer) {
         firebaseInterface.getPlayerAssignment(requestedPlayer);
     }
