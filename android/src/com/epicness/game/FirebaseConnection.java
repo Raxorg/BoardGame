@@ -37,7 +37,7 @@ class FirebaseConnection implements FirebaseInterface {
         charactersReference = gameReference.child("characters");
 
         // PLAYER 1
-        DatabaseReference player1Reference = playersReference.child("player1");
+        DatabaseReference player1Reference = playersReference.child("player0");
         moneyReferences[0] = player1Reference.child("money");
         moneyReferences[0].addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,7 +79,7 @@ class FirebaseConnection implements FirebaseInterface {
         });
 
         // PLAYER 2
-        DatabaseReference player2Reference = playersReference.child("player2");
+        DatabaseReference player2Reference = playersReference.child("player1");
         moneyReferences[1] = player2Reference.child("money");
         moneyReferences[1].addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,7 +121,7 @@ class FirebaseConnection implements FirebaseInterface {
         });
 
         // PLAYER 3
-        DatabaseReference player3Reference = playersReference.child("player3");
+        DatabaseReference player3Reference = playersReference.child("player2");
         moneyReferences[2] = player3Reference.child("money");
         moneyReferences[2].addValueEventListener(new ValueEventListener() {
             @Override
@@ -163,7 +163,7 @@ class FirebaseConnection implements FirebaseInterface {
         });
 
         // PLAYER 4
-        DatabaseReference player4Reference = playersReference.child("player4");
+        DatabaseReference player4Reference = playersReference.child("player3");
         moneyReferences[3] = player4Reference.child("money");
         moneyReferences[3].addValueEventListener(new ValueEventListener() {
             @Override
