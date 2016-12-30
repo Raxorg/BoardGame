@@ -12,10 +12,19 @@ public class AndroidLauncher extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //makes a reference to edit configurations
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+
+        //your screen phone will never go off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //creates a new instance of our game
         BoardGame game = new BoardGame();
+
+        //creates an instance of firebase connection
         FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //
         game.setFirebaseConnection(firebaseConnection);
         initialize(game, config);
     }

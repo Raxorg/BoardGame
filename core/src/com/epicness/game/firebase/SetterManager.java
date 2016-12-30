@@ -52,7 +52,6 @@ public class SetterManager {
         firebaseInterface.setCharacterOwner(character, owner);
     }
 
-    // Se debe hacer un update hacia la base de datos de si un jugador ha sido tomado
 
     /**
      * Updates the database if the player has been taken
