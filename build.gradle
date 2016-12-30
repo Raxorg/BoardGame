@@ -53,6 +53,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -62,6 +63,10 @@ project(":android") {
         compile "com.google.firebase:firebase-core:9.6.1"
         compile "com.google.firebase:firebase-database:9.6.1"
         compile 'com.google.firebase:firebase-messaging:9.6.1'
+        compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+        compile 'com.android.support:appcompat-v7:+'
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+
     }
 }
 

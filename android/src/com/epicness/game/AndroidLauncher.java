@@ -24,8 +24,10 @@ public class AndroidLauncher extends AndroidApplication {
         //creates an instance of firebase connection
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
-        //
+        //database reference for the game
         game.setFirebaseConnection(firebaseConnection);
+
+        //initializes the game with the configuration provided
         initialize(game, config);
     }
 }
