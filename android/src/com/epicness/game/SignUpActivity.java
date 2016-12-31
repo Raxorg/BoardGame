@@ -1,4 +1,4 @@
-package com.epicness.game.facebook;
+package com.epicness.game;
 
 /**
  * Created by LUCIA PAREDES on 30/12/2016.
@@ -121,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Write new user
         saveNewUser(mUser.getUid(), user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
         signOut();
-        // Go to LoginActivity
+        // Go to com.epicness.game.LoginActivity
         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         finish();
     }

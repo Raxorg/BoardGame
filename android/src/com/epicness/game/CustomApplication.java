@@ -1,4 +1,4 @@
-package com.epicness.game.facebook;
+package com.epicness.game;
 
 /**
  * Created by LUCIA PAREDES on 30/12/2016.
