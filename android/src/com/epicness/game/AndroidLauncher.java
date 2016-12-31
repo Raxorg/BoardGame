@@ -5,16 +5,19 @@ import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
 import android.provider.Settings.Secure;
 
 public class AndroidLauncher extends AndroidApplication {
 
-    private String android_id = Secure.getString(getContext().getContentResolver(),
-            Secure.ANDROID_ID);
+    private String android_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        android_id = Secure.getString(getContext().getContentResolver(),
+                Secure.ANDROID_ID);
 
         System.out.println(android_id);
 
