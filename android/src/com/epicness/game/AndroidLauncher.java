@@ -16,6 +16,8 @@ public class AndroidLauncher extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // eb97aef920ec9b36 este es mi codigo, tienes que comentar el tuyo
+        // eb97aef920ec9b36 y correr de nuevo la app tiene que ser el mismo que la 1ra vez
         android_id = Secure.getString(getContext().getContentResolver(),
                 Secure.ANDROID_ID);
 
