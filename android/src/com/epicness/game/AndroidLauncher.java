@@ -5,12 +5,18 @@ import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import android.provider.Settings.Secure;
 
 public class AndroidLauncher extends AndroidApplication {
+
+    private String android_id = Secure.getString(getContext().getContentResolver(),
+            Secure.ANDROID_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        System.out.println(android_id);
 
         //makes a reference to edit configurations
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();

@@ -2,11 +2,5 @@
 <resources>
 
     <string name="app_name">Board Game</string>
-    <string name="facebook_app_id">212043439201645</string>
-    <string name="welcome">Bienvenido</string>
-    <string name="cancel_login">Se canceló la operación</string>
-    <string name="error_login">Ocurrió un error al ingresar</string>
-    <string name="logout">Cerrar sesión</string>
-    <string name="firebase_error_login">Error al iniciar sesión en Firebase</string>
 
 </resources>
