@@ -33,6 +33,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        //PODRIA IMPORTAR maven { url 'https://maven.fabric.io/public' }
     }
 }
 
@@ -66,6 +67,9 @@ project(":android") {
         compile "com.google.firebase:firebase-database:9.6.1"
         compile 'com.google.firebase:firebase-messaging:9.6.1'
         compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+        compile 'com.google.firebase:firebase-auth:9.2.0'
+        compile 'com.firebase:firebase-client-android:2.5.2'
+        compile 'com.google.android.gms:play-services-auth:9.2.0'
         compile 'com.android.support:appcompat-v7:+'
         compile fileTree(dir: 'libs', include: ['*.jar'])
         compile 'com.android.support:support-v4:23.2.1'
