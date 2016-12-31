@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">Board Game</string>
-    <string name="action_logout"> Log Out</string>
     <string name="facebook_app_id">212043439201645</string>
-    <string name="loading">Loading</string>
+
 
 </resources>
