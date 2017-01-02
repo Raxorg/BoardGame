@@ -52,7 +52,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                ScreenManager.setCurrentScreen(MainMenu.getInstance());
+                leftTab = InfoTab.getInstance();
             }
         };
         buttons[0].setImage(new TextureRegion(Assets.miniplayer));
@@ -66,12 +66,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                if (dice.isVisible()) {
-                    dice.setVisible(false);
-                } else {
-                    dice.resetTime();
-                    dice.setVisible(true);
-                }
+               leftTab = BoardTab.getInstance();
             }
         };
         buttons[2] = new Button(
@@ -84,7 +79,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-
+                leftTab = ActionsTab.getInstance();
             }
         };
     }
