@@ -46,7 +46,7 @@ public class Game extends MyScreen {
         for (int ib = 0; ib < leftTab.getButtons().length; i++, ib++) {
             currentButtons[i] = leftTab.getButtons()[ib];
         }
-        for (int ic = 0; ic < leftTab.getButtons().length; i++, ic++) {
+        for (int ic = 0; ic < rightTab.getButtons().length; i++, ic++) {
             currentButtons[i] = leftTab.getButtons()[ic];
         }
         BoardGame.buttonListener.setButtons(currentButtons);
