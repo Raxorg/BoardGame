@@ -40,8 +40,8 @@ public class InfoTab extends Tab {
                     Assets.infocard,
                     tabOffset + xoffset,
                     yoffset,
-                    Metrics.tabHeight / 2,
-                    Metrics.tabHeight / 2
+                    Metrics.tabHeight * 0.9f / 2,
+                    Metrics.tabHeight * 0.9f / 2
             );
         }
     }

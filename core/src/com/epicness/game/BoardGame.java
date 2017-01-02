@@ -18,10 +18,15 @@ public class BoardGame extends Game {
 
     private SpriteBatch batch;
     public static ButtonListener buttonListener;
+    public static String phoneID;
 
     void setFirebaseConnection(FirebaseInterface firebaseInterface) {
         SetterManager.getInstance().setFirebaseInterface(firebaseInterface);
         GetterManager.getInstance().setFirebaseInterface(firebaseInterface);
+    }
+
+    public BoardGame(String aPhoneID) {
+        phoneID = aPhoneID;
     }
 
     @Override

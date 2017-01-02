@@ -21,7 +21,6 @@ public class AndroidLauncher extends AndroidApplication {
         android_id = Secure.getString(getContext().getContentResolver(),
                 Secure.ANDROID_ID);
 
-        System.out.println(android_id);
         //makes a reference to edit configurations
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
@@ -29,7 +28,7 @@ public class AndroidLauncher extends AndroidApplication {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //creates a new instance of our game
-        BoardGame game = new BoardGame();
+        BoardGame game = new BoardGame(android_id);
 
         //creates an instance of firebase connection
         FirebaseConnection firebaseConnection = new FirebaseConnection();

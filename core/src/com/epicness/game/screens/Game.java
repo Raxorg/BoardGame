@@ -50,7 +50,7 @@ public class Game extends MyScreen {
             currentButtons[i] = leftTab.getButtons()[ib];
         }
         for (int ic = 0; ic < rightTab.getButtons().length; i++, ic++) {
-            currentButtons[i] = leftTab.getButtons()[ic];
+            currentButtons[i] = rightTab.getButtons()[ic];
         }
         BoardGame.buttonListener.setButtons(currentButtons);
     }
@@ -144,7 +144,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = BoardTab.getInstance().setLeft(false);
+                rightTab = BoardTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };
@@ -159,7 +159,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = InfoTab.getInstance().setLeft(false);
+                rightTab = InfoTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };
@@ -174,7 +174,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = ActionsTab.getInstance().setLeft(false);
+                rightTab = ActionsTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };
@@ -188,7 +188,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = MatrixTab.getInstance().setLeft(false);
+                rightTab = MatrixTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };
@@ -202,7 +202,7 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = InnerBoardTab.getInstance().setLeft(false);
+                rightTab = InnerBoardTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };

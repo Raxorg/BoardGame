@@ -24,7 +24,7 @@ public class Board {
 
     private Board() {
         texture = Assets.board;
-        side = Metrics.tabHeight;
+        side = Metrics.tabHeight * 0.95f;
         x = 0;
         y = 0;
         makeCells();
