@@ -1,6 +1,7 @@
 package com.epicness.game.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,12 +21,12 @@ public class Dice {
 
     public Dice() {
         TextureRegion[] regions = new TextureRegion[6];
-        regions[0] = Assets.dado1;
-        regions[1] = Assets.dado2;
-        regions[2] = Assets.dado3;
-        regions[3] = Assets.dado4;
-        regions[4] = Assets.dado5;
-        regions[5] = Assets.dado6;
+        regions[0] = Assets.dice1;
+        regions[1] = Assets.dice2;
+        regions[2] = Assets.dice3;
+        regions[3] = Assets.dice4;
+        regions[4] = Assets.dice5;
+        regions[5] = Assets.dice6;
         animation = new Animation(0.25f, regions);
         time = 0f;
     }

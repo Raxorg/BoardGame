@@ -12,21 +12,32 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Assets {
 
     private static boolean loaded;
-    public static TextureRegion dado1, dado2, dado3, dado4, dado5, dado6;
+    public static TextureRegion dice1, dice2, dice3, dice4, dice5, dice6;
     public static TextureRegion button1, button2, button3, button4, button5;
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, characters;
 
     public static void load() {
         if (!loaded) {
-            Texture dados = new Texture(Gdx.files.internal("dados.png"));
-            dados.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            dado1 = new TextureRegion(dados, 0, 0, 100, 100);
-            dado2 = new TextureRegion(dados, 100, 0, 100, 100);
-            dado3 = new TextureRegion(dados, 0, 100, 100, 100);
-            dado4 = new TextureRegion(dados, 100, 100, 100, 100);
-            dado5 = new TextureRegion(dados, 0, 200, 100, 100);
-            dado6 = new TextureRegion(dados, 100, 200, 100, 100);
+            Texture dice1tex = new Texture(Gdx.files.internal("animation/dice1.png"));
+            dice1tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice1 = new TextureRegion(dice1tex);
+            Texture dice2tex = new Texture(Gdx.files.internal("animation/dice2.png"));
+            dice2tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice2 = new TextureRegion(dice2tex);
+            Texture dice3tex = new Texture(Gdx.files.internal("animation/dice3.png"));
+            dice3tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice3 = new TextureRegion(dice3tex);
+            Texture dice4tex = new Texture(Gdx.files.internal("animation/dice4.png"));
+            dice4tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice4 = new TextureRegion(dice4tex);
+            Texture dice5tex = new Texture(Gdx.files.internal("animation/dice5.png"));
+            dice5tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice5 = new TextureRegion(dice5tex);
+            Texture dice6tex = new Texture(Gdx.files.internal("animation/dice6.png"));
+            dice6tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            dice6 = new TextureRegion(dice6tex);
+
             Texture buttons = new Texture(Gdx.files.internal("buttons.png"));
             buttons.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             button1 = new TextureRegion(buttons, 0, 0, 100, 100);

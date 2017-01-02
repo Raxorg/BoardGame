@@ -32,6 +32,7 @@ public class BoardGame extends Game {
         buttonListener = new MenuButtonListener();
         Gdx.input.setInputProcessor(buttonListener);
         ScreenManager.setCurrentScreen(MainMenu.getInstance());
+
     }
 
     @Override

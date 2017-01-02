@@ -9,6 +9,7 @@ import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
+import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BoardTab;
 import com.epicness.game.screens.tabs.InfoTab;
 import com.epicness.game.screens.tabs.Tab;
@@ -28,7 +29,7 @@ public class Game extends MyScreen {
     private static Game instance = new Game();
 
     private Game() {
-        leftTab = BoardTab.getInstance().setLeft(true);
+        leftTab = ActionsTab.getInstance().setLeft(true);
         rightTab = InfoTab.getInstance().setLeft(false);
         dice = new Dice();
         makeButtons();
