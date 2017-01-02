@@ -13,10 +13,12 @@ import com.epicness.game.organizers.Assets;
 
 public class Dice {
 
+    private TextureRegion currentRegion;
     private Animation animation = null;
     private float x = 0f, y = 0f;
     private float time = 0f;
     private boolean visible = false;
+    private boolean stopped = true;
 
     public Dice() {
         TextureRegion[] regions = new TextureRegion[6];
@@ -58,15 +60,47 @@ public class Dice {
         time = 0;
     }
 
+    public int getCurrentFace() {
+        if (currentRegion == Assets.dice1)
+            return 1;
+        if (currentRegion == Assets.dice2)
+            return 2;
+        if (currentRegion == Assets.dice3)
+            return 3;
+        if (currentRegion == Assets.dice4)
+            return 4;
+        if (currentRegion == Assets.dice5)
+            return 5;
+        if (currentRegion == Assets.dice6)
+            return 6;
+
+        return 0;
+    }
+
+    public void setStopped(boolean stopped)
+    {
+        this.stopped = stopped;
+    }
+
+    public boolean isStopped()
+    {
+        return stopped;
+    }
+
     public void draw(float delta, SpriteBatch batch) {
-        time += delta;
-        TextureRegion currentRegion = animation.getKeyFrame(time, true);
-        batch.draw(
-                currentRegion,
-                x,
-                y,
-                Gdx.graphics.getHeight() / 6,
-                Gdx.graphics.getHeight() / 6
-        );
+        if (!stopped) {
+            time += delta;
+            currentRegion = animation.getKeyFrame(time, true);
+        }
+        if (visible) {
+
+            batch.draw(
+                    currentRegion,
+                    x,
+                    y,
+                    Gdx.graphics.getHeight() / 6,
+                    Gdx.graphics.getHeight() / 6
+            );
+        }
     }
 }

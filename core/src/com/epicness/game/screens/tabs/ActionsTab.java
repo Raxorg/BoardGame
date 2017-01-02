@@ -17,6 +17,7 @@ public class ActionsTab extends Tab {
 
     private ActionsTab() {
         dice = new Dice();
+        dice.setVisible(true);
         makeButtons();
     }
 
@@ -30,15 +31,17 @@ public class ActionsTab extends Tab {
         buttons[0] = new Button(
                 Assets.button2,
                 0,
-                0,
+                150,
                 2 * (Gdx.graphics.getHeight() / 6),
                 Gdx.graphics.getHeight() / 6,
                 Color.BLUE
         ) {
             @Override
             public void onTouchUp() {
-               //TODO: hacer que el dado cambie sus caras
-                System.out.println("0");
+                if(dice.isStopped())
+                    dice.setStopped(false);
+                else
+                    dice.setStopped(true);
             }
         };
     }
@@ -46,5 +49,8 @@ public class ActionsTab extends Tab {
     @Override
     public void render(float delta, SpriteBatch batch) {
         dice.draw(delta, batch);
+        for (Button b : buttons) {
+            b.draw(batch);
+        }
     }
 }
