@@ -24,7 +24,6 @@ import com.epicness.game.ui.buttons.Button;
 public class Game extends MyScreen {
 
     private Tab leftTab, rightTab;
-    private Dice dice = null;
     private Player[] players = new Player[4];
 
     private static Game instance = new Game();
@@ -32,9 +31,8 @@ public class Game extends MyScreen {
     private Game() {
         leftTab = ActionsTab.getInstance().setLeft(true);
         rightTab = InfoTab.getInstance().setLeft(false);
-        updateButtons();
-        dice = new Dice();
         makeButtons();
+        updateButtons();
     }
 
     private void updateButtons() {
