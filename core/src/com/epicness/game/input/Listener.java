@@ -2,7 +2,7 @@ package com.epicness.game.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.epicness.game.ui.buttons.MenuButtonListener;
+import com.epicness.game.ui.buttons.AllPurposeButtonListener;
 
 /**
  * Created by Groxar on 09/11/2016.
@@ -11,15 +11,15 @@ import com.epicness.game.ui.buttons.MenuButtonListener;
 
 public class Listener extends InputAdapter {
 
-    private MenuButtonListener menuButtonListener;
+    private AllPurposeButtonListener allPurposeButtonListener;
     private static boolean loading = true;
 
     public static void setLoading(boolean l) {
         loading = l;
     }
 
-    public Listener(MenuButtonListener menuButtonListener) {
-        this.menuButtonListener = menuButtonListener;
+    public Listener(AllPurposeButtonListener allPurposeButtonListener) {
+        this.allPurposeButtonListener = allPurposeButtonListener;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Listener extends InputAdapter {
         screenY = Gdx.graphics.getHeight() - screenY;
         if (pointer == 0) {
             calculateCellTouched(screenX, screenY);
-            return menuButtonListener.touchUp(screenX, screenY, pointer, button);
+            return allPurposeButtonListener.touchUp(screenX, screenY, pointer, button);
         }
         return false;
     }

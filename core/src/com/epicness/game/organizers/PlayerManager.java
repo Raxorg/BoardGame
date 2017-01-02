@@ -50,12 +50,12 @@ public class PlayerManager {
                     player,
                     true
             );
-            assignedPlayer = "player" + (player + 1);
+            assignedPlayer = "player" + (player);
             Listener.setLoading(false);
             ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
         } else {
             if (player <= 3) {
-                GetterManager.getInstance().getPlayerAssignment(player + 1);
+                GetterManager.getInstance().getPlayerAssignment(player);
             }
         }
     }

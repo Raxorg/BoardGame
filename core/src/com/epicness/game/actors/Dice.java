@@ -28,6 +28,7 @@ public class Dice {
         regions[3] = Assets.dice4;
         regions[4] = Assets.dice5;
         regions[5] = Assets.dice6;
+        currentRegion = regions[0];
         animation = new Animation(0.25f, regions);
         time = 0f;
     }
@@ -77,13 +78,11 @@ public class Dice {
         return 0;
     }
 
-    public void setStopped(boolean stopped)
-    {
+    public void setStopped(boolean stopped) {
         this.stopped = stopped;
     }
 
-    public boolean isStopped()
-    {
+    public boolean isStopped() {
         return stopped;
     }
 
@@ -93,7 +92,6 @@ public class Dice {
             currentRegion = animation.getKeyFrame(time, true);
         }
         if (visible) {
-
             batch.draw(
                     currentRegion,
                     x,

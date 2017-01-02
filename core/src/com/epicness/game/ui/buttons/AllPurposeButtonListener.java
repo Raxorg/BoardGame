@@ -7,7 +7,7 @@ import com.badlogic.gdx.InputAdapter;
  * Created by Luchox on 26/09/2015.
  * A button listener
  */
-public class MenuButtonListener extends InputAdapter {
+public class AllPurposeButtonListener extends InputAdapter {
 
     private Button[] buttons;
 

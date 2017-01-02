@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.epicness.game.BoardGame;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
@@ -31,8 +32,26 @@ public class Game extends MyScreen {
     private Game() {
         leftTab = ActionsTab.getInstance().setLeft(true);
         rightTab = InfoTab.getInstance().setLeft(false);
+        updateButtons();
         dice = new Dice();
         makeButtons();
+    }
+
+    private void updateButtons() {
+        Button[] currentButtons;
+        int numButtons = buttons.length + leftTab.getButtons().length + rightTab.getButtons().length;
+        currentButtons = new Button[numButtons];
+        int i = 0;
+        for (int ia = 0; ia < buttons.length; i++, ia++) {
+            currentButtons[i] = buttons[ia];
+        }
+        for (int ib = 0; ib < leftTab.getButtons().length; i++, ib++) {
+            currentButtons[i] = leftTab.getButtons()[ib];
+        }
+        for (int ic = 0; ic < leftTab.getButtons().length; i++, ic++) {
+            currentButtons[i] = leftTab.getButtons()[ic];
+        }
+        BoardGame.buttonListener.setButtons(currentButtons);
     }
 
     public static Game getInstance() {
@@ -53,6 +72,7 @@ public class Game extends MyScreen {
             @Override
             public void onTouchUp() {
                 leftTab = InfoTab.getInstance();
+                updateButtons();
             }
         };
         buttons[0].setImage(new TextureRegion(Assets.miniplayer));
@@ -66,7 +86,8 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-               leftTab = BoardTab.getInstance();
+                leftTab = BoardTab.getInstance();
+                updateButtons();
             }
         };
         buttons[2] = new Button(
@@ -80,6 +101,7 @@ public class Game extends MyScreen {
             @Override
             public void onTouchUp() {
                 leftTab = ActionsTab.getInstance();
+                updateButtons();
             }
         };
     }
