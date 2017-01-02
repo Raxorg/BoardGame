@@ -12,12 +12,12 @@ import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.screens.MainMenu;
-import com.epicness.game.ui.buttons.AllPurposeButtonListener;
+import com.epicness.game.ui.buttons.ButtonListener;
 
 public class BoardGame extends Game {
 
     private SpriteBatch batch;
-    public static AllPurposeButtonListener buttonListener;
+    public static ButtonListener buttonListener;
 
     void setFirebaseConnection(FirebaseInterface firebaseInterface) {
         SetterManager.getInstance().setFirebaseInterface(firebaseInterface);
@@ -29,7 +29,7 @@ public class BoardGame extends Game {
         Text.load();
         Assets.load();
         batch = new SpriteBatch();
-        buttonListener = new AllPurposeButtonListener();
+        buttonListener = new ButtonListener();
         Gdx.input.setInputProcessor(buttonListener);
         ScreenManager.setCurrentScreen(MainMenu.getInstance());
 

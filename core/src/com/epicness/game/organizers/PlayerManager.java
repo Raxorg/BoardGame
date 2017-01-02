@@ -55,7 +55,7 @@ public class PlayerManager {
             ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
         } else {
             if (player <= 3) {
-                GetterManager.getInstance().getPlayerAssignment(player);
+                GetterManager.getInstance().getPlayerAssignment(player + 1);
             }
         }
     }
