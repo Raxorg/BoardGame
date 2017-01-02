@@ -38,7 +38,7 @@ public class ActionsTab extends Tab {
         ) {
             @Override
             public void onTouchUp() {
-                if(dice.isStopped())
+                if (dice.isStopped())
                     dice.setStopped(false);
                 else
                     dice.setStopped(true);
@@ -48,9 +48,9 @@ public class ActionsTab extends Tab {
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        dice.draw(delta, batch);
+        dice.draw(left, delta, batch);
         for (Button b : buttons) {
-            b.draw(batch);
+            b.draw(left, batch);
         }
     }
 }

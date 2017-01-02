@@ -57,14 +57,7 @@ public class MainMenu extends MyScreen {
     @Override
     public void render(float delta, SpriteBatch batch) {
         for (Button b : buttons) {
-            batch.setColor(b.getColor());
-            batch.draw(
-                    b.getTexture(),
-                    b.getX(),
-                    b.getY(),
-                    b.getWidth(),
-                    b.getHeight()
-            );
+            b.draw(true, batch);
         }
         Text.setScale(true, 0.35f);
         Text.bordered.draw(

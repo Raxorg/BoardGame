@@ -29,7 +29,7 @@ public class Dice {
         regions[4] = Assets.dice5;
         regions[5] = Assets.dice6;
         currentRegion = regions[0];
-        animation = new Animation(0.25f, regions);
+        animation = new Animation(0.05f, regions);
         time = 0f;
     }
 
@@ -86,7 +86,9 @@ public class Dice {
         return stopped;
     }
 
-    public void draw(float delta, SpriteBatch batch) {
+    public void draw(boolean left, float delta, SpriteBatch batch) {
+        float offset = 0;
+        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         if (!stopped) {
             time += delta;
             currentRegion = animation.getKeyFrame(time, true);
@@ -94,7 +96,7 @@ public class Dice {
         if (visible) {
             batch.draw(
                     currentRegion,
-                    x,
+                    x + offset,
                     y,
                     Gdx.graphics.getHeight() / 6,
                     Gdx.graphics.getHeight() / 6

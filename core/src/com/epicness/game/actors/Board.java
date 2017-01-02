@@ -45,10 +45,12 @@ public class Board {
         return cells[index];
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(boolean left, SpriteBatch batch) {
+        float offset = 0;
+        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         batch.draw(
                 texture,
-                x,
+                x + offset,
                 y,
                 side,
                 side

@@ -13,7 +13,7 @@ public abstract class Tab {
 
     protected Button[] buttons;
     protected boolean left;
-    protected float offset;
+    protected float tabOffset;
 
     public Button[] getButtons() {
         return buttons;
@@ -23,8 +23,10 @@ public abstract class Tab {
 
     public Tab setLeft(Boolean left) {
         this.left = left;
-        if (!left) {
-            offset = Gdx.graphics.getWidth() / 2;
+        if (left) {
+            tabOffset = 0;
+        } else {
+            tabOffset = Gdx.graphics.getWidth() / 2;
         }
         return this;
     }

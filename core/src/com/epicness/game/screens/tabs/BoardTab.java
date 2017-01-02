@@ -30,7 +30,7 @@ public class BoardTab extends Tab {
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        Board.getInstance().draw(batch);
+        Board.getInstance().draw(left, batch);
         for (Player p : PlayerManager.getInstance().getPlayers()) {
             batch.setColor(p.getColor());
             p.draw(left, delta, batch);
@@ -40,14 +40,7 @@ public class BoardTab extends Tab {
             dice.draw(delta, batch);
         }*/
         for (Button b : buttons) {
-            batch.setColor(b.getColor());
-            batch.draw(
-                    b.getTexture(),
-                    b.getX(),
-                    b.getY(),
-                    b.getWidth(),
-                    b.getHeight()
-            );
+            b.draw(left, batch);
         }
     }
 }

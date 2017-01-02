@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 public class Metrics {
 
     public static final float tabHeight = Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12;
-    public static final int phoneWidth = 1280, phoneHeight = 720;
+    public static final int phoneWidth = Gdx.graphics.getWidth();
+    public static final int phoneHeight = Gdx.graphics.getHeight();
 
 }

@@ -32,7 +32,8 @@ public class BoardGame extends Game {
         buttonListener = new ButtonListener();
         Gdx.input.setInputProcessor(buttonListener);
         ScreenManager.setCurrentScreen(MainMenu.getInstance());
-
+        // Don't let the user press the <- button for now
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override

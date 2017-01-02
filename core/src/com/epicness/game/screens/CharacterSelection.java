@@ -218,7 +218,7 @@ public class CharacterSelection extends MyScreen {
                 Metrics.phoneHeight - textSpaceHeight
         );
         for (Button b : buttons) {
-            b.draw(batch);
+            b.draw(true, batch);
         }
     }
 

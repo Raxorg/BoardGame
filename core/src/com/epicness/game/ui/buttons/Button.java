@@ -1,5 +1,6 @@
 package com.epicness.game.ui.buttons;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,7 @@ public abstract class Button {
     private float width;
     private float height;
     private Color color;
+    private float offset = 0;
 
     public Button(TextureRegion texture, float x, float y, float width, float height, Color color) {
         this.texture = texture;
@@ -27,15 +29,16 @@ public abstract class Button {
     }
 
     public boolean isWithin(int x, int y) {
-        return x >= this.x && x <= this.x + width
+        return x >= this.x + offset && x <= this.x + offset + width
                 && y >= this.y && y <= this.y + height;
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(boolean left, SpriteBatch batch) {
+        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         batch.setColor(color);
         batch.draw(
                 texture,
-                x,
+                x + offset,
                 y,
                 width,
                 height
@@ -44,7 +47,7 @@ public abstract class Button {
         if (image != null) {
             batch.draw(
                     image,
-                    x + width / 2f - height * 0.75f / 2f,
+                    x + width / 2f - height * 0.75f / 2f + offset,
                     y + height / 2f - height * 0.75f / 2f,
                     height * 0.75f,
                     height * 0.75f

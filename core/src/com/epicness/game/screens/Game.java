@@ -9,10 +9,13 @@ import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
 import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BoardTab;
 import com.epicness.game.screens.tabs.InfoTab;
+import com.epicness.game.screens.tabs.InnerBoardTab;
+import com.epicness.game.screens.tabs.MatrixTab;
 import com.epicness.game.screens.tabs.Tab;
 import com.epicness.game.ui.buttons.Button;
 
@@ -29,7 +32,7 @@ public class Game extends MyScreen {
     private static Game instance = new Game();
 
     private Game() {
-        leftTab = ActionsTab.getInstance().setLeft(true);
+        leftTab = BoardTab.getInstance().setLeft(true);
         rightTab = InfoTab.getInstance().setLeft(false);
         makeButtons();
         updateButtons();
@@ -57,7 +60,7 @@ public class Game extends MyScreen {
     }
 
     public void makeButtons() {
-        buttons = new Button[3];
+        buttons = new Button[10];
         TextureRegion tab = new TextureRegion(Assets.tab);
         buttons[0] = new Button(
                 tab,
@@ -69,11 +72,11 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = InfoTab.getInstance();
+                leftTab = BoardTab.getInstance().setLeft(true);
                 updateButtons();
             }
         };
-        buttons[0].setImage(new TextureRegion(Assets.miniplayer));
+        buttons[0].setImage(new TextureRegion(Assets.miniboard));
         buttons[1] = new Button(
                 tab,
                 Gdx.graphics.getHeight() / 6,
@@ -84,10 +87,11 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = BoardTab.getInstance();
+                leftTab = InfoTab.getInstance().setLeft(true);
                 updateButtons();
             }
         };
+        buttons[1].setImage(new TextureRegion(Assets.miniplayer));
         buttons[2] = new Button(
                 tab,
                 2 * Gdx.graphics.getHeight() / 6,
@@ -98,7 +102,107 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                leftTab = ActionsTab.getInstance();
+                leftTab = ActionsTab.getInstance().setLeft(true);
+                updateButtons();
+            }
+        };
+        buttons[3] = new Button(
+                tab,
+                3 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = MatrixTab.getInstance().setLeft(true);
+                updateButtons();
+            }
+        };
+        buttons[4] = new Button(
+                tab,
+                4 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = InnerBoardTab.getInstance().setLeft(true);
+                updateButtons();
+            }
+        };
+        buttons[5] = new Button(
+                tab,
+                Metrics.phoneWidth / 2,
+                Metrics.phoneHeight - Metrics.phoneHeight / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = BoardTab.getInstance().setLeft(false);
+                updateButtons();
+            }
+        };
+        buttons[5].setImage(new TextureRegion(Assets.miniboard));
+        buttons[6] = new Button(
+                tab,
+                Metrics.phoneWidth / 2 + Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = InfoTab.getInstance().setLeft(false);
+                updateButtons();
+            }
+        };
+        buttons[6].setImage(new TextureRegion(Assets.miniplayer));
+        buttons[7] = new Button(
+                tab,
+                Metrics.phoneWidth / 2 + 2 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = ActionsTab.getInstance().setLeft(false);
+                updateButtons();
+            }
+        };
+        buttons[8] = new Button(
+                tab,
+                Metrics.phoneWidth / 2 + 3 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = MatrixTab.getInstance().setLeft(false);
+                updateButtons();
+            }
+        };
+        buttons[9] = new Button(
+                tab,
+                Metrics.phoneWidth / 2 + 4 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                leftTab = InnerBoardTab.getInstance().setLeft(false);
                 updateButtons();
             }
         };
@@ -111,7 +215,7 @@ public class Game extends MyScreen {
         rightTab.render(delta, batch);
 
         for (Button b : buttons) {
-            b.draw(batch);
+            b.draw(true, batch);
         }
     }
 }
