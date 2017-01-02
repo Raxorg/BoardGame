@@ -1,5 +1,6 @@
 package com.epicness.game.screens.tabs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
@@ -33,6 +34,7 @@ public class InfoTab extends Tab {
         for (Button b : buttons) {
             b.draw(left, batch);
         }
+        batch.setColor(new Color(1, 75f / 255f, 58f / 255f, 1));
         for (int i = 0; i < PlayerManager.getInstance().getPlayers().length; i++) {
             float xoffset = i == 1 || i == 3 ? Metrics.tabHeight / 2 : 0;
             float yoffset = i == 0 || i == 1 ? Metrics.tabHeight / 2 : 0;
@@ -40,8 +42,8 @@ public class InfoTab extends Tab {
                     Assets.infocard,
                     tabOffset + xoffset,
                     yoffset,
-                    Metrics.tabHeight * 0.9f / 2,
-                    Metrics.tabHeight * 0.9f / 2
+                    Metrics.tabHeight * 0.95f / 2,
+                    Metrics.tabHeight * 0.95f / 2
             );
         }
     }

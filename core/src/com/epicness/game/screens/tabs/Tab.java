@@ -12,7 +12,7 @@ import com.epicness.game.ui.buttons.Button;
 public abstract class Tab {
 
     protected Button[] buttons;
-    protected boolean left;
+    protected boolean left, active;
     protected float tabOffset;
 
     public Button[] getButtons() {
@@ -33,6 +33,15 @@ public abstract class Tab {
 
     public boolean getLeft() {
         return left;
+    }
+
+    public Tab setActive(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public abstract void render(float delta, SpriteBatch batch);

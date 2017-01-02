@@ -15,7 +15,8 @@ public class Assets {
     public static TextureRegion dice1, dice2, dice3, dice4, dice5, dice6;
     public static TextureRegion button1, button2, button3, button4, button5;
     public static TextureRegion hayek, keynes, marx, smith;
-    public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters;
+    public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
+            minichart, minimatrix, miniactions;
 
     public static void load() {
         if (!loaded) {
@@ -55,10 +56,16 @@ public class Assets {
             tab.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             infocard = new Texture(Gdx.files.internal("infocard.png"));
             infocard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            miniplayer = new Texture(Gdx.files.internal("miniplayer.png"));
+            miniplayer = new Texture(Gdx.files.internal("images/miniplayer.png"));
             miniplayer.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            miniboard = new Texture(Gdx.files.internal("miniboard.png"));
+            miniboard = new Texture(Gdx.files.internal("images/miniboard.png"));
             miniboard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            minichart = new Texture(Gdx.files.internal("images/minichart.png"));
+            minichart.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            minimatrix = new Texture(Gdx.files.internal("images/minimatrix.png"));
+            minimatrix.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            miniactions = new Texture(Gdx.files.internal("images/miniactions.png"));
+            miniactions.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             characters = new Texture(Gdx.files.internal("images/characters.jpg"));
             hayek = new TextureRegion(characters, 0, 0, 300, 400);
             keynes = new TextureRegion(characters, 300, 0, 300, 400);

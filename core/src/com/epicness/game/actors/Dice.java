@@ -29,7 +29,7 @@ public class Dice {
         regions[4] = Assets.dice5;
         regions[5] = Assets.dice6;
         currentRegion = regions[0];
-        animation = new Animation(0.05f, regions);
+        animation = new Animation(0.025f, regions);
         time = 0f;
     }
 
