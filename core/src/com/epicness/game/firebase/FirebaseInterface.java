@@ -11,19 +11,47 @@ public interface FirebaseInterface {
     //     SETTERS
     //------------------
 
-    void setMoney(int player, int money);
-
-    void setPosition(int player, int position);
+    void setCapital(int player, int capital);
 
     void setCharacter(int player, String character);
 
-    void setPlayerPhoneID(int player, String phoneID);
+    void setLand(int player, int land);
+
+    void setMoney(int player, int money);
+
+    void setPhoneID(int player, String phoneID);
+
+    void setPosition(int player, int position);
+
+    void setWorkforce(int player, int workforce);
 
     //------------------
     //     GETTERS
     //------------------
 
-    void getPlayerAssignment(int player, String phoneID);
+    void getCapital(int player);
 
-    void getCharacterAssignment(int player, String character);
+    void getCharacter(int player);
+
+    void getLand(int player);
+
+    void getMoney(int player);
+
+    void getPhoneID(int player);
+
+    void getPosition(int player);
+
+    void getWorkforce(int player);
+
+    //------------------
+    //      OTHER
+    //------------------
+
+    void verifyPhoneID(String phoneID);
+
+    void requestPlayerForPhoneID(String phoneID);
+
+    void verifyCharacter(String character);
+
+    void requestCharacter(String character);
 }

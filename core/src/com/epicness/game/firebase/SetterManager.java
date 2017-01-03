@@ -44,23 +44,31 @@ public class SetterManager {
     //           BODY
     //---------------------------
 
-    /**
-     * Updates the database if the player has been taken
-     *
-     * @param player
-     * @param phoneID
-     */
-    public void setPhoneID(int player, String phoneID) {
-        firebaseInterface.setPlayerPhoneID(player, phoneID);
+    public void setCapital(int player, int capital) {
+        firebaseInterface.setCapital(player, capital);
     }
 
-    /**
-     * Updates the database with the character owner
-     *
-     * @param player
-     * @param character
-     */
     public void setCharacter(int player, String character) {
         firebaseInterface.setCharacter(player, character);
+    }
+
+    public void setLand(int player, int land) {
+        firebaseInterface.setLand(player, land);
+    }
+
+    public void setMoney(int player, int money) {
+        firebaseInterface.setMoney(player, money);
+    }
+
+    public void setPhoneID(int player, String phoneID) {
+        firebaseInterface.setPhoneID(player, phoneID);
+    }
+
+    public void setPosition(int player, int position) {
+        firebaseInterface.setPosition(player, position);
+    }
+
+    public void setWorkforce(int player, int workforce) {
+        firebaseInterface.setWorkforce(player, workforce);
     }
 }

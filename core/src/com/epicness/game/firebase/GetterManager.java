@@ -24,6 +24,7 @@ public class GetterManager {
 
     /**
      * Instance of the singleton class
+     *
      * @return singleton instance
      */
     public static GetterManager getInstance() {
@@ -32,6 +33,7 @@ public class GetterManager {
 
     /**
      * Connection setter with Firebase
+     *
      * @param firebaseInterface
      */
     public void setFirebaseInterface(FirebaseInterface firebaseInterface) {
@@ -42,11 +44,31 @@ public class GetterManager {
     //           BODY
     //---------------------------
 
-    /**
-     * Gets a player assignment
-     * @param requestedPlayer is the number of the player requested
-     */
-    public void getPlayerAssignment(int requestedPlayer, String phoneID) {
-        firebaseInterface.getPlayerAssignment(requestedPlayer, phoneID);
+    public void getCapital(int player) {
+        firebaseInterface.getCapital(player);
+    }
+
+    public void getCharacter(int player) {
+        firebaseInterface.getCharacter(player);
+    }
+
+    public void getLand(int player) {
+        firebaseInterface.getLand(player);
+    }
+
+    public void getMoney(int player) {
+        firebaseInterface.getMoney(player);
+    }
+
+    public void getPhoneID(int player) {
+        firebaseInterface.getPhoneID(player);
+    }
+
+    public void getPosition(int player) {
+        firebaseInterface.getPosition(player);
+    }
+
+    public void getWorkforce(int player) {
+        firebaseInterface.getWorkforce(player);
     }
 }

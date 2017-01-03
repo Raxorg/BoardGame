@@ -20,10 +20,12 @@ public class BoardGame extends Game {
     private SpriteBatch batch;
     public static ButtonListener buttonListener;
     public static String phoneID;
+    public static FirebaseInterface firebaseInterface;
 
-    void setFirebaseConnection(FirebaseInterface firebaseInterface) {
-        SetterManager.getInstance().setFirebaseInterface(firebaseInterface);
-        GetterManager.getInstance().setFirebaseInterface(firebaseInterface);
+    void setFirebaseConnection(FirebaseInterface firebaseConnection) {
+        SetterManager.getInstance().setFirebaseInterface(firebaseConnection);
+        GetterManager.getInstance().setFirebaseInterface(firebaseConnection);
+        firebaseInterface = firebaseConnection;
     }
 
     public BoardGame(String aPhoneID) {

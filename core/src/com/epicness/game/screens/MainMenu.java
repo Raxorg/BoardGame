@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.BoardGame;
+import com.epicness.game.actors.Board;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.PlayerManager;
+import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.ui.buttons.Button;
 
@@ -21,9 +23,9 @@ public class MainMenu extends MyScreen {
     private String loadingText = "Loading...";
     private String play = "PLAY";
     private float playWidth, playHeight, loadingWidth, loadingHeight;
+    private boolean requestingData;
 
     private static MainMenu instance = new MainMenu();
-    private boolean loading;
 
     private MainMenu() {
         Text.setScale(true, 0.35f);
@@ -33,6 +35,7 @@ public class MainMenu extends MyScreen {
         loadingWidth = Text.getTextWidth(true, loadingText);
         loadingHeight = Text.getTextHeight(true, loadingText);
         makeButtons();
+        getAllDataFromDatabase();
     }
 
     public static MainMenu getInstance() {
@@ -51,14 +54,9 @@ public class MainMenu extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                int phoneIDInUse = PlayerManager.getInstance().checkPhoneID(BoardGame.phoneID);
-                if (phoneIDInUse != -1) {
-                    PlayerManager.getInstance().setAssignedPlayer("player" + phoneIDInUse);
-                } else {
-                    GetterManager.getInstance().getPlayerAssignment(0, BoardGame.phoneID);
-                }
-                loadingText = "Loading...";
+                BoardGame.firebaseInterface.verifyPhoneID(BoardGame.phoneID);
                 Listener.setLoading(true);
+                loadingText = "Loading...";
             }
         };
     }
@@ -81,12 +79,58 @@ public class MainMenu extends MyScreen {
         Text.bordered.draw(
                 batch,
                 loadingText,
-                Gdx.graphics.getWidth() - loadingWidth,
+                Gdx.graphics.getWidth() - loadingWidth - loadingHeight,
                 loadingHeight * 2
         );
     }
 
-    public void setLoading(String loading) {
-        this.loadingText = loading;
+    public void getAllDataFromDatabase() {
+        requestingData = true;
+        for (int i = 0; i < 4; i++) {
+            GetterManager.getInstance().getCapital(i);
+            GetterManager.getInstance().getCharacter(i);
+            GetterManager.getInstance().getLand(i);
+            GetterManager.getInstance().getMoney(i);
+            GetterManager.getInstance().getPhoneID(i);
+            GetterManager.getInstance().getPosition(i);
+            GetterManager.getInstance().getWorkforce(i);
+        }
+    }
+
+    public boolean isRequestingData() {
+        return requestingData;
+    }
+
+    public void doneLoadingData() {
+        requestingData = false;
+        loadingText = "";
+        Listener.setLoading(false);
+    }
+
+    public void doneVerifyingPhoneID(int phoneIDIndex) {
+        if (phoneIDIndex == -1) {
+            BoardGame.firebaseInterface.requestPlayerForPhoneID(BoardGame.phoneID);
+        } else {
+            PlayerManager.getInstance().setPlayerIndex(phoneIDIndex);
+            loadingText = "";
+            Listener.setLoading(false);
+            // TODO si el phoneID ya tiene character directo al juego
+            ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
+        }
+    }
+
+    public void doneRequestingPlayerForPhoneID(int phoneIDIndex) {
+        if (phoneIDIndex == -1) {
+            // TODO GAME IS FULL MESSAGE
+        } else {
+            PlayerManager.getInstance().setPlayerIndex(phoneIDIndex);
+            PlayerManager.getInstance().updatePhoneID(
+                    PlayerManager.getInstance().getPlayerIndex(),
+                    BoardGame.phoneID
+            );
+            loadingText = "";
+            Listener.setLoading(false);
+            ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
+        }
     }
 }

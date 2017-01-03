@@ -19,7 +19,8 @@ public class PlayerManager {
     private static PlayerManager instance = new PlayerManager();
 
     private Player[] players;
-    private String assignedPlayer;
+    // this is the index of the player of this phone
+    private int playerIndex;
 
     private PlayerManager() {
         players = new Player[4];
@@ -33,20 +34,94 @@ public class PlayerManager {
         return instance;
     }
 
-    public void updateMoney(int player, Integer money) {
+    //---------------------------
+    //      UPDATES TO DB
+    //---------------------------
+
+    public void updateCapital(int player, int capital) {
+        SetterManager.getInstance().setCapital(player, capital);
+        players[player].setCapital(capital);
+    }
+
+    public void updateCharacter(int player, String character) {
+        SetterManager.getInstance().setCharacter(player, character);
+        players[player].setCharacter(character);
+    }
+
+    public void updateLand(int player, int land) {
+        SetterManager.getInstance().setLand(player, land);
+        players[player].setLand(land);
+    }
+
+    public void updateMoney(int player, int money) {
+        SetterManager.getInstance().setMoney(player, money);
         players[player].setMoney(money);
     }
 
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public String getAssignedPlayer() {
-        return assignedPlayer;
+    public void updatePhoneID(int player, String phoneID) {
+        SetterManager.getInstance().setPhoneID(player, phoneID);
+        players[player].setPhoneID(phoneID);
     }
 
     public void updatePosition(int player, int position) {
-        players[player].move(Board.getInstance().getCell(position));
+        SetterManager.getInstance().setPosition(player, position);
+        players[player].setPosition(position);
+    }
+
+    public void updateWorkforce(int player, int workforce) {
+        SetterManager.getInstance().setWorkforce(player, workforce);
+        players[player].setWorkforce(workforce);
+    }
+
+    //---------------------------
+    //      UPDATES FROM DB
+    //---------------------------
+
+    public void capitalDBUpdate(int player, int capital) {
+        players[player].setCapital(capital);
+    }
+
+    public void characterDBUpdate(int player, String character) {
+        players[player].setCharacter(character);
+    }
+
+    public void landDBUpdate(int player, int land) {
+        players[player].setLand(land);
+    }
+
+    public void moneyDBUpdate(int player, int money) {
+        players[player].setMoney(money);
+    }
+
+    public void phoneIDDBUpdate(int player, String phoneID) {
+        players[player].setPhoneID(phoneID);
+    }
+
+    public void positionDBUpdate(int player, int position) {
+        players[player].setPosition(position);
+    }
+
+    public void workforceDBUpdate(int player, int workforce) {
+        players[player].setWorkforce(workforce);
+    }
+
+    //---------------------------
+    //          OTHER
+    //---------------------------
+
+    public void setPlayerIndex(int playerIndex) {
+        this.playerIndex = playerIndex;
+    }
+
+    public int getPlayerIndex() {
+        return playerIndex;
+    }
+    public Player[] getPlayers() {
+        return players;
+    }
+/*
+    public String getAssignedPlayer() {
+        return assignedPlayer;
     }
 
     public void updatePlayerAssignmentFromDatabase(int player, String phoneID) {
@@ -73,30 +148,13 @@ public class PlayerManager {
         ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
     }
 
-    public void updatePhoneID(int player, String phoneID) {
-        players[player].setPhoneID(phoneID);
-    }
-
-    public int checkPhoneID(String phoneID) {
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].getPhoneID().equals(phoneID)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void updateCharacterAssignmentFromDatabase(int player, String character) {
         if (character.equals("none")) {
             SetterManager.getInstance().setCharacter(
                     player,
                     CharacterSelection.getInstance().getRequestedCharacter()
-                    );
+            );
         }
-    }
-
-    public void updateCharacter(int player, String character) {
-        players[player].setCharacter(character);
     }
 
     public int checkCharacter() {
@@ -108,4 +166,5 @@ public class PlayerManager {
         }
         return -1;
     }
+    */
 }

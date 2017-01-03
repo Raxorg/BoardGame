@@ -1,8 +1,10 @@
 package com.epicness.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.epicness.game.BoardGame;
 import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
@@ -21,12 +23,12 @@ import com.epicness.game.ui.buttons.Button;
 
 public class CharacterSelection extends MyScreen {
 
-    private String loadingText = "loading";
+    private String loadingText = "";
+    private float loadingWidth, loadingHeight;
     private final String chooseText = "Elige tu personaje";
     private float textHeight, textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize;
-    private String requestedCharacter;
 
     private static CharacterSelection instance = new CharacterSelection();
 
@@ -58,6 +60,10 @@ public class CharacterSelection extends MyScreen {
         }
 
         makeButtons();
+
+        Text.setScale(true, 0.2f);
+        loadingWidth = Text.getTextWidth(true, loadingText);
+        loadingHeight = Text.getTextHeight(true, loadingText);
     }
 
     public static CharacterSelection getInstance() {
@@ -80,10 +86,9 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                requestedCharacter = "hayek";
+                BoardGame.firebaseInterface.verifyCharacter("hayek");
                 loadingText = "Loading...";
                 Listener.setLoading(true);
-                PlayerManager.getInstance().checkCharacter();
             }
         };
         buttons[1] = new Button(
@@ -96,13 +101,9 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                requestedCharacter = "keynes";
+                BoardGame.firebaseInterface.verifyCharacter("keynes");
                 loadingText = "Loading...";
                 Listener.setLoading(true);
-                int characterOwner = PlayerManager.getInstance().checkCharacter();
-                if (characterOwner == -1) {
-
-                }
             }
         };
         buttons[2] = new Button(
@@ -115,10 +116,9 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                requestedCharacter = "marx";
+                BoardGame.firebaseInterface.verifyCharacter("marx");
                 loadingText = "Loading...";
                 Listener.setLoading(true);
-                PlayerManager.getInstance().checkCharacter();
             }
         };
         buttons[3] = new Button(
@@ -131,10 +131,9 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                requestedCharacter = "smith";
+                BoardGame.firebaseInterface.verifyCharacter("smith");
                 loadingText = "Loading...";
                 Listener.setLoading(true);
-                PlayerManager.getInstance().checkCharacter();
             }
         };
         //------------
@@ -213,6 +212,7 @@ public class CharacterSelection extends MyScreen {
     @Override
     public void render(float delta, SpriteBatch batch) {
         Text.setScale(true, 0.25f);
+        Text.bordered.setColor(Color.PURPLE);
         Text.bordered.draw(
                 batch,
                 chooseText,
@@ -222,9 +222,24 @@ public class CharacterSelection extends MyScreen {
         for (Button b : buttons) {
             b.draw(true, batch);
         }
+        Text.setScale(true, 0.2f);
+        Text.bordered.setColor(Color.WHITE);
+        Text.bordered.draw(
+                batch,
+                loadingText,
+                Gdx.graphics.getWidth() - loadingWidth - loadingHeight,
+                loadingHeight * 2
+        );
     }
 
-    public String getRequestedCharacter() {
-        return requestedCharacter;
+    public void doneVerifyingCharacter(String character, int characterIndex) {
+        if (characterIndex == -1) {
+            PlayerManager.getInstance().updateCharacter(PlayerManager.getInstance().getPlayerIndex(), character);
+            Listener.setLoading(false);
+            loadingText = "";
+        } else {
+            Listener.setLoading(false);
+            loadingText = "No disponible";
+        }
     }
 }

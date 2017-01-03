@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.PlayerManager;
 
 /**
  * Created by Groxar on 02/12/2016.
@@ -13,18 +15,20 @@ import com.epicness.game.organizers.Assets;
 
 public class Player {
 
-    private int money;
     private TextureRegion texture;
     private float x = 0, y = 0, width = 0, height = 0, offsetX = 0, offsetY = 0;
     private Board.Cell cell;
     private Color color = null;
-    private int time = 0;
-    private int timecell = 0;
-    private String phoneID;
+    // These are on the DB
+    private int capital;
     private String character;
+    private int land;
+    private int money;
+    private String phoneID;
+    private int position;
+    private int workforce;
 
     public Player(Color color, float offsetX, float offsetY) {
-        money = 1000;
         texture = new TextureRegion(Assets.player);
         width = Board.getInstance().getSide() * 0.05f;
         height = Board.getInstance().getSide() * 0.075f;
@@ -34,10 +38,54 @@ public class Player {
         this.color = color;
     }
 
-    public Color getColor() {
-        return color;
+    //---------------------------
+    //          SETTERS
+    //---------------------------
+
+    public void setCapital(int capital) {
+        this.capital = capital;
     }
 
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+
+    public void setLand(int land) {
+        this.land = land;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void setPhoneID(String phoneID) {
+        this.phoneID = phoneID;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+        move(Board.getInstance().getCell(position));
+    }
+
+    public void setWorkforce(int workforce) {
+        this.workforce = workforce;
+    }
+
+    //---------------------------
+    //          GETTERS
+    //---------------------------
+
+    public int getCapital() {
+        return capital;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public int getLand() {
+        return land;
+    }
 
     public int getMoney() {
         return money;
@@ -47,9 +95,21 @@ public class Player {
         return phoneID;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public int getPosition() {
+        return position;
     }
+
+    public int getWorkforce() {
+        return workforce;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    //---------------------------
+    //          OTHER
+    //---------------------------
 
     public void move(Board.Cell cell) {
         this.cell = cell;
@@ -76,17 +136,5 @@ public class Player {
                 1,              // scaley
                 -cell.getAngle() - 10f - 5f * offsetX // rotation
         );
-    }
-
-    public void setPhoneID(String phoneID) {
-        this.phoneID = phoneID;
-    }
-
-    public void setCharacter(String character) {
-        this.character = character;
-    }
-
-    public String getCharacter() {
-        return character;
     }
 }
