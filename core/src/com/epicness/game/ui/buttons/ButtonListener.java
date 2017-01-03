@@ -20,7 +20,6 @@ public class ButtonListener extends InputAdapter {
         if (pointer != 0) {
             return false;
         }
-        screenY = Gdx.graphics.getHeight() - screenY;
         for (Button b : buttons) {
             if (b.isWithin(screenX, screenY)) {
                 b.onTouchUp();
