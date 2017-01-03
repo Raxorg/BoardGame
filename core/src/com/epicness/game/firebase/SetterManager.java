@@ -56,9 +56,9 @@ public class SetterManager {
     /**
      * Updates the database if the player has been taken
      * @param player
-     * @param taken
+     * @param phoneID
      */
-    public void setTaken(int player, boolean taken) {
-        firebaseInterface.setPlayerTaken(player, taken);
+    public void setPhoneID(int player, String phoneID) {
+        firebaseInterface.setPlayerPhoneID(player, phoneID);
     }
 }

@@ -3,9 +3,11 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.BoardGame;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.ui.buttons.Button;
 
@@ -16,7 +18,6 @@ import com.epicness.game.ui.buttons.Button;
 
 public class MainMenu extends MyScreen {
 
-    private String requestingPlayer;
     private String loadingText = "loading";
     private String play = "PLAY";
     private float playWidth, playHeight;
@@ -46,8 +47,12 @@ public class MainMenu extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                GetterManager.getInstance().getPlayerAssignment(0);
-                requestingPlayer = "player1";
+                int phoneIDInUse = PlayerManager.getInstance().checkPhoneID(BoardGame.phoneID);
+                if (phoneIDInUse != -1) {
+                    PlayerManager.getInstance().setAssignedPlayer("player" + phoneIDInUse);
+                } else {
+                    GetterManager.getInstance().getPlayerAssignment(0, BoardGame.phoneID);
+                }
                 loadingText = "Loading...";
                 Listener.setLoading(true);
             }

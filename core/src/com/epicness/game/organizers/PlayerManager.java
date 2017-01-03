@@ -1,6 +1,7 @@
 package com.epicness.game.organizers;
 
 import com.badlogic.gdx.graphics.Color;
+import com.epicness.game.BoardGame;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.GetterManager;
@@ -44,29 +45,44 @@ public class PlayerManager {
         players[player].move(Board.getInstance().getCell(position));
     }
 
-    public void updatePlayerAssignmentFromDatabase(int player, boolean taken) {
-        if (!taken) {
-            SetterManager.getInstance().setTaken(
+    public void updatePlayerAssignmentFromDatabase(int player, String phoneID) {
+        if (phoneID.equals("none")) {
+            SetterManager.getInstance().setPhoneID(
                     player,
-                    true
+                    BoardGame.phoneID
             );
-            assignedPlayer = "player" + (player);
+            assignedPlayer = "player" + player;
             Listener.setLoading(false);
             ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
         } else {
             if (player < 3) {
-                GetterManager.getInstance().getPlayerAssignment(player + 1);
+                GetterManager.getInstance().getPlayerAssignment(player + 1, BoardGame.phoneID);
             } else {
-                GetterManager.getInstance().getPlayerAssignment(0);
+                System.out.println("All players taken");
             }
         }
+    }
+
+    public void setAssignedPlayer(String assignedPlayer) {
+        this.assignedPlayer = assignedPlayer;
+        Listener.setLoading(false);
+        ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
     }
 
     public String getAssignedPlayer() {
         return assignedPlayer;
     }
 
-    public void updateTaken(int player, boolean taken) {
-        players[player].setTaken(taken);
+    public void updatePhoneID(int player, String phoneID) {
+        players[player].setPhoneID(phoneID);
+    }
+
+    public int checkPhoneID(String phoneID) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getPhoneID().equals(phoneID)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

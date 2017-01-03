@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
+import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
@@ -35,7 +36,7 @@ public class BoardGame extends Game {
         Assets.load();
         batch = new SpriteBatch();
         buttonListener = new ButtonListener();
-        Gdx.input.setInputProcessor(buttonListener);
+        Gdx.input.setInputProcessor(new Listener(buttonListener));
         ScreenManager.setCurrentScreen(MainMenu.getInstance());
         // Don't let the user press the <- button for now
         Gdx.input.setCatchBackKey(true);

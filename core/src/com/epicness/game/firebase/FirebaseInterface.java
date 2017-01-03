@@ -17,7 +17,7 @@ public interface FirebaseInterface {
 
     void setCharacterOwner(String character, String owner);
 
-    void setPlayerTaken(int player, boolean taken);
+    void setPlayerPhoneID(int player, String phoneID);
 
     //------------------
     //     GETTERS
@@ -31,5 +31,5 @@ public interface FirebaseInterface {
 
     void getCharacterAvailable(String character);
 
-    void getPlayerAssignment(int player);
+    void getPlayerAssignment(int player, String phoneID);
 }

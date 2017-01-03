@@ -54,7 +54,7 @@ public class GetterManager {
      * Gets a player assignment
      * @param requestedPlayer is the number of the player requested
      */
-    public void getPlayerAssignment(int requestedPlayer) {
-        firebaseInterface.getPlayerAssignment(requestedPlayer);
+    public void getPlayerAssignment(int requestedPlayer, String phoneID) {
+        firebaseInterface.getPlayerAssignment(requestedPlayer, phoneID);
     }
 }

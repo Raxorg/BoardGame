@@ -22,7 +22,7 @@ class FirebaseConnection implements FirebaseInterface {
     private DatabaseReference playersReference;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] positionReferences;
-    private DatabaseReference[] playerTakenReferences;
+    private DatabaseReference[] phoneIDReferences;
 
     // Constructor, crea las referencias
     FirebaseConnection() {
@@ -32,7 +32,7 @@ class FirebaseConnection implements FirebaseInterface {
         playersReference = gameReference.child("players");
         moneyReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
-        playerTakenReferences = new DatabaseReference[4];
+        phoneIDReferences = new DatabaseReference[4];
 
         charactersReference = gameReference.child("characters");
 
@@ -64,11 +64,11 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        playerTakenReferences[0] = player1Reference.child("taken");
-        playerTakenReferences[0].addValueEventListener(new ValueEventListener() {
+        phoneIDReferences[0] = player1Reference.child("phoneID");
+        phoneIDReferences[0].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PlayerManager.getInstance().updateTaken(0, dataSnapshot.getValue(Boolean.class));
+                PlayerManager.getInstance().updatePhoneID(0, dataSnapshot.getValue(String.class));
                 Listener.setLoading(false);
             }
 
@@ -106,11 +106,11 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        playerTakenReferences[1] = player2Reference.child("taken");
-        playerTakenReferences[1].addValueEventListener(new ValueEventListener() {
+        phoneIDReferences[1] = player2Reference.child("phoneID");
+        phoneIDReferences[1].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PlayerManager.getInstance().updateTaken(1, dataSnapshot.getValue(Boolean.class));
+                PlayerManager.getInstance().updatePhoneID(1, dataSnapshot.getValue(String.class));
                 Listener.setLoading(false);
             }
 
@@ -148,11 +148,11 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        playerTakenReferences[2] = player3Reference.child("taken");
-        playerTakenReferences[2].addValueEventListener(new ValueEventListener() {
+        phoneIDReferences[2] = player3Reference.child("phoneID");
+        phoneIDReferences[2].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PlayerManager.getInstance().updateTaken(2, dataSnapshot.getValue(Boolean.class));
+                PlayerManager.getInstance().updatePhoneID(2, dataSnapshot.getValue(String.class));
                 Listener.setLoading(false);
             }
 
@@ -190,11 +190,11 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        playerTakenReferences[3] = player4Reference.child("taken");
-        playerTakenReferences[3].addValueEventListener(new ValueEventListener() {
+        phoneIDReferences[3] = player4Reference.child("phoneID");
+        phoneIDReferences[3].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PlayerManager.getInstance().updateTaken(3, dataSnapshot.getValue(Boolean.class));
+                PlayerManager.getInstance().updatePhoneID(3, dataSnapshot.getValue(String.class));
                 Listener.setLoading(false);
             }
 
@@ -229,8 +229,8 @@ class FirebaseConnection implements FirebaseInterface {
 
     // La base de datos debe actualizar un jugador que ha sido tomado o dejado
     @Override
-    public void setPlayerTaken(int player, boolean taken) {
-        playerTakenReferences[player].setValue(taken);
+    public void setPlayerPhoneID(int player, String phoneID) {
+        phoneIDReferences[player].setValue(phoneID);
     }
 
     @Override
@@ -273,13 +273,13 @@ class FirebaseConnection implements FirebaseInterface {
     }
 
     @Override
-    public void getPlayerAssignment(final int player) {
-        playerTakenReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getPlayerAssignment(final int player, String phoneID) {
+        phoneIDReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PlayerManager.getInstance().updatePlayerAssignmentFromDatabase(
                         player,
-                        dataSnapshot.getValue(Boolean.class)
+                        dataSnapshot.getValue(String.class)
                 );
             }
 

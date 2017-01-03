@@ -20,7 +20,7 @@ public class Player {
     private Color color = null;
     private int time = 0;
     private int timecell = 0;
-    private boolean taken;
+    private String phoneID;
 
     public Player(Color color, float offsetX, float offsetY) {
         money = 1000;
@@ -42,8 +42,8 @@ public class Player {
         return money;
     }
 
-    public boolean getTaken() {
-        return taken;
+    public String getPhoneID() {
+        return phoneID;
     }
 
     public void setMoney(int money) {
@@ -77,7 +77,7 @@ public class Player {
         );
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
+    public void setPhoneID(String phoneID) {
+        this.phoneID = phoneID;
     }
 }

@@ -29,20 +29,8 @@ public class Listener extends InputAdapter {
         }
         screenY = Gdx.graphics.getHeight() - screenY;
         if (pointer == 0) {
-            calculateCellTouched(screenX, screenY);
             return buttonListener.touchUp(screenX, screenY, pointer, button);
         }
         return false;
-    }
-
-    private void calculateCellTouched(int x, int y) {
-        /*if (x >= Metrics.left && x <= Metrics.right &&
-                y >= Metrics.bottom && y <= Metrics.top) {
-            int column = (int) ((x - Metrics.left) / Metrics.cellSize);
-            int row = (int) ((y - Metrics.bottom) / Metrics.cellSize);
-            if (GameLogic.getInstance().isGameStarted()) {
-                GameLogic.getInstance().cellTouched(row, column);
-            }
-        }*/
     }
 }
