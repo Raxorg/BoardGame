@@ -43,14 +43,6 @@ public class GetterManager {
     //---------------------------
 
     /**
-     * Checks if the character is available
-     * @param requestedCharacter  is the name of the character
-     */
-    public void getCharacterAvailable(String requestedCharacter) {
-        firebaseInterface.getCharacterAvailable(requestedCharacter);
-    }
-
-    /**
      * Gets a player assignment
      * @param requestedPlayer is the number of the player requested
      */

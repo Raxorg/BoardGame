@@ -24,6 +24,7 @@ public class SetterManager {
 
     /**
      * Instance of the singleton class
+     *
      * @return instance of singleton
      */
     public static SetterManager getInstance() {
@@ -32,6 +33,7 @@ public class SetterManager {
 
     /**
      * Connection setter with Firebase
+     *
      * @param firebaseInterface
      */
     public void setFirebaseInterface(FirebaseInterface firebaseInterface) {
@@ -42,23 +44,23 @@ public class SetterManager {
     //           BODY
     //---------------------------
 
-
-    /**
-     * Updates the database with the character owner
-     * @param character
-     * @param owner is the player owner
-     */
-    public void setOwner(String character, String owner) {
-        firebaseInterface.setCharacterOwner(character, owner);
-    }
-
-
     /**
      * Updates the database if the player has been taken
+     *
      * @param player
      * @param phoneID
      */
     public void setPhoneID(int player, String phoneID) {
         firebaseInterface.setPlayerPhoneID(player, phoneID);
+    }
+
+    /**
+     * Updates the database with the character owner
+     *
+     * @param player
+     * @param character
+     */
+    public void setCharacter(int player, String character) {
+        firebaseInterface.setCharacter(player, character);
     }
 }

@@ -4,6 +4,7 @@ import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
+import com.epicness.game.screens.MainMenu;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,11 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 class FirebaseConnection implements FirebaseInterface {
 
     // Referencias que se crean en el constructor y se usan en otros métodos
-    private DatabaseReference charactersReference;
     private DatabaseReference playersReference;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] positionReferences;
     private DatabaseReference[] phoneIDReferences;
+    private DatabaseReference[] characterReferences;
 
     // Constructor, crea las referencias
     FirebaseConnection() {
@@ -33,12 +34,11 @@ class FirebaseConnection implements FirebaseInterface {
         moneyReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
         phoneIDReferences = new DatabaseReference[4];
+        characterReferences = new DatabaseReference[4];
 
-        charactersReference = gameReference.child("characters");
-
-        // PLAYER 1
-        DatabaseReference player1Reference = playersReference.child("player0");
-        moneyReferences[0] = player1Reference.child("money");
+        // PLAYER 0
+        DatabaseReference player0Reference = playersReference.child("player0");
+        moneyReferences[0] = player0Reference.child("money");
         moneyReferences[0].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -51,7 +51,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        positionReferences[0] = player1Reference.child("position");
+        positionReferences[0] = player0Reference.child("position");
         positionReferences[0].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -64,7 +64,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        phoneIDReferences[0] = player1Reference.child("phoneID");
+        phoneIDReferences[0] = player0Reference.child("phoneID");
         phoneIDReferences[0].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -77,10 +77,23 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        characterReferences[0] = player0Reference.child("character");
+        characterReferences[0].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateCharacter(0, dataSnapshot.getValue(String.class));
+                Listener.setLoading(false);
+            }
 
-        // PLAYER 2
-        DatabaseReference player2Reference = playersReference.child("player1");
-        moneyReferences[1] = player2Reference.child("money");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // PLAYER 1
+        DatabaseReference player1Reference = playersReference.child("player1");
+        moneyReferences[1] = player1Reference.child("money");
         moneyReferences[1].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,7 +106,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        positionReferences[1] = player2Reference.child("position");
+        positionReferences[1] = player1Reference.child("position");
         positionReferences[1].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,7 +119,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        phoneIDReferences[1] = player2Reference.child("phoneID");
+        phoneIDReferences[1] = player1Reference.child("phoneID");
         phoneIDReferences[1].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,10 +132,23 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        characterReferences[1] = player1Reference.child("character");
+        characterReferences[1].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateCharacter(1, dataSnapshot.getValue(String.class));
+                Listener.setLoading(false);
+            }
 
-        // PLAYER 3
-        DatabaseReference player3Reference = playersReference.child("player2");
-        moneyReferences[2] = player3Reference.child("money");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // PLAYER 2
+        DatabaseReference player2Reference = playersReference.child("player2");
+        moneyReferences[2] = player2Reference.child("money");
         moneyReferences[2].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,7 +161,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        positionReferences[2] = player3Reference.child("position");
+        positionReferences[2] = player2Reference.child("position");
         positionReferences[2].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -148,7 +174,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        phoneIDReferences[2] = player3Reference.child("phoneID");
+        phoneIDReferences[2] = player2Reference.child("phoneID");
         phoneIDReferences[2].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -161,10 +187,25 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        characterReferences[2] = player2Reference.child("character");
+        characterReferences[2].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateCharacter(2, dataSnapshot.getValue(String.class));
+                Listener.setLoading(false);
+            }
 
-        // PLAYER 4
-        DatabaseReference player4Reference = playersReference.child("player3");
-        moneyReferences[3] = player4Reference.child("money");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // PLAYER 3
+        // BY CONVENTION THE LAST PLAYER'S ON DATA CHANGE WILL BE USED AS THE MOMENT
+        // WHEN WE'RE DONE LOADING STUFF FROM THE DATABASE
+        DatabaseReference player3Reference = playersReference.child("player3");
+        moneyReferences[3] = player3Reference.child("money");
         moneyReferences[3].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -177,7 +218,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        positionReferences[3] = player4Reference.child("position");
+        positionReferences[3] = player3Reference.child("position");
         positionReferences[3].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,7 +231,7 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
-        phoneIDReferences[3] = player4Reference.child("phoneID");
+        phoneIDReferences[3] = player3Reference.child("phoneID");
         phoneIDReferences[3].addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -203,15 +244,23 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+        characterReferences[3] = player3Reference.child("character");
+        characterReferences[3].addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateCharacter(3, dataSnapshot.getValue(String.class));
+                Listener.setLoading(false);
+                MainMenu.getInstance().setLoading("");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // Updates que vienen desde la aplicación hacia la base de datos
-
-    // La base de datos debe actualizar el dueño de un personaje
-    @Override
-    public void setCharacterOwner(String character, String owner) {
-        charactersReference.child(character).setValue(owner);
-    }
 
     // La base de datos debe actualizar el dinero de un jugador
     @Override
@@ -233,44 +282,13 @@ class FirebaseConnection implements FirebaseInterface {
         phoneIDReferences[player].setValue(phoneID);
     }
 
+    // La base de datos debe actualizar el dueño de un personaje
     @Override
-    public void addTempPlayerListener(int player, String value) {
-        Listener.setLoading(true);
-        playersReference.child("player" + player).child(value).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Listener.setLoading(false);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                }
-        );
+    public void setCharacter(int player, String character) {
+        characterReferences[player].setValue(character);
     }
 
     // Los requests necesitan un listener
-
-    // Listener para ver el valor del dueño de un personaje
-    @Override
-    public void getCharacterAvailable(final String character) {
-        charactersReference.child(character).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                CharacterSelection.getInstance().updateCharacterOwnerFromDatabase(
-                        character,
-                        dataSnapshot.getValue(String.class)
-                );
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @Override
     public void getPlayerAssignment(final int player, String phoneID) {
@@ -288,7 +306,24 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+    }
 
+    @Override
+    public void getCharacterAssignment(final int player, String character) {
+        characterReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PlayerManager.getInstance().updateCharacterAssignmentFromDatabase(
+                        player,
+                        dataSnapshot.getValue(String.class)
+                );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

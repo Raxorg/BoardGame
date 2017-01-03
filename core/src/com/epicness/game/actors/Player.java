@@ -21,6 +21,7 @@ public class Player {
     private int time = 0;
     private int timecell = 0;
     private String phoneID;
+    private String character;
 
     public Player(Color color, float offsetX, float offsetY) {
         money = 1000;
@@ -79,5 +80,13 @@ public class Player {
 
     public void setPhoneID(String phoneID) {
         this.phoneID = phoneID;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+
+    public String getCharacter() {
+        return character;
     }
 }

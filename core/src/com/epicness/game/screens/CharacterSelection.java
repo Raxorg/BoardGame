@@ -3,6 +3,7 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.input.Listener;
@@ -20,12 +21,12 @@ import com.epicness.game.ui.buttons.Button;
 
 public class CharacterSelection extends MyScreen {
 
-    private String requestingCharacter;
     private String loadingText = "loading";
     private final String chooseText = "Elige tu personaje";
     private float textHeight, textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize;
+    private String requestedCharacter;
 
     private static CharacterSelection instance = new CharacterSelection();
 
@@ -57,8 +58,6 @@ public class CharacterSelection extends MyScreen {
         }
 
         makeButtons();
-
-        requestingCharacter = "";
     }
 
     public static CharacterSelection getInstance() {
@@ -81,10 +80,10 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                GetterManager.getInstance().getCharacterAvailable("hayek");
-                requestingCharacter = "hayek";
+                requestedCharacter = "hayek";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
+                PlayerManager.getInstance().checkCharacter();
             }
         };
         buttons[1] = new Button(
@@ -97,10 +96,13 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                GetterManager.getInstance().getCharacterAvailable("keynes");
-                requestingCharacter = "keynes";
+                requestedCharacter = "keynes";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
+                int characterOwner = PlayerManager.getInstance().checkCharacter();
+                if (characterOwner == -1) {
+
+                }
             }
         };
         buttons[2] = new Button(
@@ -113,10 +115,10 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                GetterManager.getInstance().getCharacterAvailable("marx");
-                requestingCharacter = "marx";
+                requestedCharacter = "marx";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
+                PlayerManager.getInstance().checkCharacter();
             }
         };
         buttons[3] = new Button(
@@ -129,10 +131,10 @@ public class CharacterSelection extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                GetterManager.getInstance().getCharacterAvailable("smith");
-                requestingCharacter = "smith";
+                requestedCharacter = "smith";
                 loadingText = "Loading...";
                 Listener.setLoading(true);
+                PlayerManager.getInstance().checkCharacter();
             }
         };
         //------------
@@ -222,16 +224,7 @@ public class CharacterSelection extends MyScreen {
         }
     }
 
-    public void updateCharacterOwnerFromDatabase(String character, String owner) {
-        if (requestingCharacter.equals(character) && owner.equals("none")) {
-            SetterManager.getInstance().setOwner(
-                    character,
-                    PlayerManager.getInstance().getAssignedPlayer()
-            );
-        }
-        requestingCharacter = "";
-        loadingText = "";
-        Listener.setLoading(false);
+    public String getRequestedCharacter() {
+        return requestedCharacter;
     }
-
 }

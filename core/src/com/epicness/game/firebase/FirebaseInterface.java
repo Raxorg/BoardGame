@@ -15,7 +15,7 @@ public interface FirebaseInterface {
 
     void setPosition(int player, int position);
 
-    void setCharacterOwner(String character, String owner);
+    void setCharacter(int player, String character);
 
     void setPlayerPhoneID(int player, String phoneID);
 
@@ -23,13 +23,7 @@ public interface FirebaseInterface {
     //     GETTERS
     //------------------
 
-    /**
-     * Creates a temporary listener for the players' attributes
-     * @param value the value to listen for
-     */
-    void addTempPlayerListener(int player, String value);
-
-    void getCharacterAvailable(String character);
-
     void getPlayerAssignment(int player, String phoneID);
+
+    void getCharacterAssignment(int player, String character);
 }

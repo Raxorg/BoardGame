@@ -41,6 +41,10 @@ public class PlayerManager {
         return players;
     }
 
+    public String getAssignedPlayer() {
+        return assignedPlayer;
+    }
+
     public void updatePosition(int player, int position) {
         players[player].move(Board.getInstance().getCell(position));
     }
@@ -69,10 +73,6 @@ public class PlayerManager {
         ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
     }
 
-    public String getAssignedPlayer() {
-        return assignedPlayer;
-    }
-
     public void updatePhoneID(int player, String phoneID) {
         players[player].setPhoneID(phoneID);
     }
@@ -80,6 +80,29 @@ public class PlayerManager {
     public int checkPhoneID(String phoneID) {
         for (int i = 0; i < players.length; i++) {
             if (players[i].getPhoneID().equals(phoneID)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void updateCharacterAssignmentFromDatabase(int player, String character) {
+        if (character.equals("none")) {
+            SetterManager.getInstance().setCharacter(
+                    player,
+                    CharacterSelection.getInstance().getRequestedCharacter()
+                    );
+        }
+    }
+
+    public void updateCharacter(int player, String character) {
+        players[player].setCharacter(character);
+    }
+
+    public int checkCharacter() {
+        String requestedCharacter = CharacterSelection.getInstance().getRequestedCharacter();
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getCharacter().equals(requestedCharacter)) {
                 return i;
             }
         }

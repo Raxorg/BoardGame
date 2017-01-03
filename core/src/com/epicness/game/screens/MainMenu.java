@@ -18,16 +18,20 @@ import com.epicness.game.ui.buttons.Button;
 
 public class MainMenu extends MyScreen {
 
-    private String loadingText = "loading";
+    private String loadingText = "Loading...";
     private String play = "PLAY";
-    private float playWidth, playHeight;
+    private float playWidth, playHeight, loadingWidth, loadingHeight;
 
     private static MainMenu instance = new MainMenu();
+    private boolean loading;
 
     private MainMenu() {
         Text.setScale(true, 0.35f);
         playWidth = Text.getTextWidth(true, play);
         playHeight = Text.getTextHeight(true, play);
+        Text.setScale(true, 0.2f);
+        loadingWidth = Text.getTextWidth(true, loadingText);
+        loadingHeight = Text.getTextHeight(true, loadingText);
         makeButtons();
     }
 
@@ -65,11 +69,24 @@ public class MainMenu extends MyScreen {
             b.draw(true, batch);
         }
         Text.setScale(true, 0.35f);
+        Text.bordered.setColor(Color.PURPLE);
         Text.bordered.draw(
                 batch,
                 play,
                 Gdx.graphics.getWidth() / 2 - playWidth / 2,
                 Gdx.graphics.getHeight() / 2 + playHeight / 2
         );
+        Text.setScale(true, 0.2f);
+        Text.bordered.setColor(Color.WHITE);
+        Text.bordered.draw(
+                batch,
+                loadingText,
+                Gdx.graphics.getWidth() - loadingWidth,
+                loadingHeight * 2
+        );
+    }
+
+    public void setLoading(String loading) {
+        this.loadingText = loading;
     }
 }
