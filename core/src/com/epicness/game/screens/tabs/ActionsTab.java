@@ -155,6 +155,8 @@ class ThrowDiceAction extends Action {
 
     private Dice dice;
     private float titleWidth, titleHeight;
+    private boolean throwed;
+    private int diceValue = -1;
 
     private static ThrowDiceAction instance = new ThrowDiceAction();
 
@@ -192,11 +194,16 @@ class ThrowDiceAction extends Action {
         ) {
             @Override
             public void onTouchUp() {
-                // TODO THROW DICE LOGIC
-                if (ThrowDiceAction.getInstance().getDice().isStopped())
-                    ThrowDiceAction.getInstance().getDice().setStopped(false);
-                else
-                    ThrowDiceAction.getInstance().getDice().setStopped(true);
+                if (!throwed) {
+                    if (dice.isStopped()) {
+                        dice.setStopped(false);
+                        throwed = true;
+                    }
+                }
+                if (throwed) {
+                    dice.setStopped(true);
+                    diceValue = dice.getCurrentFace();
+                }
             }
         };
     }
@@ -218,9 +225,5 @@ class ThrowDiceAction extends Action {
         for (Button b : buttons) {
             b.draw(left, batch);
         }
-    }
-
-    Dice getDice() {
-        return dice;
     }
 }

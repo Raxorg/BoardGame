@@ -335,4 +335,26 @@ class FirebaseConnection implements FirebaseInterface {
         });
     }
 
+    @Override
+    public void refreshCharacterSelection() {
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            characterReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String character = dataSnapshot.getValue(String.class);
+                    PlayerManager.getInstance().characterDBUpdate(finalI, character);
+                    if (finalI == 3) {
+                        CharacterSelection.getInstance().doneRefreshing();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
 }

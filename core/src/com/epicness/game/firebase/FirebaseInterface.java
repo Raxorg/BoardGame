@@ -58,4 +58,6 @@ public interface FirebaseInterface {
     void requestPlayerForPhoneID(String phoneID);
 
     void verifyCharacter(String character);
+
+    void refreshCharacterSelection();
 }

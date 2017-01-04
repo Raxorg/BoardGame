@@ -3,6 +3,7 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
@@ -21,8 +22,7 @@ public class CharacterSelection extends MyScreen {
 
     private String loadingText = "";
     private float loadingWidth, loadingHeight;
-    private final String chooseText = "Elige tu personaje",
-            readyText = "Estoy listo";
+    private final String chooseText = "Elige tu personaje";
     private float textHeight, textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize, arrowXPosition;
@@ -147,26 +147,29 @@ public class CharacterSelection extends MyScreen {
                 arrowXPosition = characterSpace * 4 + imageWidth * 3.5f - colorButtonSize / 2;
             }
         };
-        // The start button
+        // Refresh button
         buttons[4] = new Button(
-                Assets.button5,
-                Metrics.phoneWidth / 2 - imageWidth,
+                Assets.button1,
+                Metrics.phoneWidth / 2 - imageWidth * 0.5f / 2,
                 imageYPos - colorButtonSize * 4,
-                imageWidth * 2,
-                imageWidth * 2 / 5,
+                imageWidth * 0.5f,
+                imageWidth * 0.5f,
                 Color.WHITE
         ) {
             @Override
             public void onTouchUp() {
+                loadingText = "Actualizando";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
+                BoardGame.firebaseInterface.refreshCharacterSelection();
                 if (PlayerManager.getInstance().getPlayers()[PlayerManager.getInstance().getPlayerIndex()].getCharacter().equals("none")) {
                     loadingText = "Sin personaje";
                     loadingWidth = Text.getTextWidth(0, loadingText);
                     loadingHeight = Text.getTextHeight(0, loadingText);
-                } else {
-                    ScreenManager.setCurrentScreen(Game.getInstance());
                 }
             }
         };
+        buttons[4].setImage(new TextureRegion(Assets.refresh));
     }
 
     @Override
@@ -182,15 +185,7 @@ public class CharacterSelection extends MyScreen {
         for (Button b : buttons) {
             b.draw(true, batch);
         }
-        // Draws "Ihe ready button
-        Text.setScale(0, 0.25f);
-        Text.bordered.setColor(Color.PURPLE);
-        Text.bordered.draw(
-                batch,
-                readyText,
-                Metrics.phoneWidth / 2 - Text.getTextWidth(0, readyText) / 2,
-                imageYPos - textSpaceHeight * 5.25f
-        );
+        // Draws text
         Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);
         Text.bordered.draw(
@@ -216,9 +211,28 @@ public class CharacterSelection extends MyScreen {
             loadingText = "";
         } else {
             Listener.setLoading(false);
-            loadingText = "No disponible";
+            if (characterIndex == PlayerManager.getInstance().getPlayerIndex()) {
+                loadingText = "Tu personaje";
+            } else {
+                loadingText = "No disponible";
+            }
             loadingWidth = Text.getTextWidth(0, loadingText);
             loadingHeight = Text.getTextHeight(0, loadingText);
+        }
+    }
+
+    public void doneRefreshing() {
+        boolean gameStarted = true;
+        for (int i = 0; i < 4; i++) {
+            if (PlayerManager.getInstance().getPlayers()[i].getCharacter().equals("none")) {
+                loadingText = "Faltan jugadores";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
+                gameStarted = false;
+            }
+        }
+        if (gameStarted) {
+            ScreenManager.setCurrentScreen(Game.getInstance());
         }
     }
 }
