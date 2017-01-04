@@ -28,12 +28,12 @@ public class MainMenu extends MyScreen {
     private static MainMenu instance = new MainMenu();
 
     private MainMenu() {
-        Text.setScale(true, 0.35f);
-        playWidth = Text.getTextWidth(true, play);
-        playHeight = Text.getTextHeight(true, play);
-        Text.setScale(true, 0.2f);
-        loadingWidth = Text.getTextWidth(true, loadingText);
-        loadingHeight = Text.getTextHeight(true, loadingText);
+        Text.setScale(0, 0.35f);
+        playWidth = Text.getTextWidth(0, play);
+        playHeight = Text.getTextHeight(0, play);
+        Text.setScale(0, 0.2f);
+        loadingWidth = Text.getTextWidth(0, loadingText);
+        loadingHeight = Text.getTextHeight(0, loadingText);
         makeButtons();
         getAllDataFromDatabase();
     }
@@ -57,6 +57,8 @@ public class MainMenu extends MyScreen {
                 BoardGame.firebaseInterface.verifyPhoneID(BoardGame.phoneID);
                 Listener.setLoading(true);
                 loadingText = "Loading...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
             }
         };
     }
@@ -66,7 +68,7 @@ public class MainMenu extends MyScreen {
         for (Button b : buttons) {
             b.draw(true, batch);
         }
-        Text.setScale(true, 0.35f);
+        Text.setScale(0, 0.35f);
         Text.bordered.setColor(Color.PURPLE);
         Text.bordered.draw(
                 batch,
@@ -74,7 +76,7 @@ public class MainMenu extends MyScreen {
                 Gdx.graphics.getWidth() / 2 - playWidth / 2,
                 Gdx.graphics.getHeight() / 2 + playHeight / 2
         );
-        Text.setScale(true, 0.2f);
+        Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);
         Text.bordered.draw(
                 batch,
@@ -121,7 +123,9 @@ public class MainMenu extends MyScreen {
 
     public void doneRequestingPlayerForPhoneID(int phoneIDIndex) {
         if (phoneIDIndex == -1) {
-            // TODO GAME IS FULL MESSAGE
+            loadingText = "Game is full";
+            loadingWidth = Text.getTextWidth(0, loadingText);
+            loadingHeight = Text.getTextHeight(0, loadingText);
         } else {
             PlayerManager.getInstance().setPlayerIndex(phoneIDIndex);
             PlayerManager.getInstance().updatePhoneID(

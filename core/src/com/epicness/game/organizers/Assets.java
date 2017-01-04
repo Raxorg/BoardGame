@@ -16,10 +16,11 @@ public class Assets {
     public static TextureRegion button1, button2, button3, button4, button5;
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
-            minichart, minimatrix, miniactions;
+            minichart, minimatrix, miniactions, arrow, workforceIcon, landIcon, capitalIcon;
 
     public static void load() {
         if (!loaded) {
+            // Dice
             Texture dice1tex = new Texture(Gdx.files.internal("animation/dice1.png"));
             dice1tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             dice1 = new TextureRegion(dice1tex);
@@ -38,7 +39,7 @@ public class Assets {
             Texture dice6tex = new Texture(Gdx.files.internal("animation/dice6.png"));
             dice6tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             dice6 = new TextureRegion(dice6tex);
-
+            // Buttons
             Texture buttons = new Texture(Gdx.files.internal("buttons.png"));
             buttons.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             button1 = new TextureRegion(buttons, 0, 0, 100, 100);
@@ -46,6 +47,7 @@ public class Assets {
             button3 = new TextureRegion(buttons, 0, 200, 300, 100);
             button4 = new TextureRegion(buttons, 0, 300, 400, 100);
             button5 = new TextureRegion(buttons, 0, 400, 500, 100);
+            // Other
             bg = new Texture(Gdx.files.internal("bg.png"));
             bg.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             board = new Texture(Gdx.files.internal("board.png"));
@@ -54,8 +56,18 @@ public class Assets {
             player.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             tab = new Texture(Gdx.files.internal("tab.png"));
             tab.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            arrow = new Texture(Gdx.files.internal("images/arrow.png"));
+            arrow.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             infocard = new Texture(Gdx.files.internal("infocard.png"));
             infocard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            // Production factors
+            workforceIcon = new Texture(Gdx.files.internal("images/helmet.png"));
+            workforceIcon.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            landIcon = new Texture(Gdx.files.internal("images/land.png"));
+            landIcon.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            capitalIcon = new Texture(Gdx.files.internal("images/money.png"));
+            capitalIcon.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            // Tab images
             miniplayer = new Texture(Gdx.files.internal("images/miniplayer.png"));
             miniplayer.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             miniboard = new Texture(Gdx.files.internal("images/miniboard.png"));
@@ -66,6 +78,7 @@ public class Assets {
             minimatrix.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             miniactions = new Texture(Gdx.files.internal("images/miniactions.png"));
             miniactions.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            // Characters
             characters = new Texture(Gdx.files.internal("images/characters.jpg"));
             hayek = new TextureRegion(characters, 0, 0, 300, 400);
             keynes = new TextureRegion(characters, 300, 0, 300, 400);

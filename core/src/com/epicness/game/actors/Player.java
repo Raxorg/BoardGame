@@ -36,6 +36,8 @@ public class Player {
         this.offsetY = offsetY;
         move(Board.getInstance().getCell(0));
         this.color = color;
+        character = "none";
+        phoneID = "none";
     }
 
     //---------------------------

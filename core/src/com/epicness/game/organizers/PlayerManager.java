@@ -116,6 +116,7 @@ public class PlayerManager {
     public int getPlayerIndex() {
         return playerIndex;
     }
+
     public Player[] getPlayers() {
         return players;
     }
