@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
-import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
+import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
-import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BoardTab;
 import com.epicness.game.screens.tabs.InfoTab;
@@ -38,7 +36,7 @@ public class Game extends MyScreen {
         updateButtons();
     }
 
-    private void updateButtons() {
+    public void updateButtons() {
         Button[] currentButtons;
         int numButtons = buttons.length + leftTab.getButtons().length + rightTab.getButtons().length;
         currentButtons = new Button[numButtons];
@@ -167,10 +165,11 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = MatrixTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    // TODO
                 }
             }
         };
-        buttons[3].setImage(new TextureRegion(Assets.minimatrix));
+        buttons[3].setImage(new TextureRegion(Assets.minicard));
         buttons[4] = new Button(
                 tab,
                 4 * Gdx.graphics.getHeight() / 6,
@@ -239,6 +238,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = ActionsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    // TODO
                 }
             }
         };
@@ -260,7 +260,7 @@ public class Game extends MyScreen {
                 }
             }
         };
-        buttons[8].setImage(new TextureRegion(Assets.minimatrix));
+        buttons[8].setImage(new TextureRegion(Assets.minicard));
         buttons[9] = new Button(
                 tab,
                 Metrics.phoneWidth / 2 + 4 * Gdx.graphics.getHeight() / 6,

@@ -15,12 +15,16 @@ public class Dice {
 
     private TextureRegion currentRegion;
     private Animation animation = null;
-    private float x = 0f, y = 0f;
+    private float x = 0f, y = 0f, width = 0f, height = 0f;
     private float time = 0f;
     private boolean visible = false;
     private boolean stopped = true;
 
-    public Dice() {
+    public Dice(float x, float y, float width, float height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         TextureRegion[] regions = new TextureRegion[6];
         regions[0] = Assets.dice1;
         regions[1] = Assets.dice2;
@@ -98,8 +102,8 @@ public class Dice {
                     currentRegion,
                     x + offset,
                     y,
-                    Gdx.graphics.getHeight() / 6,
-                    Gdx.graphics.getHeight() / 6
+                    width,
+                    height
             );
         }
     }

@@ -16,7 +16,8 @@ public class Assets {
     public static TextureRegion button1, button2, button3, button4, button5;
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
-            minichart, minimatrix, miniactions, arrow, workforceIcon, landIcon, capitalIcon;
+            minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
+            chart, refresh;
 
     public static void load() {
         if (!loaded) {
@@ -52,12 +53,16 @@ public class Assets {
             bg.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             board = new Texture(Gdx.files.internal("board.png"));
             board.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            chart = new Texture(Gdx.files.internal("images/chart.png"));
+            chart.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             player = new Texture(Gdx.files.internal("player.png"));
             player.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             tab = new Texture(Gdx.files.internal("tab.png"));
             tab.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             arrow = new Texture(Gdx.files.internal("images/arrow.png"));
             arrow.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            refresh = new Texture(Gdx.files.internal("images/refresh.png"));
+            refresh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             infocard = new Texture(Gdx.files.internal("infocard.png"));
             infocard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Production factors
@@ -74,8 +79,8 @@ public class Assets {
             miniboard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             minichart = new Texture(Gdx.files.internal("images/minichart.png"));
             minichart.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            minimatrix = new Texture(Gdx.files.internal("images/minimatrix.png"));
-            minimatrix.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            minicard = new Texture(Gdx.files.internal("images/minicard.png"));
+            minicard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             miniactions = new Texture(Gdx.files.internal("images/miniactions.png"));
             miniactions.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Characters

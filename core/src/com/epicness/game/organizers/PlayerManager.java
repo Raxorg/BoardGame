@@ -8,6 +8,7 @@ import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.screens.CharacterSelection;
+import com.epicness.game.screens.tabs.ActionsTab;
 
 /**
  * Created by Groxar on 18/12/2016.
@@ -21,6 +22,7 @@ public class PlayerManager {
     private Player[] players;
     // this is the index of the player of this phone
     private int playerIndex;
+    private int playerTurn;
 
     private PlayerManager() {
         players = new Player[4];
@@ -28,6 +30,7 @@ public class PlayerManager {
         players[1] = new Player(Color.CYAN, 1, 0);
         players[2] = new Player(Color.YELLOW, 0, 1);
         players[3] = new Player(Color.GREEN, 1, 1);
+        playerTurn = -1;
     }
 
     public static PlayerManager getInstance() {
@@ -85,6 +88,10 @@ public class PlayerManager {
         players[player].setCharacter(character);
     }
 
+    public void currentActionDBUpdate(int player, int actionIndex) {
+        players[player].setCurrentActionIndex(actionIndex);
+    }
+
     public void landDBUpdate(int player, int land) {
         players[player].setLand(land);
     }
@@ -119,6 +126,17 @@ public class PlayerManager {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+        if (playerTurn == playerIndex) {
+            ActionsTab.getInstance().yourTurn();
+        }
     }
 /*
     public String getAssignedPlayer() {

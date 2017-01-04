@@ -15,6 +15,8 @@ public interface FirebaseInterface {
 
     void setCharacter(int player, String character);
 
+    void setCurrentActionIndex(int player, int actionIndex);
+
     void setLand(int player, int land);
 
     void setMoney(int player, int money);
@@ -33,6 +35,8 @@ public interface FirebaseInterface {
 
     void getCharacter(int player);
 
+    void getCurrentActionIndex(int player);
+
     void getLand(int player);
 
     void getMoney(int player);
@@ -43,6 +47,8 @@ public interface FirebaseInterface {
 
     void getWorkforce(int player);
 
+    void getTurn();
+
     //------------------
     //      OTHER
     //------------------
@@ -52,6 +58,4 @@ public interface FirebaseInterface {
     void requestPlayerForPhoneID(String phoneID);
 
     void verifyCharacter(String character);
-
-    void requestCharacter(String character);
 }

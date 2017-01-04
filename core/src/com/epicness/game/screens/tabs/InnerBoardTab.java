@@ -1,6 +1,8 @@
 package com.epicness.game.screens.tabs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.Metrics;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -30,5 +32,12 @@ public class InnerBoardTab extends Tab {
         for (Button b : buttons) {
             b.draw(left, batch);
         }
+        batch.draw(
+                Assets.chart,
+                0 + tabOffset,
+                0,
+                Metrics.tabHeight * 0.95f,
+                Metrics.tabHeight * 0.95f
+                );
     }
 }

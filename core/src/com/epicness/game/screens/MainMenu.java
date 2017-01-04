@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
@@ -20,8 +19,8 @@ import com.epicness.game.ui.buttons.Button;
 
 public class MainMenu extends MyScreen {
 
-    private String loadingText = "Loading...";
-    private String play = "PLAY";
+    private String loadingText = "Cargando...";
+    private String play = "JUGAR";
     private float playWidth, playHeight, loadingWidth, loadingHeight;
     private boolean requestingData;
 
@@ -56,7 +55,7 @@ public class MainMenu extends MyScreen {
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyPhoneID(BoardGame.phoneID);
                 Listener.setLoading(true);
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
             }
@@ -91,6 +90,7 @@ public class MainMenu extends MyScreen {
         for (int i = 0; i < 4; i++) {
             GetterManager.getInstance().getCapital(i);
             GetterManager.getInstance().getCharacter(i);
+            GetterManager.getInstance().getCurrentActionIndex(i);
             GetterManager.getInstance().getLand(i);
             GetterManager.getInstance().getMoney(i);
             GetterManager.getInstance().getPhoneID(i);
@@ -123,7 +123,7 @@ public class MainMenu extends MyScreen {
 
     public void doneRequestingPlayerForPhoneID(int phoneIDIndex) {
         if (phoneIDIndex == -1) {
-            loadingText = "Game is full";
+            loadingText = "Juego completo";
             loadingWidth = Text.getTextWidth(0, loadingText);
             loadingHeight = Text.getTextHeight(0, loadingText);
         } else {

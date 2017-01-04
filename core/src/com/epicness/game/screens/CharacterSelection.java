@@ -21,7 +21,8 @@ public class CharacterSelection extends MyScreen {
 
     private String loadingText = "";
     private float loadingWidth, loadingHeight;
-    private final String chooseText = "Elige tu personaje";
+    private final String chooseText = "Elige tu personaje",
+            readyText = "Estoy listo";
     private float textHeight, textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize, arrowXPosition;
@@ -85,7 +86,7 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("hayek");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
@@ -103,7 +104,7 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("keynes");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
@@ -121,7 +122,7 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("marx");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
@@ -139,7 +140,7 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("smith");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
@@ -181,6 +182,15 @@ public class CharacterSelection extends MyScreen {
         for (Button b : buttons) {
             b.draw(true, batch);
         }
+        // Draws "Ihe ready button
+        Text.setScale(0, 0.25f);
+        Text.bordered.setColor(Color.PURPLE);
+        Text.bordered.draw(
+                batch,
+                readyText,
+                Metrics.phoneWidth / 2 - Text.getTextWidth(0, readyText) / 2,
+                imageYPos - textSpaceHeight * 5.25f
+        );
         Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);
         Text.bordered.draw(

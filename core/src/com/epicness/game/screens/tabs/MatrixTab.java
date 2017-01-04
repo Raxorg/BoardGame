@@ -30,5 +30,6 @@ public class MatrixTab extends Tab {
         for (Button b : buttons) {
             b.draw(left, batch);
         }
+
     }
 }

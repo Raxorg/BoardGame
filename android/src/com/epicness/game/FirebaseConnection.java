@@ -1,7 +1,6 @@
 package com.epicness.game;
 
 import com.epicness.game.firebase.FirebaseInterface;
-import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
@@ -20,11 +19,13 @@ class FirebaseConnection implements FirebaseInterface {
 
     private DatabaseReference[] capitalReferences;
     private DatabaseReference[] characterReferences;
+    private DatabaseReference[] currentActionIndexReferences;
     private DatabaseReference[] landReferences;
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] phoneIDReferences;
     private DatabaseReference[] positionReferences;
     private DatabaseReference[] workforceReferences;
+    private DatabaseReference turnReference;
 
     FirebaseConnection() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -33,6 +34,7 @@ class FirebaseConnection implements FirebaseInterface {
         DatabaseReference playersReference = gameReference.child("players");
         capitalReferences = new DatabaseReference[4];
         characterReferences = new DatabaseReference[4];
+        currentActionIndexReferences = new DatabaseReference[4];
         landReferences = new DatabaseReference[4];
         moneyReferences = new DatabaseReference[4];
         phoneIDReferences = new DatabaseReference[4];
@@ -44,12 +46,15 @@ class FirebaseConnection implements FirebaseInterface {
             DatabaseReference currentPlayerReference = playersReference.child("player" + i);
             capitalReferences[i] = currentPlayerReference.child("capital");
             characterReferences[i] = currentPlayerReference.child("character");
+            currentActionIndexReferences[i] = currentPlayerReference.child("currentActionIndex");
             landReferences[i] = currentPlayerReference.child("land");
             moneyReferences[i] = currentPlayerReference.child("money");
             phoneIDReferences[i] = currentPlayerReference.child("phoneID");
             positionReferences[i] = currentPlayerReference.child("position");
             workforceReferences[i] = currentPlayerReference.child("workforce");
         }
+
+        turnReference = gameReference.child("turn");
     }
 
     //---------------------------
@@ -64,6 +69,11 @@ class FirebaseConnection implements FirebaseInterface {
     @Override
     public void setCharacter(int player, String character) {
         characterReferences[player].setValue(character);
+    }
+
+    @Override
+    public void setCurrentActionIndex(int player, int actionIndex) {
+        currentActionIndexReferences[player].setValue(actionIndex);
     }
 
     @Override
@@ -118,6 +128,22 @@ class FirebaseConnection implements FirebaseInterface {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String character = dataSnapshot.getValue(String.class);
                 PlayerManager.getInstance().characterDBUpdate(player, character);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getCurrentActionIndex(final int player) {
+        currentActionIndexReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int actionIndex = dataSnapshot.getValue(Integer.class);
+                PlayerManager.getInstance().currentActionDBUpdate(player, actionIndex);
             }
 
             @Override
@@ -294,8 +320,19 @@ class FirebaseConnection implements FirebaseInterface {
     }
 
     @Override
-    public void requestCharacter(String character) {
+    public void getTurn() {
+        turnReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int playerTurn = dataSnapshot.getValue(Integer.class);
+                PlayerManager.getInstance().setPlayerTurn(playerTurn);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

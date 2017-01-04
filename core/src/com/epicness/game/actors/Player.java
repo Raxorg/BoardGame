@@ -22,6 +22,7 @@ public class Player {
     // These are on the DB
     private int capital;
     private String character;
+    private int currentActionIndex;
     private int land;
     private int money;
     private String phoneID;
@@ -50,6 +51,10 @@ public class Player {
 
     public void setCharacter(String character) {
         this.character = character;
+    }
+
+    public void setCurrentActionIndex(int currentActionIndex) {
+        this.currentActionIndex = currentActionIndex;
     }
 
     public void setLand(int land) {
@@ -83,6 +88,10 @@ public class Player {
 
     public String getCharacter() {
         return character;
+    }
+
+    public int getCurrentActionIndex() {
+        return currentActionIndex;
     }
 
     public int getLand() {
