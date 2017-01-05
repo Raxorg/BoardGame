@@ -9,6 +9,7 @@ import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.Text;
+import com.epicness.game.screens.MainMenu;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -167,6 +168,7 @@ public class BuyFactorsAction extends Action {
                         PlayerManager.getInstance().getPlayerIndex(),
                         4
                 );
+                MainMenu.getInstance().getAllDataFromDatabase();
                 ActionsTab.getInstance().setCurrentAction(UpgradeCardsAction.getInstance().reset());
             }
         };

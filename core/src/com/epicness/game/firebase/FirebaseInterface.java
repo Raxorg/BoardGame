@@ -57,6 +57,8 @@ public interface FirebaseInterface {
 
     void getGameStarted();
 
+    void getWinner();
+
     //------------------
     //      OTHER
     //------------------
@@ -88,4 +90,12 @@ public interface FirebaseInterface {
     void refreshFactorsToUpgradeCard(int card);
 
     void upgradeCard(int player, int factor);
+
+    void updateSectorsToCheckWinCondition();
+
+    void passTurn();
+
+    void endGame(int winner);
+
+    void resetDatabase();
 }

@@ -3,9 +3,11 @@ package com.epicness.game;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.FirebaseInterface;
+import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
+import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BuyFactorsAction;
 import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
@@ -37,6 +39,7 @@ class FirebaseConnection implements FirebaseInterface {
     private DatabaseReference[] sectorReferences;
     private DatabaseReference[] workforceReferences;
     private DatabaseReference turnReference;
+    private DatabaseReference winnerReference;
 
     FirebaseConnection() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -70,6 +73,24 @@ class FirebaseConnection implements FirebaseInterface {
         }
 
         turnReference = gameReference.child("turn");
+        winnerReference = gameReference.child("winner");
+        winnerReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int winner = dataSnapshot.getValue(Integer.class);
+                if (winner != -1) {
+                    endGame(winner);
+                } else {
+                    Listener.setLoading(false);
+                    BoardGame.winnerText = "";
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //---------------------------
@@ -146,8 +167,22 @@ class FirebaseConnection implements FirebaseInterface {
         characterReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String character = dataSnapshot.getValue(String.class);
+                final String character = dataSnapshot.getValue(String.class);
                 PlayerManager.getInstance().characterDBUpdate(player, character);
+                winnerReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int winner = dataSnapshot.getValue(Integer.class);
+                        if (player == winner) {
+                            BoardGame.setWinnerCharacter(character);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -378,6 +413,26 @@ class FirebaseConnection implements FirebaseInterface {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean gameStarted = dataSnapshot.getValue(Boolean.class);
                 PlayerManager.getInstance().setGameStarted(gameStarted);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getWinner() {
+        winnerReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int winner = dataSnapshot.getValue(Integer.class);
+                if (winner != -1) {
+                    BoardGame.setWinnerCharacter(
+                            PlayerManager.getInstance().getPlayers()[winner].getCharacter()
+                    );
+                }
             }
 
             @Override
@@ -867,5 +922,69 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+    }
+
+    @Override
+    public void updateSectorsToCheckWinCondition() {
+        int playerIndex = PlayerManager.getInstance().getPlayerIndex();
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            sectorReferences[playerIndex].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (finalI == 3) {
+                        UpgradeCardsAction.getInstance().doneUpdatingFactorsToCheckWinCondition();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void passTurn() {
+        turnReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int turn = dataSnapshot.getValue(Integer.class);
+                turnReference.setValue(turn + 1);
+                PlayerManager.getInstance().turnDBUpdate(turn + 1);
+                ActionsTab.getInstance().setCurrentAction(WaitAction.getInstance());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void endGame(int winner) {
+        winnerReference.setValue(winner);
+        String winnerCharacter = PlayerManager.getInstance().getPlayers()[winner].getCharacter();
+        BoardGame.setWinnerCharacter(winnerCharacter);
+    }
+
+    @Override
+    public void resetDatabase() {
+        winnerReference.setValue(-1);
+        turnReference.setValue(0);
+        gameStartedReference.setValue(false);
+        for (int i = 0; i < 4; i++) {
+            capitalReferences[i].setValue(0);
+            characterReferences[i].setValue("none");
+            currentActionIndexReferences[i].setValue(0);
+            landReferences[i].setValue(0);
+            moneyReferences[i].setValue(1000);
+            phoneIDReferences[i].setValue("none");
+            positionReferences[i].setValue(0);
+            sectorReferences[i].setValue("1,1,1,1");
+            workforceReferences[i].setValue(0);
+        }
     }
 }

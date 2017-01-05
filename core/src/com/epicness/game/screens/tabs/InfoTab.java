@@ -3,6 +3,7 @@ package com.epicness.game.screens.tabs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.epicness.game.actors.Player;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.PlayerManager;
@@ -108,7 +109,11 @@ public class InfoTab extends Tab {
         }
 
         private void draw(SpriteBatch batch) {
-            batch.setColor(new Color(1, 75f / 255f, 58f / 255f, 1));
+            if (PlayerManager.getInstance().getPlayerIndex() == playerIndex) {
+                batch.setColor(new Color(58f / 255f, 75f / 255f, 1, 1));
+            } else {
+                batch.setColor(new Color(1, 75f / 255f, 58f / 255f, 1));
+            }
             // Draws the background
             batch.draw(
                     Assets.infocard,

@@ -87,4 +87,7 @@ public class GetterManager {
     public void getSectors(int player) {
         firebaseInterface.getSectors(player);
     }
+    public void getWinner() {
+        firebaseInterface.getWinner();
+    }
 }
