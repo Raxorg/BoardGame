@@ -44,7 +44,7 @@ public abstract class Button {
                 height
         );
         batch.setColor(Color.WHITE);
-        if (image != null) {
+        if (image != null && color != Color.CLEAR) {
             batch.draw(
                     image,
                     x + width / 2f - height * 0.75f / 2f + offset,

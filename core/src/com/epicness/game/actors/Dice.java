@@ -19,14 +19,12 @@ public class Dice {
     private float time = 0f;
     private boolean visible = false;
     private boolean stopped = true;
-    private float speed;
 
     public Dice(float x, float y, float width, float height, float speed) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = speed;
         TextureRegion[] regions = new TextureRegion[6];
         regions[0] = Assets.dice1;
         regions[1] = Assets.dice2;
@@ -63,10 +61,6 @@ public class Dice {
         return visible;
     }
 
-    public void resetTime() {
-        time = 0;
-    }
-
     public int getCurrentFace() {
         if (currentRegion == Assets.dice1)
             return 1;
@@ -93,8 +87,7 @@ public class Dice {
     }
 
     public void draw(boolean left, float delta, SpriteBatch batch) {
-        float offset = 0;
-        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
+        float offset  = left ? 0 : Gdx.graphics.getWidth() / 2;
         if (!stopped) {
             time += delta;
             currentRegion = animation.getKeyFrame(time, true);

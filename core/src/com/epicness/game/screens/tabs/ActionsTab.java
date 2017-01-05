@@ -25,11 +25,11 @@ public class ActionsTab extends Tab {
 
     private void makeActions() {
         actions = new Action[5];
-        actions[0] = WaitAction.getInstance();
-        actions[1] = ThrowFirstDiceAction.getInstance();
-        actions[2] = ThrowDiceToMoveAction.getInstance();
-        actions[3] = BuyFactorsAction.getInstance();
-        actions[4] = UpgradeCardsAction.getInstance();
+        actions[0] = WaitAction.getInstance().reset();
+        actions[1] = ThrowFirstDiceAction.getInstance().reset();
+        actions[2] = ThrowDiceToMoveAction.getInstance().reset();
+        actions[3] = BuyFactorsAction.getInstance().reset();
+        actions[4] = UpgradeCardsAction.getInstance().reset();
         currentAction = actions[0];
     }
 
@@ -46,8 +46,8 @@ public class ActionsTab extends Tab {
     }
 
     public void setCurrentAction(Action currentAction) {
-
         this.currentAction = currentAction;
     }
+
 }
 

@@ -60,11 +60,12 @@ public class UpgradeCardsAction extends Action {
         float buttonSize = Metrics.tabHeight * 0.2f;
         float xSpace = (Metrics.phoneWidth / 2 - buttonSize * 2) / 3;
         float ySpace = (Metrics.tabHeight - buttonSize * 2) / 3;
+        float yOffset = Metrics.tabHeight * 0.1f;
 
         buttons[0] = new Button(
                 Assets.button1,
                 xSpace,
-                Metrics.tabHeight - buttonSize - ySpace,
+                Metrics.tabHeight - buttonSize - ySpace - yOffset,
                 buttonSize,
                 buttonSize,
                 Color.PURPLE
@@ -87,7 +88,7 @@ public class UpgradeCardsAction extends Action {
         buttons[1] = new Button(
                 Assets.button1,
                 Metrics.phoneWidth / 2 - buttonSize - xSpace,
-                Metrics.tabHeight - buttonSize - ySpace,
+                Metrics.tabHeight - buttonSize - ySpace - yOffset,
                 buttonSize,
                 buttonSize,
                 Color.PURPLE
@@ -110,7 +111,7 @@ public class UpgradeCardsAction extends Action {
         buttons[2] = new Button(
                 Assets.button1,
                 xSpace,
-                ySpace,
+                ySpace - yOffset,
                 buttonSize,
                 buttonSize,
                 Color.PURPLE
@@ -133,7 +134,7 @@ public class UpgradeCardsAction extends Action {
         buttons[3] = new Button(
                 Assets.button1,
                 Metrics.phoneWidth / 2 - buttonSize - xSpace,
-                ySpace,
+                ySpace - yOffset,
                 buttonSize,
                 buttonSize,
                 Color.PURPLE
@@ -157,15 +158,15 @@ public class UpgradeCardsAction extends Action {
         buttons[4] = new Button(
                 Assets.button1,
                 Metrics.phoneWidth / 4 - (Metrics.phoneWidth / 10) / 2,
-                Metrics.tabHeight / 2 - (Metrics.phoneWidth / 10) / 2,
+                Metrics.tabHeight / 2 - (Metrics.phoneWidth / 10) / 2 - yOffset,
                 Metrics.phoneWidth / 10,
                 Metrics.phoneWidth / 10,
                 Color.RED
         ) {
             @Override
             public void onTouchUp() {
-                // TODO VERIFY WIN CONDITION
-                // TODO PASS TURN
+                // TODO SHOW PRICE
+                BoardGame.firebaseInterface.updateSectorsToCheckWinCondition();
             }
         };
         buttons[4].setImage(new TextureRegion(Assets.next));
@@ -178,6 +179,9 @@ public class UpgradeCardsAction extends Action {
         String newSectors = "";
         switch (card) {
             case 0:
+                if (player.getHumanDevelopment() == 6) {
+                    break;
+                }
                 if (player.getWorkforce() >= (player.getHumanDevelopment() + 1) &&
                         player.getLand() >= (player.getHumanDevelopment() + 1) &&
                         player.getCapital() >= (player.getHumanDevelopment() + 1) * 2) {
@@ -197,6 +201,9 @@ public class UpgradeCardsAction extends Action {
                 }
                 break;
             case 1:
+                if (player.getInfrastructure() == 6) {
+                    break;
+                }
                 if (player.getWorkforce() >= (player.getInfrastructure() + 1) &&
                         player.getLand() >= (player.getInfrastructure() + 1) * 2 &&
                         player.getCapital() >= (player.getInfrastructure() + 1)) {
@@ -216,6 +223,9 @@ public class UpgradeCardsAction extends Action {
                 }
                 break;
             case 2:
+                if (player.getNaturalResources() == 6) {
+                    break;
+                }
                 if (player.getWorkforce() >= (player.getNaturalResources() + 1) * 2 &&
                         player.getLand() >= (player.getNaturalResources() + 1) &&
                         player.getCapital() >= (player.getNaturalResources() + 1)) {
@@ -235,6 +245,9 @@ public class UpgradeCardsAction extends Action {
                 }
                 break;
             case 3:
+                if (player.getTechnology() == 6) {
+                    break;
+                }
                 if (player.getWorkforce() >= (player.getTechnology() + 1) * 2 &&
                         player.getLand() >= (player.getTechnology() + 1) &&
                         player.getCapital() >= (player.getTechnology() + 1) * 2) {
@@ -271,6 +284,17 @@ public class UpgradeCardsAction extends Action {
         titleWidth = Text.getTextWidth(0, title);
         titleHeight = Text.getTextHeight(0, title);
         Listener.setLoading(false);
+    }
+
+    public void doneUpdatingFactorsToCheckWinCondition() {
+        int playerIndex = PlayerManager.getInstance().getPlayerIndex();
+        Player player = PlayerManager.getInstance().getPlayers()[playerIndex];
+        if (player.getHumanDevelopment() == 6 && player.getInfrastructure() == 6 &&
+                player.getNaturalResources() == 6 && player.getTechnology() == 6) {
+            BoardGame.firebaseInterface.endGame(playerIndex);
+        } else {
+            BoardGame.firebaseInterface.passTurn();
+        }
     }
 
     @Override

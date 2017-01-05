@@ -3,10 +3,12 @@ package com.epicness.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
+import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
@@ -22,7 +24,7 @@ public class MainMenu extends MyScreen {
     private String loadingText = "Cargando...";
     private String play = "JUGAR";
     private float playWidth, playHeight, loadingWidth, loadingHeight;
-    private boolean requestingData;
+    private boolean requestingData, resetEnabled;
 
     private static MainMenu instance = new MainMenu();
 
@@ -35,6 +37,7 @@ public class MainMenu extends MyScreen {
         loadingHeight = Text.getTextHeight(0, loadingText);
         makeButtons();
         getAllDataFromDatabase();
+        resetEnabled = false;
     }
 
     public static MainMenu getInstance() {
@@ -42,7 +45,7 @@ public class MainMenu extends MyScreen {
     }
 
     public void makeButtons() {
-        buttons = new Button[1];
+        buttons = new Button[2];
         buttons[0] = new Button(
                 Assets.button3,
                 Gdx.graphics.getWidth() / 2 - 1.5f * (Gdx.graphics.getHeight() / 6),
@@ -53,6 +56,7 @@ public class MainMenu extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
+                getAllDataFromDatabase();
                 BoardGame.firebaseInterface.verifyPhoneID(BoardGame.phoneID);
                 Listener.setLoading(true);
                 loadingText = "Cargando...";
@@ -61,6 +65,24 @@ public class MainMenu extends MyScreen {
                 Assets.buttonSound.play();
             }
         };
+        buttons[1] = new Button(
+                Assets.button1,
+                Gdx.graphics.getWidth() / 2 - (Gdx.graphics.getHeight() / 6) / 2,
+                Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 6),
+                Metrics.phoneHeight / 6,
+                Metrics.phoneHeight / 6,
+                Color.CLEAR
+        ) {
+            @Override
+            public void onTouchUp() {
+                if (resetEnabled) {
+                    BoardGame.firebaseInterface.resetDatabase();
+                    resetEnabled = false;
+                    buttons[1].setColor(Color.CLEAR);
+                }
+            }
+        };
+        buttons[1].setImage(new TextureRegion(Assets.refresh));
     }
 
     @Override
@@ -102,6 +124,7 @@ public class MainMenu extends MyScreen {
             GetterManager.getInstance().getWorkforce(i);
         }
         GetterManager.getInstance().getTurn();
+        GetterManager.getInstance().getWinner();
     }
 
     public boolean isRequestingData() {
@@ -140,5 +163,10 @@ public class MainMenu extends MyScreen {
             Listener.setLoading(false);
             ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
         }
+    }
+
+    public void enableResetButton() {
+        buttons[1].setColor(Color.RED);
+        resetEnabled = true;
     }
 }
