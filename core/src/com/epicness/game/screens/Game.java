@@ -110,6 +110,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = BoardTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -128,6 +129,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = InfoTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -146,7 +148,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = ActionsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
-                    // TODO
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -165,6 +167,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = FactorsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -183,6 +186,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = InnerBoardTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -201,6 +205,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = BoardTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -219,6 +224,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = InfoTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -237,7 +243,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = ActionsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
-                    // TODO
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -256,6 +262,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = FactorsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };
@@ -274,6 +281,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = InnerBoardTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    Assets.pageSound.play();
                 }
             }
         };

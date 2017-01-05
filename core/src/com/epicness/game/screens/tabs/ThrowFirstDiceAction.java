@@ -92,6 +92,7 @@ public class ThrowFirstDiceAction extends Action {
                         capitalDice.setStopped(false);
                     }
                     throwed = true;
+                    Assets.diceSound.play();
                 } else {
                     int playerIndex = PlayerManager.getInstance().getPlayerIndex();
                     if (PlayerManager.getInstance().getPlayers()[playerIndex].getCurrentActionIndex() == 1) {

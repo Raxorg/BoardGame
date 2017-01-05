@@ -65,6 +65,7 @@ public class ThrowDiceToMoveAction extends Action {
                         dice.setStopped(false);
                     }
                     throwed = true;
+                    Assets.diceSound.play();
                 } else {
                     int playerIndex = PlayerManager.getInstance().getPlayerIndex();
                     if (PlayerManager.getInstance().getPlayers()[playerIndex].getCurrentActionIndex() == 2) {

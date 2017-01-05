@@ -58,6 +58,7 @@ public class MainMenu extends MyScreen {
                 loadingText = "Cargando...";
                 loadingWidth = Text.getTextWidth(0, loadingText);
                 loadingHeight = Text.getTextHeight(0, loadingText);
+                Assets.buttonSound.play();
             }
         };
     }
@@ -120,7 +121,6 @@ public class MainMenu extends MyScreen {
             PlayerManager.getInstance().setPlayerIndex(phoneIDIndex);
             loadingText = "";
             Listener.setLoading(false);
-            // TODO si el phoneID ya tiene character directo al juego
             ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
         }
     }

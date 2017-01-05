@@ -97,6 +97,7 @@ public class CharacterSelection extends MyScreen {
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
                 arrowXPosition = characterSpace + imageWidth / 2 - colorButtonSize / 2;
+                Assets.buttonSound.play();
             }
         };
         buttons[1] = new Button(
@@ -115,6 +116,7 @@ public class CharacterSelection extends MyScreen {
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
                 arrowXPosition = characterSpace * 2 + imageWidth * 1.5f - colorButtonSize / 2;
+                Assets.buttonSound.play();
             }
         };
         buttons[2] = new Button(
@@ -133,6 +135,7 @@ public class CharacterSelection extends MyScreen {
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
                 arrowXPosition = characterSpace * 3 + imageWidth * 2.5f - colorButtonSize / 2;
+                Assets.buttonSound.play();
             }
         };
         buttons[3] = new Button(
@@ -151,6 +154,7 @@ public class CharacterSelection extends MyScreen {
                 loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
                 arrowXPosition = characterSpace * 4 + imageWidth * 3.5f - colorButtonSize / 2;
+                Assets.buttonSound.play();
             }
         };
         // Refresh button
@@ -173,6 +177,7 @@ public class CharacterSelection extends MyScreen {
                     loadingWidth = Text.getTextWidth(0, loadingText);
                     loadingHeight = Text.getTextHeight(0, loadingText);
                 }
+                Assets.buttonSound.play();
             }
         };
         buttons[4].setImage(new TextureRegion(Assets.refresh));
