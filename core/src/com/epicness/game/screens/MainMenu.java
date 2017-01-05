@@ -97,6 +97,7 @@ public class MainMenu extends MyScreen {
             GetterManager.getInstance().getMoney(i);
             GetterManager.getInstance().getPhoneID(i);
             GetterManager.getInstance().getPosition(i);
+            GetterManager.getInstance().getSectors(i);
             GetterManager.getInstance().getWorkforce(i);
         }
         GetterManager.getInstance().getTurn();

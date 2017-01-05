@@ -27,6 +27,7 @@ public class Player {
     private int money;
     private String phoneID;
     private int position;
+    private String sectors;
     private int workforce;
 
     public Player(Color color, float offsetX, float offsetY) {
@@ -39,6 +40,7 @@ public class Player {
         this.color = color;
         character = "none";
         phoneID = "none";
+        sectors = "d1,i1,n1,t1";
     }
 
     //---------------------------
@@ -72,6 +74,10 @@ public class Player {
     public void setPosition(int position) {
         this.position = position;
         move(Board.getInstance().getCell(position));
+    }
+
+    public void setSectors(String sectors) {
+        this.sectors = sectors;
     }
 
     public void setWorkforce(int workforce) {
@@ -116,6 +122,26 @@ public class Player {
 
     public Color getColor() {
         return color;
+    }
+
+    public int getHumanDevelopment() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[0]);
+    }
+
+    public int getInfrastructure() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[1]);
+    }
+
+    public int getNaturalResources() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[2]);
+    }
+
+    public int getTechnology() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[3]);
     }
 
     //---------------------------

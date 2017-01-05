@@ -47,6 +47,8 @@ public interface FirebaseInterface {
 
     void getWorkforce(int player);
 
+    void getSectors(int player);
+
     // Other getters
 
     void getTurn();
@@ -72,4 +74,6 @@ public interface FirebaseInterface {
     void gameStartedAdvice(boolean gameStarted);
 
     void refreshCurrentActionIndexes();
+
+    void refreshFactorCards(int player);
 }

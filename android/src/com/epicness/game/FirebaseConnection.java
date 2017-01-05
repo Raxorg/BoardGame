@@ -4,6 +4,7 @@ import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
+import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.ThrowDiceAction;
 import com.epicness.game.screens.tabs.WaitAction;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,7 @@ class FirebaseConnection implements FirebaseInterface {
     private DatabaseReference[] moneyReferences;
     private DatabaseReference[] phoneIDReferences;
     private DatabaseReference[] positionReferences;
+    private DatabaseReference[] sectorReferences;
     private DatabaseReference[] workforceReferences;
     private DatabaseReference turnReference;
 
@@ -44,6 +46,7 @@ class FirebaseConnection implements FirebaseInterface {
         moneyReferences = new DatabaseReference[4];
         phoneIDReferences = new DatabaseReference[4];
         positionReferences = new DatabaseReference[4];
+        sectorReferences = new DatabaseReference[4];
         workforceReferences = new DatabaseReference[4];
 
         // Assign references
@@ -56,6 +59,7 @@ class FirebaseConnection implements FirebaseInterface {
             moneyReferences[i] = currentPlayerReference.child("money");
             phoneIDReferences[i] = currentPlayerReference.child("phoneID");
             positionReferences[i] = currentPlayerReference.child("position");
+            sectorReferences[i] = currentPlayerReference.child("sectors");
             workforceReferences[i] = currentPlayerReference.child("workforce");
         }
 
@@ -232,6 +236,22 @@ class FirebaseConnection implements FirebaseInterface {
                 if (MainMenu.getInstance().isRequestingData()) {
                     MainMenu.getInstance().doneLoadingData();
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getSectors(final int player) {
+        sectorReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String sectors = dataSnapshot.getValue(String.class);
+                PlayerManager.getInstance().sectorsDBUpdate(player, sectors);
             }
 
             @Override
@@ -508,6 +528,28 @@ class FirebaseConnection implements FirebaseInterface {
                     }
                     if (finalI == 3) {
                         CharacterSelection.getInstance().doneRefreshingActionIndexes(currentActionIndex);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void refreshFactorCards(final int player) {
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            sectorReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String sectors = dataSnapshot.getValue(String.class);
+                    PlayerManager.getInstance().sectorsDBUpdate(player, sectors);
+                    if (finalI == 3) {
+                        FactorsTab.getInstance().doneRefreshingFactorCards();
                     }
                 }
 

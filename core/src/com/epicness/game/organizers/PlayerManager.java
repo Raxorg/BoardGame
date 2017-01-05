@@ -109,6 +109,10 @@ public class PlayerManager {
         players[player].setPosition(position);
     }
 
+    public void sectorsDBUpdate(int player, String sectors) {
+        players[player].setSectors(sectors);
+    }
+
     public void workforceDBUpdate(int player, int workforce) {
         players[player].setWorkforce(workforce);
     }

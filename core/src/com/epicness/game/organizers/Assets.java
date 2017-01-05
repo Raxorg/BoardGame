@@ -17,7 +17,7 @@ public class Assets {
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
             minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
-            chart, refresh, next;
+            chart, refresh, next, factorCard, factorCardFG, factorCardBG;
 
     public static void load() {
         if (!loaded) {
@@ -74,6 +74,12 @@ public class Assets {
             landIcon.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             capitalIcon = new Texture(Gdx.files.internal("images/money.png"));
             capitalIcon.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            factorCard = new Texture(Gdx.files.internal("images/factorcard.png"));
+            factorCard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            factorCardFG = new Texture(Gdx.files.internal("images/factorcardfg.png"));
+            factorCardFG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            factorCardBG = new Texture(Gdx.files.internal("images/factorcardbg.png"));
+            factorCardBG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Tab images
             miniplayer = new Texture(Gdx.files.internal("images/miniplayer.png"));
             miniplayer.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

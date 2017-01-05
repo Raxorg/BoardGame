@@ -83,4 +83,8 @@ public class GetterManager {
     public void getTurn() {
         firebaseInterface.getTurn();
     }
+
+    public void getSectors(int player) {
+        firebaseInterface.getSectors(player);
+    }
 }

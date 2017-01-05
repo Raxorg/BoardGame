@@ -12,7 +12,7 @@ import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BoardTab;
 import com.epicness.game.screens.tabs.InfoTab;
 import com.epicness.game.screens.tabs.InnerBoardTab;
-import com.epicness.game.screens.tabs.MatrixTab;
+import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.Tab;
 import com.epicness.game.ui.buttons.Button;
 
@@ -73,7 +73,7 @@ public class Game extends MyScreen {
             buttons[2].setColor(Color.WHITE);
             buttons[7].setColor(Color.WHITE);
         }
-        if (MatrixTab.getInstance().isActive()) {
+        if (FactorsTab.getInstance().isActive()) {
             buttons[3].setColor(Color.GRAY);
             buttons[8].setColor(Color.GRAY);
         } else {
@@ -161,9 +161,9 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                if (!MatrixTab.getInstance().isActive()) {
+                if (!FactorsTab.getInstance().isActive()) {
                     leftTab.setActive(false);
-                    leftTab = MatrixTab.getInstance().setLeft(true).setActive(true);
+                    leftTab = FactorsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
                 }
             }
@@ -252,9 +252,9 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                if (!MatrixTab.getInstance().isActive()) {
+                if (!FactorsTab.getInstance().isActive()) {
                     rightTab.setActive(false);
-                    rightTab = MatrixTab.getInstance().setLeft(false).setActive(true);
+                    rightTab = FactorsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
                 }
             }

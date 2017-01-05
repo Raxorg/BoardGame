@@ -159,7 +159,7 @@ public class CharacterSelection extends MyScreen {
                 imageYPos - colorButtonSize * 4,
                 imageWidth * 0.5f,
                 imageWidth * 0.5f,
-                Color.WHITE
+                Color.GREEN
         ) {
             @Override
             public void onTouchUp() {
