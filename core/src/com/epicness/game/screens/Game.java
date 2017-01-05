@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
 import com.epicness.game.actors.Player;
-import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
 import com.epicness.game.screens.tabs.ActionsTab;
@@ -147,6 +146,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = ActionsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    // TODO
                 }
             }
         };
@@ -165,7 +165,6 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = MatrixTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
-                    // TODO
                 }
             }
         };

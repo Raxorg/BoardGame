@@ -88,6 +88,7 @@ public class MainMenu extends MyScreen {
     public void getAllDataFromDatabase() {
         requestingData = true;
         Listener.setLoading(true);
+        GetterManager.getInstance().getGameStarted();
         for (int i = 0; i < 4; i++) {
             GetterManager.getInstance().getCapital(i);
             GetterManager.getInstance().getCharacter(i);

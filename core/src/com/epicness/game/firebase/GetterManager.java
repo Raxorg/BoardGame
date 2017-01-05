@@ -44,6 +44,10 @@ public class GetterManager {
     //           BODY
     //---------------------------
 
+    public void getGameStarted() {
+        firebaseInterface.getGameStarted();
+    }
+
     public void getCapital(int player) {
         firebaseInterface.getCapital(player);
     }

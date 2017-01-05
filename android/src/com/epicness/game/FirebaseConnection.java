@@ -1,7 +1,5 @@
 package com.epicness.game;
 
-import android.provider.ContactsContract;
-
 import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
@@ -150,7 +148,7 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int actionIndex = dataSnapshot.getValue(Integer.class);
-                PlayerManager.getInstance().currentActionDBUpdate(player, actionIndex);
+                PlayerManager.getInstance().currentActionIndexDBUpdate(player, actionIndex);
             }
 
             @Override
@@ -332,7 +330,23 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int playerTurn = dataSnapshot.getValue(Integer.class);
-                PlayerManager.getInstance().setPlayerTurn(playerTurn);
+                PlayerManager.getInstance().turnDBUpdate(playerTurn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getGameStarted() {
+        gameStartedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean gameStarted = dataSnapshot.getValue(Boolean.class);
+                PlayerManager.getInstance().setGameStarted(gameStarted);
             }
 
             @Override
@@ -370,7 +384,7 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int turn = dataSnapshot.getValue(Integer.class);
-                PlayerManager.getInstance().setPlayerTurn(turn);
+                PlayerManager.getInstance().turnDBUpdate(turn);
                 WaitAction.getInstance().doneRefreshing();
             }
 
@@ -441,20 +455,33 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean DBgameStarted = dataSnapshot.getValue(Boolean.class);
+                // Si los datos no concuerdan
                 if (DBgameStarted != gameStarted) {
                     gameStartedReference.setValue(gameStarted);
-                    gameStartedReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            CharacterSelection.getInstance().doneGettingGameStarted(gameStarted);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                 }
+                gameStartedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        turnReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int turn = dataSnapshot.getValue(Integer.class);
+                                PlayerManager.getInstance().turnDBUpdate(turn);
+                                CharacterSelection.getInstance().doneGettingGameStarted(gameStarted);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -462,5 +489,33 @@ class FirebaseConnection implements FirebaseInterface {
 
             }
         });
+    }
+
+    private int currentActionIndex;
+
+    @Override
+    public void refreshCurrentActionIndexes() {
+        currentActionIndex = -1;
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            currentActionIndexReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int DBCurrentActionIndex = dataSnapshot.getValue(Integer.class);
+                    PlayerManager.getInstance().currentActionIndexDBUpdate(finalI, DBCurrentActionIndex);
+                    if (PlayerManager.getInstance().getPlayerIndex() == finalI) {
+                        currentActionIndex = DBCurrentActionIndex;
+                    }
+                    if (finalI == 3) {
+                        CharacterSelection.getInstance().doneRefreshingActionIndexes(currentActionIndex);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

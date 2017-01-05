@@ -51,6 +51,8 @@ public interface FirebaseInterface {
 
     void getTurn();
 
+    void getGameStarted();
+
     //------------------
     //      OTHER
     //------------------
@@ -68,4 +70,6 @@ public interface FirebaseInterface {
     void action1(int player, int workforce, int land, int capital);
 
     void gameStartedAdvice(boolean gameStarted);
+
+    void refreshCurrentActionIndexes();
 }

@@ -11,6 +11,10 @@ import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
+import com.epicness.game.screens.tabs.ActionsTab;
+import com.epicness.game.screens.tabs.BuyFactorsAction;
+import com.epicness.game.screens.tabs.ThrowDiceAction;
+import com.epicness.game.screens.tabs.WaitAction;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -241,7 +245,22 @@ public class CharacterSelection extends MyScreen {
 
     public void doneGettingGameStarted(boolean gameStarted) {
         if (gameStarted) {
-            ScreenManager.setCurrentScreen(Game.getInstance());
+            BoardGame.firebaseInterface.refreshCurrentActionIndexes();
         }
+    }
+
+    public void doneRefreshingActionIndexes(int actionIndex) {
+        switch (actionIndex) {
+            case 0:
+                ActionsTab.getInstance().setCurrentAction(WaitAction.getInstance());
+                break;
+            case 1:
+                ActionsTab.getInstance().setCurrentAction(ThrowDiceAction.getInstance());
+                break;
+            case 2:
+                ActionsTab.getInstance().setCurrentAction(BuyFactorsAction.getInstance());
+                break;
+        }
+        ScreenManager.setCurrentScreen(Game.getInstance());
     }
 }

@@ -3,7 +3,6 @@ package com.epicness.game.organizers;
 import com.badlogic.gdx.graphics.Color;
 import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.SetterManager;
-import com.epicness.game.screens.tabs.ActionsTab;
 
 /**
  * Created by Groxar on 18/12/2016.
@@ -18,6 +17,7 @@ public class PlayerManager {
     // this is the index of the player of this phone
     private int playerIndex;
     private int playerTurn;
+    private boolean gameStarted;
 
     private PlayerManager() {
         players = new Player[4];
@@ -26,6 +26,7 @@ public class PlayerManager {
         players[2] = new Player(Color.YELLOW, 0, 1);
         players[3] = new Player(Color.GREEN, 1, 1);
         playerTurn = -1;
+        gameStarted = false;
     }
 
     public static PlayerManager getInstance() {
@@ -88,7 +89,7 @@ public class PlayerManager {
         players[player].setCharacter(character);
     }
 
-    public void currentActionDBUpdate(int player, int actionIndex) {
+    public void currentActionIndexDBUpdate(int player, int actionIndex) {
         players[player].setCurrentActionIndex(actionIndex);
     }
 
@@ -112,6 +113,10 @@ public class PlayerManager {
         players[player].setWorkforce(workforce);
     }
 
+    public void turnDBUpdate(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
     //---------------------------
     //          OTHER
     //---------------------------
@@ -132,8 +137,12 @@ public class PlayerManager {
         return playerTurn;
     }
 
-    public void setPlayerTurn(int playerTurn) {
-        this.playerTurn = playerTurn;
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
+
+    public boolean getGameStarted() {
+        return gameStarted;
     }
 /*
     public String getAssignedPlayer() {
