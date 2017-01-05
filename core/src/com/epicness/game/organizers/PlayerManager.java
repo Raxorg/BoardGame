@@ -153,52 +153,5 @@ public class PlayerManager {
     public boolean getGameStarted() {
         return gameStarted;
     }
-/*
-    public String getAssignedPlayer() {
-        return assignedPlayer;
-    }
 
-    public void updatePlayerAssignmentFromDatabase(int player, String phoneID) {
-        if (phoneID.equals("none")) {
-            SetterManager.getInstance().setPhoneID(
-                    player,
-                    BoardGame.phoneID
-            );
-            assignedPlayer = "player" + player;
-            Listener.setLoading(false);
-            ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
-        } else {
-            if (player < 3) {
-                GetterManager.getInstance().getPlayerAssignment(player + 1, BoardGame.phoneID);
-            } else {
-                System.out.println("All players taken");
-            }
-        }
-    }
-
-    public void setAssignedPlayer(String assignedPlayer) {
-        this.assignedPlayer = assignedPlayer;
-        Listener.setLoading(false);
-        ScreenManager.setCurrentScreen(CharacterSelection.getInstance());
-    }
-
-    public void updateCharacterAssignmentFromDatabase(int player, String character) {
-        if (character.equals("none")) {
-            SetterManager.getInstance().setCharacter(
-                    player,
-                    CharacterSelection.getInstance().getRequestedCharacter()
-            );
-        }
-    }
-
-    public int checkCharacter() {
-        String requestedCharacter = CharacterSelection.getInstance().getRequestedCharacter();
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].getCharacter().equals(requestedCharacter)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    */
 }

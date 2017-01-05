@@ -155,10 +155,10 @@ public class BuyFactorsAction extends Action {
         buttons[2].setImage(new TextureRegion(Assets.plus));
         buttons[3] = new Button(
                 Assets.button1,
-                Metrics.phoneWidth / 2 - Metrics.phoneWidth / 7,
+                Metrics.phoneWidth / 2 - Metrics.phoneWidth / 10,
                 0,
-                Metrics.phoneWidth / 7,
-                Metrics.phoneWidth / 7,
+                Metrics.phoneWidth / 10,
+                Metrics.phoneWidth / 10,
                 Color.RED
         ) {
             @Override

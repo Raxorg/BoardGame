@@ -10,6 +10,7 @@ import com.epicness.game.screens.tabs.BuyFactorsAction;
 import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
 import com.epicness.game.screens.tabs.ThrowFirstDiceAction;
+import com.epicness.game.screens.tabs.UpgradeCardsAction;
 import com.epicness.game.screens.tabs.WaitAction;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -692,7 +693,7 @@ class FirebaseConnection implements FirebaseInterface {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             int DBLand = dataSnapshot.getValue(Integer.class);
-                                            PlayerManager.getInstance().updateWorkforce(player, DBLand + 1);
+                                            PlayerManager.getInstance().updateLand(player, DBLand + 1);
                                             landReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -718,7 +719,7 @@ class FirebaseConnection implements FirebaseInterface {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             int DBCapital = dataSnapshot.getValue(Integer.class);
-                                            PlayerManager.getInstance().updateWorkforce(player, DBCapital + 1);
+                                            PlayerManager.getInstance().updateCapital(player, DBCapital + 1);
                                             capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -747,6 +748,117 @@ class FirebaseConnection implements FirebaseInterface {
                         }
                     });
                 }
+                BuyFactorsAction.getInstance().doneBuyingFactor();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void refreshFactorsToUpgradeCard(final int card) {
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            workforceReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int DBWorkforce = dataSnapshot.getValue(Integer.class);
+                    PlayerManager.getInstance().workforceDBUpdate(finalI, DBWorkforce);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            landReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int DBLand = dataSnapshot.getValue(Integer.class);
+                    PlayerManager.getInstance().landDBUpdate(finalI, DBLand);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            capitalReferences[i].addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int DBCapital = dataSnapshot.getValue(Integer.class);
+                    PlayerManager.getInstance().capitalDBUpdate(finalI, DBCapital);
+                    if (finalI == 3) {
+                        UpgradeCardsAction.getInstance().doneRefreshingFactorsToUpgradeCard(card);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void upgradeCard(final int player, final int factor) {
+        sectorReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Obtain DB data
+                String sectors = dataSnapshot.getValue(String.class);
+                // update local data
+                PlayerManager.getInstance().sectorsDBUpdate(player, sectors);
+                String newSectors = "";
+                String[] indexes = sectors.split(",");
+                int newValue;
+                switch (factor) {
+                    case 0:
+                        newValue = 1 + Integer.parseInt(indexes[0]);
+                        indexes[0] = newValue + "";
+                        break;
+                    case 1:
+                        newValue = 1 + Integer.parseInt(indexes[1]);
+                        indexes[1] = newValue + "";
+                        break;
+                    case 2:
+                        newValue = 1 + Integer.parseInt(indexes[2]);
+                        indexes[2] = newValue + "";
+                        break;
+                    case 3:
+                        newValue = 1 + Integer.parseInt(indexes[3]);
+                        indexes[3] = newValue + "";
+                        break;
+                }
+                for (int i = 0; i < 4; i++) {
+                    if (i == 3) {
+                        newSectors += indexes[i] + "";
+                    } else {
+                        newSectors += indexes[i] + ",";
+                    }
+                }
+                PlayerManager.getInstance().updateSectors(player, newSectors);
+                sectorReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UpgradeCardsAction.getInstance().doneUpgradingCard();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

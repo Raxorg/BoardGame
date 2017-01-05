@@ -274,6 +274,7 @@ public class CharacterSelection extends MyScreen {
                 ActionsTab.getInstance().setCurrentAction(UpgradeCardsAction.getInstance());
                 break;
         }
+        MainMenu.getInstance().getAllDataFromDatabase();
         ScreenManager.setCurrentScreen(Game.getInstance());
     }
 }

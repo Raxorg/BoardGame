@@ -84,4 +84,8 @@ public interface FirebaseInterface {
     void refreshFactorCards(int player);
 
     void buyFactor(int player, int factor);
+
+    void refreshFactorsToUpgradeCard(int card);
+
+    void upgradeCard(int player, int factor);
 }

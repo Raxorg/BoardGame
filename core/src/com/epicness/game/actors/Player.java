@@ -40,7 +40,7 @@ public class Player {
         this.color = color;
         character = "none";
         phoneID = "none";
-        sectors = "d1,i1,n1,t1";
+        sectors = "1,1,1,1";
     }
 
     //---------------------------

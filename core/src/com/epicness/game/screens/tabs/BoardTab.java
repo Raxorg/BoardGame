@@ -1,9 +1,13 @@
 package com.epicness.game.screens.tabs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
+import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.PlayerManager;
+import com.epicness.game.screens.MainMenu;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -25,7 +29,21 @@ public class BoardTab extends Tab {
 
     @Override
     void makeButtons() {
-        buttons = new Button[0];
+        buttons = new Button[1];
+        buttons[0] = new Button(
+                Assets.button1,
+                Board.getInstance().getX() + Board.getInstance().getSide() / 2 - (Board.getInstance().getSide() / 8) / 2,
+                Board.getInstance().getY() + Board.getInstance().getSide() / 2 - (Board.getInstance().getSide() / 8) / 2,
+                Board.getInstance().getSide() / 8,
+                Board.getInstance().getSide() / 8,
+                Color.GREEN
+        ) {
+            @Override
+            public void onTouchUp() {
+                MainMenu.getInstance().getAllDataFromDatabase();
+            }
+        };
+        buttons[0].setImage(new TextureRegion(Assets.refresh));
     }
 
     @Override
@@ -35,10 +53,6 @@ public class BoardTab extends Tab {
             batch.setColor(p.getColor());
             p.draw(left, delta, batch);
         }
-        /*batch.setColor(0, 0.75f, 0.75f, 1);
-        if (dice.isVisible()) {
-            dice.draw(delta, batch);
-        }*/
         for (Button b : buttons) {
             b.draw(left, batch);
         }

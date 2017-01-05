@@ -18,7 +18,8 @@ public class Assets {
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
             minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
-            chart, refresh, next, plus, factorCard, factorCardFG, factorCardBG;
+            chart, refresh, next, plus, factorCard, factorCardFG, factorCardBG,
+            humanDevelopment, infrastructure, naturalResources, technology;
     public static Sound buttonSound, pageSound, diceSound;
 
     public static void load() {
@@ -84,6 +85,14 @@ public class Assets {
             factorCardFG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             factorCardBG = new Texture(Gdx.files.internal("images/factorcardbg.png"));
             factorCardBG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            humanDevelopment = new Texture(Gdx.files.internal("IDH.png"));
+            humanDevelopment.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            infrastructure = new Texture(Gdx.files.internal("I.png"));
+            infrastructure.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            naturalResources = new Texture(Gdx.files.internal("RN.png"));
+            naturalResources.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            technology = new Texture(Gdx.files.internal("T.png"));
+            technology.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Tab images
             miniplayer = new Texture(Gdx.files.internal("images/miniplayer.png"));
             miniplayer.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
