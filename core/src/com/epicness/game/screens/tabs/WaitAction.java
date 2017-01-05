@@ -97,8 +97,16 @@ public class WaitAction extends Action {
         int playerIndex = PlayerManager.getInstance().getPlayerIndex();
         if (turn % 4 == playerIndex) {
             if (turn <= 3) {
+                PlayerManager.getInstance().updateCurrentActionIndex(
+                        PlayerManager.getInstance().getPlayerIndex(),
+                        1
+                );
                 ActionsTab.getInstance().setCurrentAction(ThrowFirstDiceAction.getInstance().reset());
             } else {
+                PlayerManager.getInstance().updateCurrentActionIndex(
+                        PlayerManager.getInstance().getPlayerIndex(),
+                        2
+                );
                 ActionsTab.getInstance().setCurrentAction(ThrowDiceToMoveAction.getInstance().reset());
             }
         }

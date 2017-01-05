@@ -25,6 +25,8 @@ public interface FirebaseInterface {
 
     void setPosition(int player, int position);
 
+    void setSectors(int player, String sectors);
+
     void setWorkforce(int player, int workforce);
 
     //------------------
@@ -72,7 +74,7 @@ public interface FirebaseInterface {
     // Gives the player factors
     void action1(int player, int workforce, int land, int capital);
 
-    // Moves the player
+    // Moves the player and gives money accordingly
     void action2(int player, int diceResult);
 
     void gameStartedAdvice(boolean gameStarted);

@@ -72,6 +72,10 @@ public class SetterManager {
         firebaseInterface.setPosition(player, position);
     }
 
+    public void setSectors(int player, String sectors) {
+        firebaseInterface.setSectors(player, sectors);
+    }
+
     public void setWorkforce(int player, int workforce) {
         firebaseInterface.setWorkforce(player, workforce);
     }

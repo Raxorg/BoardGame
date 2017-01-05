@@ -72,6 +72,11 @@ public class PlayerManager {
         players[player].setPosition(position);
     }
 
+    public void updateSectors(int player, String sectors) {
+        SetterManager.getInstance().setSectors(player, sectors);
+        players[player].setSectors(sectors);
+    }
+
     public void updateWorkforce(int player, int workforce) {
         SetterManager.getInstance().setWorkforce(player, workforce);
         players[player].setWorkforce(workforce);

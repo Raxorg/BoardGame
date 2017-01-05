@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
 import com.epicness.game.actors.Dice;
+import com.epicness.game.actors.Player;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
@@ -92,16 +93,19 @@ public class ThrowFirstDiceAction extends Action {
                     }
                     throwed = true;
                 } else {
-                    workforceDice.setStopped(true);
-                    landDice.setStopped(true);
-                    capitalDice.setStopped(true);
-                    Listener.setLoading(true);
-                    BoardGame.firebaseInterface.action1(
-                            PlayerManager.getInstance().getPlayerIndex(),
-                            workforceDice.getCurrentFace(),
-                            landDice.getCurrentFace(),
-                            capitalDice.getCurrentFace()
-                    );
+                    int playerIndex = PlayerManager.getInstance().getPlayerIndex();
+                    if (PlayerManager.getInstance().getPlayers()[playerIndex].getCurrentActionIndex() == 1) {
+                        workforceDice.setStopped(true);
+                        landDice.setStopped(true);
+                        capitalDice.setStopped(true);
+                        Listener.setLoading(true);
+                        BoardGame.firebaseInterface.action1(
+                                PlayerManager.getInstance().getPlayerIndex(),
+                                workforceDice.getCurrentFace(),
+                                landDice.getCurrentFace(),
+                                capitalDice.getCurrentFace()
+                        );
+                    }
                 }
             }
         };
@@ -117,7 +121,7 @@ public class ThrowFirstDiceAction extends Action {
             @Override
             public void onTouchUp() {
                 if (doneAction1) {
-                    ActionsTab.getInstance().setCurrentAction(BuyFactorsAction.getInstance().reset());
+                    ActionsTab.getInstance().setCurrentAction(ThrowDiceToMoveAction.getInstance().reset());
                 }
             }
         };

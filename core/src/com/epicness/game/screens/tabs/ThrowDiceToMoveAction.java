@@ -66,12 +66,15 @@ public class ThrowDiceToMoveAction extends Action {
                     }
                     throwed = true;
                 } else {
-                    dice.setStopped(true);
-                    Listener.setLoading(true);
-                    BoardGame.firebaseInterface.action2(
-                            PlayerManager.getInstance().getPlayerIndex(),
-                            dice.getCurrentFace()
-                    );
+                    int playerIndex = PlayerManager.getInstance().getPlayerIndex();
+                    if (PlayerManager.getInstance().getPlayers()[playerIndex].getCurrentActionIndex() == 2) {
+                        dice.setStopped(true);
+                        Listener.setLoading(true);
+                        BoardGame.firebaseInterface.action2(
+                                PlayerManager.getInstance().getPlayerIndex(),
+                                dice.getCurrentFace()
+                        );
+                    }
                 }
             }
         };

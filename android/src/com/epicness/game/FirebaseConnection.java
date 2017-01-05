@@ -1,5 +1,7 @@
 package com.epicness.game;
 
+import com.epicness.game.actors.Board;
+import com.epicness.game.actors.Player;
 import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
@@ -104,6 +106,11 @@ class FirebaseConnection implements FirebaseInterface {
     @Override
     public void setPosition(int player, int position) {
         positionReferences[player].setValue(position);
+    }
+
+    @Override
+    public void setSectors(int player, String sectors) {
+        sectorReferences[player].setValue(sectors);
     }
 
     @Override
@@ -483,10 +490,54 @@ class FirebaseConnection implements FirebaseInterface {
                     finalPosition = diceResult + DBPosition;
                 }
                 PlayerManager.getInstance().updatePosition(player, finalPosition);
-                positionReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                moneyReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        ThrowDiceToMoveAction.getInstance().doneAction2();
+                        final int currentMoney = dataSnapshot.getValue(Integer.class);
+                        final Player[] currentPlayer = {PlayerManager.getInstance().getPlayers()[player]};
+                        int cellIndex = currentPlayer[0].getPosition();
+                        final int sector = Board.getInstance().getCell(cellIndex).getSectorIndex();
+                        final int[] moneyToGive = {0};
+                        sectorReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String sectors = dataSnapshot.getValue(String.class);
+                                PlayerManager.getInstance().sectorsDBUpdate(player, sectors);
+                                currentPlayer[0] = PlayerManager.getInstance().getPlayers()[player];
+                                switch (sector) {
+                                    case 1:
+                                        moneyToGive[0] = currentPlayer[0].getHumanDevelopment() * 50;
+                                        break;
+                                    case 2:
+                                        moneyToGive[0] = currentPlayer[0].getInfrastructure() * 50;
+                                        break;
+                                    case 3:
+                                        moneyToGive[0] = currentPlayer[0].getNaturalResources() * 50;
+                                        break;
+                                    case 4:
+                                        moneyToGive[0] = currentPlayer[0].getTechnology() * 50;
+                                        break;
+                                }
+                                PlayerManager.getInstance().updateMoney(player, currentMoney + moneyToGive[0]);
+                                moneyReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        ThrowDiceToMoveAction.getInstance().doneAction2();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
 
                     @Override

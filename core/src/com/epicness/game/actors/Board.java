@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
 
+import static com.epicness.game.actors.Board.Sector.HUMAN_DEVELOPMENT;
+import static com.epicness.game.actors.Board.Sector.INFRASTRUCTURE;
+import static com.epicness.game.actors.Board.Sector.NATURAL_RESOURCES;
+import static com.epicness.game.actors.Board.Sector.TECHNOLOGY;
+
 /**
  * Created by Groxar on 07/12/2016.
  * :D
@@ -17,9 +22,11 @@ public class Board {
     private static Board instance = new Board();
     private Cell[] cells = null;
 
-    enum CellType {
-        ROJO,
-        AZUL
+    enum Sector {
+        HUMAN_DEVELOPMENT,
+        INFRASTRUCTURE,
+        NATURAL_RESOURCES,
+        TECHNOLOGY,
     }
 
     private Board() {
@@ -33,8 +40,25 @@ public class Board {
     private void makeCells() {
         cells = new Cell[17];
         for (int i = 0; i < cells.length; i++) {
-            cells[i] = new Cell(CellType.AZUL, i * 21.175f);
+            cells[i] = new Cell(i * 21.175f);
         }
+        cells[0].setSector(TECHNOLOGY);
+        cells[1].setSector(INFRASTRUCTURE);
+        cells[2].setSector(HUMAN_DEVELOPMENT);
+        cells[3].setSector(NATURAL_RESOURCES);
+        cells[4].setSector(TECHNOLOGY);
+        cells[5].setSector(INFRASTRUCTURE);
+        cells[6].setSector(NATURAL_RESOURCES);
+        cells[7].setSector(TECHNOLOGY);
+        cells[8].setSector(HUMAN_DEVELOPMENT);
+        cells[9].setSector(NATURAL_RESOURCES);
+        cells[10].setSector(INFRASTRUCTURE);
+        cells[11].setSector(TECHNOLOGY);
+        cells[12].setSector(NATURAL_RESOURCES);
+        cells[13].setSector(INFRASTRUCTURE);
+        cells[14].setSector(HUMAN_DEVELOPMENT);
+        cells[15].setSector(INFRASTRUCTURE);
+        cells[16].setSector(NATURAL_RESOURCES);
     }
 
     public static Board getInstance() {
@@ -70,16 +94,32 @@ public class Board {
     }
 
     public class Cell {
-        private CellType type;
+        private Sector sector;
         private float angle;
 
-        public Cell(CellType type, float angle) {
-            this.type = type;
+        public Cell(float angle) {
             this.angle = angle;
         }
 
         public float getAngle() {
             return angle;
+        }
+
+        public void setSector(Sector sector) {
+            this.sector = sector;
+        }
+
+        public int getSectorIndex() {
+            switch (sector) {
+                case HUMAN_DEVELOPMENT:
+                    return 1;
+                case INFRASTRUCTURE:
+                    return 2;
+                case NATURAL_RESOURCES:
+                    return 3;
+                default:
+                    return 4;
+            }
         }
     }
 }
