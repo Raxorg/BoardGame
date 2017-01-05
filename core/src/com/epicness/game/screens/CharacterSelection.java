@@ -13,7 +13,8 @@ import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
 import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BuyFactorsAction;
-import com.epicness.game.screens.tabs.ThrowDiceAction;
+import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
+import com.epicness.game.screens.tabs.ThrowFirstDiceAction;
 import com.epicness.game.screens.tabs.WaitAction;
 import com.epicness.game.ui.buttons.Button;
 
@@ -255,9 +256,12 @@ public class CharacterSelection extends MyScreen {
                 ActionsTab.getInstance().setCurrentAction(WaitAction.getInstance());
                 break;
             case 1:
-                ActionsTab.getInstance().setCurrentAction(ThrowDiceAction.getInstance());
+                ActionsTab.getInstance().setCurrentAction(ThrowFirstDiceAction.getInstance());
                 break;
             case 2:
+                ActionsTab.getInstance().setCurrentAction(ThrowDiceToMoveAction.getInstance());
+                break;
+            case 3:
                 ActionsTab.getInstance().setCurrentAction(BuyFactorsAction.getInstance());
                 break;
         }

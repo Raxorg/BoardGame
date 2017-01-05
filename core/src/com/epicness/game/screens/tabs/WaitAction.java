@@ -95,8 +95,12 @@ public class WaitAction extends Action {
     public void doneRefreshing() {
         int turn = PlayerManager.getInstance().getPlayerTurn();
         int playerIndex = PlayerManager.getInstance().getPlayerIndex();
-        if (turn == playerIndex) {
-            ActionsTab.getInstance().setCurrentAction(ThrowDiceAction.getInstance().reset());
+        if (turn % 4 == playerIndex) {
+            if (turn <= 3) {
+                ActionsTab.getInstance().setCurrentAction(ThrowFirstDiceAction.getInstance().reset());
+            } else {
+                ActionsTab.getInstance().setCurrentAction(ThrowDiceToMoveAction.getInstance().reset());
+            }
         }
         loadingText = "";
     }

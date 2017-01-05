@@ -17,16 +17,16 @@ import com.epicness.game.ui.buttons.Button;
  * Created by Groxar on 04/01/2017.
  * :D
  */
-public class ThrowDiceAction extends Action {
+public class ThrowFirstDiceAction extends Action {
 
     private Dice workforceDice, landDice, capitalDice;
     private float titleWidth, titleHeight;
     private boolean throwed, doneAction1;
     private String workforce, land, capital;
 
-    private static ThrowDiceAction instance = new ThrowDiceAction();
+    private static ThrowFirstDiceAction instance = new ThrowFirstDiceAction();
 
-    private ThrowDiceAction() {
+    private ThrowFirstDiceAction() {
         Text.setScale(0, 0.2f);
         titleWidth = Text.getTextWidth(0, "Lanzamiento inicial");
         titleHeight = Text.getTextHeight(0, "Lanzamiento inicial");
@@ -64,17 +64,17 @@ public class ThrowDiceAction extends Action {
         capital = "";
     }
 
-    public static ThrowDiceAction getInstance() {
+    public static ThrowFirstDiceAction getInstance() {
         return instance;
     }
 
     void makeButtons() {
         buttons = new Button[2];
         buttons[0] = new Button(
-                Assets.button3,
-                Metrics.phoneWidth / 4 - (3 * Metrics.tabHeight / 10) / 2,
+                Assets.button1,
+                Metrics.phoneWidth / 4 - (Metrics.tabHeight / 10) / 2,
                 Metrics.tabHeight / 2 - (Metrics.tabHeight / 6) / 2 - 2 * (Metrics.tabHeight / 10),
-                3 * Metrics.tabHeight / 10,
+                Metrics.tabHeight / 10,
                 Metrics.tabHeight / 10,
                 Color.ORANGE
         ) {
@@ -105,6 +105,7 @@ public class ThrowDiceAction extends Action {
                 }
             }
         };
+        buttons[0].setImage(new TextureRegion(Assets.dice5));
         buttons[1] = new Button(
                 Assets.button1,
                 Metrics.phoneWidth / 4 - (Metrics.tabHeight / 6) / 2,

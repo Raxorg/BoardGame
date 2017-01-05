@@ -24,10 +24,11 @@ public class ActionsTab extends Tab {
     }
 
     private void makeActions() {
-        actions = new Action[2];
+        actions = new Action[4];
         actions[0] = WaitAction.getInstance();
-        actions[1] = ThrowDiceAction.getInstance();
-        // TODO SABER LA ACCION SEGUN DATABASE
+        actions[1] = ThrowFirstDiceAction.getInstance();
+        actions[2] = ThrowDiceToMoveAction.getInstance();
+        actions[3] = BuyFactorsAction.getInstance();
         currentAction = actions[0];
     }
 
@@ -41,22 +42,6 @@ public class ActionsTab extends Tab {
         currentAction.draw(left, delta, batch);
         buttons = currentAction.getButtons();
         Game.getInstance().updateButtons();
-        /*
-        Text.normal.setColor(Color.WHITE);
-        Text.setScale(1, 0.2f);
-        Text.normal.draw(
-                batch,
-                action1,
-                tabOffset + buttonXPos + buttonWidth * 0.1f,
-                Metrics.tabHeight - buttonHeight * 1.3f
-        );
-        Text.setScale(1, 0.25f);
-        Text.normal.draw(
-                batch,
-                action2,
-                tabOffset + buttonXPos + buttonWidth * 0.05f,
-                Metrics.tabHeight - 3 * buttonHeight - buttonHeight * 0.3f
-        );*/
     }
 
     public void setCurrentAction(Action currentAction) {

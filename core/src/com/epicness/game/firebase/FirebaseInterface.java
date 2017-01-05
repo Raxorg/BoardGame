@@ -69,7 +69,11 @@ public interface FirebaseInterface {
 
     void refreshWaitAction();
 
+    // Gives the player factors
     void action1(int player, int workforce, int land, int capital);
+
+    // Moves the player
+    void action2(int player, int diceResult);
 
     void gameStartedAdvice(boolean gameStarted);
 

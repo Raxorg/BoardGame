@@ -5,7 +5,8 @@ import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
 import com.epicness.game.screens.tabs.FactorsTab;
-import com.epicness.game.screens.tabs.ThrowDiceAction;
+import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
+import com.epicness.game.screens.tabs.ThrowFirstDiceAction;
 import com.epicness.game.screens.tabs.WaitAction;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -452,7 +453,40 @@ class FirebaseConnection implements FirebaseInterface {
                 capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        ThrowDiceAction.getInstance().doneAction1();
+                        ThrowFirstDiceAction.getInstance().doneAction1();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void action2(final int player, final int diceResult) {
+        positionReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int DBPosition = dataSnapshot.getValue(Integer.class);
+                int finalPosition = 0;
+                if (diceResult + DBPosition >= 17) {
+                    finalPosition = diceResult + DBPosition - 17;
+                } else {
+                    finalPosition = diceResult + DBPosition;
+                }
+                PlayerManager.getInstance().updatePosition(player, finalPosition);
+                positionReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ThrowDiceToMoveAction.getInstance().doneAction2();
                     }
 
                     @Override
