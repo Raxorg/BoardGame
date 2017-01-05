@@ -95,8 +95,7 @@ public class Board {
      * @param batch allow to draw
      */
     public void draw(boolean left, SpriteBatch batch) {
-        float offset = 0;
-        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
+        float offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         batch.draw(
                 texture,
                 x + offset,

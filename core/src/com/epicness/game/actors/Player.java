@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.organizers.Assets;
-import com.epicness.game.organizers.PlayerManager;
 
 
 /**
@@ -160,8 +158,7 @@ public class Player {
     }
 
     public void draw(boolean left, float delta, SpriteBatch batch) {
-        float offset = 0;
-        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
+        float offset = left ? 0 : Gdx.graphics.getWidth() / 2;
         batch.draw(
                 texture,        // texture region
                 x + offset,     // xpos
