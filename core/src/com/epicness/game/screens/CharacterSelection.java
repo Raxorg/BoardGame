@@ -22,14 +22,15 @@ public class CharacterSelection extends MyScreen {
 
     private String loadingText = "";
     private float loadingWidth, loadingHeight;
-    private final String chooseText = "Elige tu personaje";
-    private float textHeight, textSpaceHeight;
+    private final String chooseText;
+    private float textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
     private float colorButtonSize, arrowXPosition;
 
     private static CharacterSelection instance = new CharacterSelection();
 
     private CharacterSelection() {
+        chooseText = "Elige tu personaje";
         float availableWidth = Metrics.phoneWidth;
         float availableHeight = Metrics.phoneHeight;
 
@@ -42,7 +43,7 @@ public class CharacterSelection extends MyScreen {
         imageHeight = imageWidth * 4 / 3;
         availableHeight -= imageHeight;
 
-        textHeight = Metrics.phoneHeight * 0.1f;
+        float textHeight = Metrics.phoneHeight * 0.1f;
         availableHeight -= textHeight;
 
         textSpaceHeight = Metrics.phoneHeight * 0.05f;
@@ -231,6 +232,14 @@ public class CharacterSelection extends MyScreen {
                 gameStarted = false;
             }
         }
+        if (gameStarted) {
+            BoardGame.firebaseInterface.gameStartedAdvice(true);
+        } else {
+            BoardGame.firebaseInterface.gameStartedAdvice(false);
+        }
+    }
+
+    public void doneGettingGameStarted(boolean gameStarted) {
         if (gameStarted) {
             ScreenManager.setCurrentScreen(Game.getInstance());
         }

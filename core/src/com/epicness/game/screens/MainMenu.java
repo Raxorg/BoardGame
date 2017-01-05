@@ -87,6 +87,7 @@ public class MainMenu extends MyScreen {
 
     public void getAllDataFromDatabase() {
         requestingData = true;
+        Listener.setLoading(true);
         for (int i = 0; i < 4; i++) {
             GetterManager.getInstance().getCapital(i);
             GetterManager.getInstance().getCharacter(i);
@@ -97,6 +98,7 @@ public class MainMenu extends MyScreen {
             GetterManager.getInstance().getPosition(i);
             GetterManager.getInstance().getWorkforce(i);
         }
+        GetterManager.getInstance().getTurn();
     }
 
     public boolean isRequestingData() {

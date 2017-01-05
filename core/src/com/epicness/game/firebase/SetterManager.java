@@ -52,7 +52,7 @@ public class SetterManager {
         firebaseInterface.setCharacter(player, character);
     }
 
-    public void setCurrentACtion(int player, int actionIndex) {
+    public void setCurrentActionIndex(int player, int actionIndex) {
         firebaseInterface.setCurrentActionIndex(player, actionIndex);
     }
 

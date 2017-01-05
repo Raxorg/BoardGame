@@ -1,9 +1,13 @@
 package com.epicness.game;
 
+import android.provider.ContactsContract;
+
 import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
+import com.epicness.game.screens.tabs.ThrowDiceAction;
+import com.epicness.game.screens.tabs.WaitAction;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 class FirebaseConnection implements FirebaseInterface {
 
+    private DatabaseReference gameStartedReference;
     private DatabaseReference[] capitalReferences;
     private DatabaseReference[] characterReferences;
     private DatabaseReference[] currentActionIndexReferences;
@@ -30,6 +35,8 @@ class FirebaseConnection implements FirebaseInterface {
     FirebaseConnection() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference gameReference = database.getReference("Game");
+
+        gameStartedReference = gameReference.child("gameStarted");
 
         DatabaseReference playersReference = gameReference.child("players");
         capitalReferences = new DatabaseReference[4];
@@ -357,4 +364,103 @@ class FirebaseConnection implements FirebaseInterface {
         }
     }
 
+    @Override
+    public void refreshWaitAction() {
+        turnReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int turn = dataSnapshot.getValue(Integer.class);
+                PlayerManager.getInstance().setPlayerTurn(turn);
+                WaitAction.getInstance().doneRefreshing();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void action1(final int player, final int workforce, final int land, final int capital) {
+        workforceReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int DBworkforce = dataSnapshot.getValue(Integer.class);
+                int newWorkforce = DBworkforce + workforce;
+                PlayerManager.getInstance().updateWorkforce(player, newWorkforce);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        landReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int DBland = dataSnapshot.getValue(Integer.class);
+                int newLand = DBland + land;
+                PlayerManager.getInstance().updateLand(player, newLand);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int DBCapital = dataSnapshot.getValue(Integer.class);
+                int newCapital = DBCapital + capital;
+                PlayerManager.getInstance().updateCapital(player, newCapital);
+                capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ThrowDiceAction.getInstance().doneAction1();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void gameStartedAdvice(final boolean gameStarted) {
+        gameStartedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean DBgameStarted = dataSnapshot.getValue(Boolean.class);
+                if (DBgameStarted != gameStarted) {
+                    gameStartedReference.setValue(gameStarted);
+                    gameStartedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            CharacterSelection.getInstance().doneGettingGameStarted(gameStarted);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

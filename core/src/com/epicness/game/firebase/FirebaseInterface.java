@@ -47,6 +47,8 @@ public interface FirebaseInterface {
 
     void getWorkforce(int player);
 
+    // Other getters
+
     void getTurn();
 
     //------------------
@@ -60,4 +62,10 @@ public interface FirebaseInterface {
     void verifyCharacter(String character);
 
     void refreshCharacterSelection();
+
+    void refreshWaitAction();
+
+    void action1(int player, int workforce, int land, int capital);
+
+    void gameStartedAdvice(boolean gameStarted);
 }

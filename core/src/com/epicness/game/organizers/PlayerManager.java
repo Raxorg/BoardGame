@@ -1,13 +1,8 @@
 package com.epicness.game.organizers;
 
 import com.badlogic.gdx.graphics.Color;
-import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
-import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
-import com.epicness.game.input.Listener;
-import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.tabs.ActionsTab;
 
 /**
@@ -49,6 +44,11 @@ public class PlayerManager {
     public void updateCharacter(int player, String character) {
         SetterManager.getInstance().setCharacter(player, character);
         players[player].setCharacter(character);
+    }
+
+    public void updateCurrentActionIndex(int player, int currentActionIndex) {
+        SetterManager.getInstance().setCurrentActionIndex(player, currentActionIndex);
+        players[player].setCurrentActionIndex(currentActionIndex);
     }
 
     public void updateLand(int player, int land) {
@@ -134,9 +134,6 @@ public class PlayerManager {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
-        if (playerTurn == playerIndex) {
-            ActionsTab.getInstance().yourTurn();
-        }
     }
 /*
     public String getAssignedPlayer() {

@@ -52,7 +52,9 @@ public class GetterManager {
         firebaseInterface.getCharacter(player);
     }
 
-    public void getCurrentActionIndex(int player) { firebaseInterface.getCurrentActionIndex(player);}
+    public void getCurrentActionIndex(int player) {
+        firebaseInterface.getCurrentActionIndex(player);
+    }
 
     public void getLand(int player) {
         firebaseInterface.getLand(player);
@@ -72,5 +74,9 @@ public class GetterManager {
 
     public void getWorkforce(int player) {
         firebaseInterface.getWorkforce(player);
+    }
+
+    public void getTurn() {
+        firebaseInterface.getTurn();
     }
 }

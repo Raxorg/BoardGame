@@ -19,12 +19,14 @@ public class Dice {
     private float time = 0f;
     private boolean visible = false;
     private boolean stopped = true;
+    private float speed;
 
-    public Dice(float x, float y, float width, float height) {
+    public Dice(float x, float y, float width, float height, float speed) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.speed = speed;
         TextureRegion[] regions = new TextureRegion[6];
         regions[0] = Assets.dice1;
         regions[1] = Assets.dice2;
@@ -33,7 +35,7 @@ public class Dice {
         regions[4] = Assets.dice5;
         regions[5] = Assets.dice6;
         currentRegion = regions[0];
-        animation = new Animation(0.025f, regions);
+        animation = new Animation(0.025f * speed, regions);
         time = 0f;
     }
 
