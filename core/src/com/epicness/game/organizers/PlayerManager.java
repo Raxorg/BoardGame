@@ -1,13 +1,8 @@
 package com.epicness.game.organizers;
 
 import com.badlogic.gdx.graphics.Color;
-import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
 import com.epicness.game.actors.Player;
-import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.firebase.SetterManager;
-import com.epicness.game.input.Listener;
-import com.epicness.game.screens.CharacterSelection;
 
 /**
  * Created by Groxar on 18/12/2016.
@@ -21,6 +16,8 @@ public class PlayerManager {
     private Player[] players;
     // this is the index of the player of this phone
     private int playerIndex;
+    private int playerTurn;
+    private boolean gameStarted;
 
     private PlayerManager() {
         players = new Player[4];
@@ -28,6 +25,8 @@ public class PlayerManager {
         players[1] = new Player(Color.CYAN, 1, 0);
         players[2] = new Player(Color.YELLOW, 0, 1);
         players[3] = new Player(Color.GREEN, 1, 1);
+        playerTurn = -1;
+        gameStarted = false;
     }
 
     public static PlayerManager getInstance() {
@@ -46,6 +45,11 @@ public class PlayerManager {
     public void updateCharacter(int player, String character) {
         SetterManager.getInstance().setCharacter(player, character);
         players[player].setCharacter(character);
+    }
+
+    public void updateCurrentActionIndex(int player, int currentActionIndex) {
+        SetterManager.getInstance().setCurrentActionIndex(player, currentActionIndex);
+        players[player].setCurrentActionIndex(currentActionIndex);
     }
 
     public void updateLand(int player, int land) {
@@ -85,6 +89,10 @@ public class PlayerManager {
         players[player].setCharacter(character);
     }
 
+    public void currentActionIndexDBUpdate(int player, int actionIndex) {
+        players[player].setCurrentActionIndex(actionIndex);
+    }
+
     public void landDBUpdate(int player, int land) {
         players[player].setLand(land);
     }
@@ -101,8 +109,16 @@ public class PlayerManager {
         players[player].setPosition(position);
     }
 
+    public void sectorsDBUpdate(int player, String sectors) {
+        players[player].setSectors(sectors);
+    }
+
     public void workforceDBUpdate(int player, int workforce) {
         players[player].setWorkforce(workforce);
+    }
+
+    public void turnDBUpdate(int playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     //---------------------------
@@ -116,8 +132,21 @@ public class PlayerManager {
     public int getPlayerIndex() {
         return playerIndex;
     }
+
     public Player[] getPlayers() {
         return players;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
+
+    public boolean getGameStarted() {
+        return gameStarted;
     }
 /*
     public String getAssignedPlayer() {

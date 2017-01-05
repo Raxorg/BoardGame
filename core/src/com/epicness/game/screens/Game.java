@@ -5,17 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
-import com.epicness.game.actors.Dice;
 import com.epicness.game.actors.Player;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
-import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BoardTab;
 import com.epicness.game.screens.tabs.InfoTab;
 import com.epicness.game.screens.tabs.InnerBoardTab;
-import com.epicness.game.screens.tabs.MatrixTab;
+import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.Tab;
 import com.epicness.game.ui.buttons.Button;
 
@@ -38,7 +35,7 @@ public class Game extends MyScreen {
         updateButtons();
     }
 
-    private void updateButtons() {
+    public void updateButtons() {
         Button[] currentButtons;
         int numButtons = buttons.length + leftTab.getButtons().length + rightTab.getButtons().length;
         currentButtons = new Button[numButtons];
@@ -76,7 +73,7 @@ public class Game extends MyScreen {
             buttons[2].setColor(Color.WHITE);
             buttons[7].setColor(Color.WHITE);
         }
-        if (MatrixTab.getInstance().isActive()) {
+        if (FactorsTab.getInstance().isActive()) {
             buttons[3].setColor(Color.GRAY);
             buttons[8].setColor(Color.GRAY);
         } else {
@@ -149,6 +146,7 @@ public class Game extends MyScreen {
                     leftTab.setActive(false);
                     leftTab = ActionsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
+                    // TODO
                 }
             }
         };
@@ -163,14 +161,14 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                if (!MatrixTab.getInstance().isActive()) {
+                if (!FactorsTab.getInstance().isActive()) {
                     leftTab.setActive(false);
-                    leftTab = MatrixTab.getInstance().setLeft(true).setActive(true);
+                    leftTab = FactorsTab.getInstance().setLeft(true).setActive(true);
                     updateButtons();
                 }
             }
         };
-        buttons[3].setImage(new TextureRegion(Assets.minimatrix));
+        buttons[3].setImage(new TextureRegion(Assets.minicard));
         buttons[4] = new Button(
                 tab,
                 4 * Gdx.graphics.getHeight() / 6,
@@ -239,6 +237,7 @@ public class Game extends MyScreen {
                     rightTab.setActive(false);
                     rightTab = ActionsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
+                    // TODO
                 }
             }
         };
@@ -253,14 +252,14 @@ public class Game extends MyScreen {
         ) {
             @Override
             public void onTouchUp() {
-                if (!MatrixTab.getInstance().isActive()) {
+                if (!FactorsTab.getInstance().isActive()) {
                     rightTab.setActive(false);
-                    rightTab = MatrixTab.getInstance().setLeft(false).setActive(true);
+                    rightTab = FactorsTab.getInstance().setLeft(false).setActive(true);
                     updateButtons();
                 }
             }
         };
-        buttons[8].setImage(new TextureRegion(Assets.minimatrix));
+        buttons[8].setImage(new TextureRegion(Assets.minicard));
         buttons[9] = new Button(
                 tab,
                 Metrics.phoneWidth / 2 + 4 * Gdx.graphics.getHeight() / 6,

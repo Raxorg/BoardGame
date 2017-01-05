@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Board;
 import com.epicness.game.firebase.GetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
@@ -20,20 +19,20 @@ import com.epicness.game.ui.buttons.Button;
 
 public class MainMenu extends MyScreen {
 
-    private String loadingText = "Loading...";
-    private String play = "PLAY";
+    private String loadingText = "Cargando...";
+    private String play = "JUGAR";
     private float playWidth, playHeight, loadingWidth, loadingHeight;
     private boolean requestingData;
 
     private static MainMenu instance = new MainMenu();
 
     private MainMenu() {
-        Text.setScale(true, 0.35f);
-        playWidth = Text.getTextWidth(true, play);
-        playHeight = Text.getTextHeight(true, play);
-        Text.setScale(true, 0.2f);
-        loadingWidth = Text.getTextWidth(true, loadingText);
-        loadingHeight = Text.getTextHeight(true, loadingText);
+        Text.setScale(0, 0.35f);
+        playWidth = Text.getTextWidth(0, play);
+        playHeight = Text.getTextHeight(0, play);
+        Text.setScale(0, 0.2f);
+        loadingWidth = Text.getTextWidth(0, loadingText);
+        loadingHeight = Text.getTextHeight(0, loadingText);
         makeButtons();
         getAllDataFromDatabase();
     }
@@ -56,7 +55,9 @@ public class MainMenu extends MyScreen {
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyPhoneID(BoardGame.phoneID);
                 Listener.setLoading(true);
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
             }
         };
     }
@@ -66,7 +67,7 @@ public class MainMenu extends MyScreen {
         for (Button b : buttons) {
             b.draw(true, batch);
         }
-        Text.setScale(true, 0.35f);
+        Text.setScale(0, 0.35f);
         Text.bordered.setColor(Color.PURPLE);
         Text.bordered.draw(
                 batch,
@@ -74,7 +75,7 @@ public class MainMenu extends MyScreen {
                 Gdx.graphics.getWidth() / 2 - playWidth / 2,
                 Gdx.graphics.getHeight() / 2 + playHeight / 2
         );
-        Text.setScale(true, 0.2f);
+        Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);
         Text.bordered.draw(
                 batch,
@@ -86,15 +87,20 @@ public class MainMenu extends MyScreen {
 
     public void getAllDataFromDatabase() {
         requestingData = true;
+        Listener.setLoading(true);
+        GetterManager.getInstance().getGameStarted();
         for (int i = 0; i < 4; i++) {
             GetterManager.getInstance().getCapital(i);
             GetterManager.getInstance().getCharacter(i);
+            GetterManager.getInstance().getCurrentActionIndex(i);
             GetterManager.getInstance().getLand(i);
             GetterManager.getInstance().getMoney(i);
             GetterManager.getInstance().getPhoneID(i);
             GetterManager.getInstance().getPosition(i);
+            GetterManager.getInstance().getSectors(i);
             GetterManager.getInstance().getWorkforce(i);
         }
+        GetterManager.getInstance().getTurn();
     }
 
     public boolean isRequestingData() {
@@ -121,7 +127,9 @@ public class MainMenu extends MyScreen {
 
     public void doneRequestingPlayerForPhoneID(int phoneIDIndex) {
         if (phoneIDIndex == -1) {
-            // TODO GAME IS FULL MESSAGE
+            loadingText = "Juego completo";
+            loadingWidth = Text.getTextWidth(0, loadingText);
+            loadingHeight = Text.getTextHeight(0, loadingText);
         } else {
             PlayerManager.getInstance().setPlayerIndex(phoneIDIndex);
             PlayerManager.getInstance().updatePhoneID(

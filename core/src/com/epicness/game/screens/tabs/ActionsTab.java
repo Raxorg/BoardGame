@@ -1,23 +1,21 @@
 package com.epicness.game.screens.tabs;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.epicness.game.actors.Dice;
-import com.epicness.game.organizers.Assets;
+import com.epicness.game.screens.Game;
 import com.epicness.game.ui.buttons.Button;
 
 /**
  * Created by LUCIA PAREDES on 01/01/2017.
+ * :D
  */
 public class ActionsTab extends Tab {
 
     private static ActionsTab instance = new ActionsTab();
-    private Dice dice;
+    private Action[] actions;
+    private Action currentAction;
 
     private ActionsTab() {
-        dice = new Dice();
-        dice.setVisible(true);
+        makeActions();
         makeButtons();
     }
 
@@ -25,32 +23,45 @@ public class ActionsTab extends Tab {
         return instance;
     }
 
+    private void makeActions() {
+        actions = new Action[2];
+        actions[0] = WaitAction.getInstance();
+        actions[1] = ThrowDiceAction.getInstance();
+        // TODO SABER LA ACCION SEGUN DATABASE
+        currentAction = actions[0];
+    }
+
     @Override
     void makeButtons() {
-        buttons = new Button[1];
-        buttons[0] = new Button(
-                Assets.button2,
-                0,
-                150,
-                2 * (Gdx.graphics.getHeight() / 6),
-                Gdx.graphics.getHeight() / 6,
-                Color.BLUE
-        ) {
-            @Override
-            public void onTouchUp() {
-                if (dice.isStopped())
-                    dice.setStopped(false);
-                else
-                    dice.setStopped(true);
-            }
-        };
+        buttons = new Button[0];
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        dice.draw(left, delta, batch);
-        for (Button b : buttons) {
-            b.draw(left, batch);
-        }
+        currentAction.draw(left, delta, batch);
+        buttons = currentAction.getButtons();
+        Game.getInstance().updateButtons();
+        /*
+        Text.normal.setColor(Color.WHITE);
+        Text.setScale(1, 0.2f);
+        Text.normal.draw(
+                batch,
+                action1,
+                tabOffset + buttonXPos + buttonWidth * 0.1f,
+                Metrics.tabHeight - buttonHeight * 1.3f
+        );
+        Text.setScale(1, 0.25f);
+        Text.normal.draw(
+                batch,
+                action2,
+                tabOffset + buttonXPos + buttonWidth * 0.05f,
+                Metrics.tabHeight - 3 * buttonHeight - buttonHeight * 0.3f
+        );*/
+    }
+
+    public void setCurrentAction(Action currentAction) {
+
+        this.currentAction = currentAction;
     }
 }
+

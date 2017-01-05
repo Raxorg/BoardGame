@@ -44,12 +44,20 @@ public class GetterManager {
     //           BODY
     //---------------------------
 
+    public void getGameStarted() {
+        firebaseInterface.getGameStarted();
+    }
+
     public void getCapital(int player) {
         firebaseInterface.getCapital(player);
     }
 
     public void getCharacter(int player) {
         firebaseInterface.getCharacter(player);
+    }
+
+    public void getCurrentActionIndex(int player) {
+        firebaseInterface.getCurrentActionIndex(player);
     }
 
     public void getLand(int player) {
@@ -70,5 +78,13 @@ public class GetterManager {
 
     public void getWorkforce(int player) {
         firebaseInterface.getWorkforce(player);
+    }
+
+    public void getTurn() {
+        firebaseInterface.getTurn();
+    }
+
+    public void getSectors(int player) {
+        firebaseInterface.getSectors(player);
     }
 }

@@ -15,6 +15,8 @@ public interface FirebaseInterface {
 
     void setCharacter(int player, String character);
 
+    void setCurrentActionIndex(int player, int actionIndex);
+
     void setLand(int player, int land);
 
     void setMoney(int player, int money);
@@ -33,6 +35,8 @@ public interface FirebaseInterface {
 
     void getCharacter(int player);
 
+    void getCurrentActionIndex(int player);
+
     void getLand(int player);
 
     void getMoney(int player);
@@ -42,6 +46,14 @@ public interface FirebaseInterface {
     void getPosition(int player);
 
     void getWorkforce(int player);
+
+    void getSectors(int player);
+
+    // Other getters
+
+    void getTurn();
+
+    void getGameStarted();
 
     //------------------
     //      OTHER
@@ -53,5 +65,15 @@ public interface FirebaseInterface {
 
     void verifyCharacter(String character);
 
-    void requestCharacter(String character);
+    void refreshCharacterSelection();
+
+    void refreshWaitAction();
+
+    void action1(int player, int workforce, int land, int capital);
+
+    void gameStartedAdvice(boolean gameStarted);
+
+    void refreshCurrentActionIndexes();
+
+    void refreshFactorCards(int player);
 }

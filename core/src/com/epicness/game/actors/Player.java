@@ -22,10 +22,12 @@ public class Player {
     // These are on the DB
     private int capital;
     private String character;
+    private int currentActionIndex;
     private int land;
     private int money;
     private String phoneID;
     private int position;
+    private String sectors;
     private int workforce;
 
     public Player(Color color, float offsetX, float offsetY) {
@@ -36,6 +38,9 @@ public class Player {
         this.offsetY = offsetY;
         move(Board.getInstance().getCell(0));
         this.color = color;
+        character = "none";
+        phoneID = "none";
+        sectors = "d1,i1,n1,t1";
     }
 
     //---------------------------
@@ -48,6 +53,10 @@ public class Player {
 
     public void setCharacter(String character) {
         this.character = character;
+    }
+
+    public void setCurrentActionIndex(int currentActionIndex) {
+        this.currentActionIndex = currentActionIndex;
     }
 
     public void setLand(int land) {
@@ -67,6 +76,10 @@ public class Player {
         move(Board.getInstance().getCell(position));
     }
 
+    public void setSectors(String sectors) {
+        this.sectors = sectors;
+    }
+
     public void setWorkforce(int workforce) {
         this.workforce = workforce;
     }
@@ -81,6 +94,10 @@ public class Player {
 
     public String getCharacter() {
         return character;
+    }
+
+    public int getCurrentActionIndex() {
+        return currentActionIndex;
     }
 
     public int getLand() {
@@ -105,6 +122,26 @@ public class Player {
 
     public Color getColor() {
         return color;
+    }
+
+    public int getHumanDevelopment() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[0]);
+    }
+
+    public int getInfrastructure() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[1]);
+    }
+
+    public int getNaturalResources() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[2]);
+    }
+
+    public int getTechnology() {
+        String[] indexes = sectors.split(",");
+        return Integer.parseInt(indexes[3]);
     }
 
     //---------------------------

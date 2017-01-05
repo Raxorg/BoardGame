@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.epicness.game.BoardGame;
-import com.epicness.game.actors.Player;
-import com.epicness.game.firebase.GetterManager;
-import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.input.Listener;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.Metrics;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.organizers.ScreenManager;
 import com.epicness.game.organizers.Text;
+import com.epicness.game.screens.tabs.ActionsTab;
+import com.epicness.game.screens.tabs.BuyFactorsAction;
+import com.epicness.game.screens.tabs.ThrowDiceAction;
+import com.epicness.game.screens.tabs.WaitAction;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -25,14 +26,15 @@ public class CharacterSelection extends MyScreen {
 
     private String loadingText = "";
     private float loadingWidth, loadingHeight;
-    private final String chooseText = "Elige tu personaje";
-    private float textHeight, textSpaceHeight;
+    private final String chooseText;
+    private float textSpaceHeight;
     private float imageWidth, imageHeight, characterSpace, imageYPos;
-    private float colorButtonSize;
+    private float colorButtonSize, arrowXPosition;
 
     private static CharacterSelection instance = new CharacterSelection();
 
     private CharacterSelection() {
+        chooseText = "Elige tu personaje";
         float availableWidth = Metrics.phoneWidth;
         float availableHeight = Metrics.phoneHeight;
 
@@ -45,7 +47,7 @@ public class CharacterSelection extends MyScreen {
         imageHeight = imageWidth * 4 / 3;
         availableHeight -= imageHeight;
 
-        textHeight = Metrics.phoneHeight * 0.1f;
+        float textHeight = Metrics.phoneHeight * 0.1f;
         availableHeight -= textHeight;
 
         textSpaceHeight = Metrics.phoneHeight * 0.05f;
@@ -55,15 +57,17 @@ public class CharacterSelection extends MyScreen {
 
         colorButtonSize = imageWidth / 3;
 
+        arrowXPosition = Metrics.phoneWidth;
+
         if (availableWidth < 0 || availableHeight < 0) {
             System.out.println("DIMENSIONS CORRUPTED");
         }
 
         makeButtons();
 
-        Text.setScale(true, 0.2f);
-        loadingWidth = Text.getTextWidth(true, loadingText);
-        loadingHeight = Text.getTextHeight(true, loadingText);
+        Text.setScale(0, 0.2f);
+        loadingWidth = Text.getTextWidth(0, loadingText);
+        loadingHeight = Text.getTextHeight(0, loadingText);
     }
 
     public static CharacterSelection getInstance() {
@@ -72,7 +76,7 @@ public class CharacterSelection extends MyScreen {
 
     @Override
     void makeButtons() {
-        buttons = new Button[9];
+        buttons = new Button[5];
         //------------
         // CHARACTERS
         //------------
@@ -87,8 +91,11 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("hayek");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
+                arrowXPosition = characterSpace + imageWidth / 2 - colorButtonSize / 2;
             }
         };
         buttons[1] = new Button(
@@ -102,8 +109,11 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("keynes");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
+                arrowXPosition = characterSpace * 2 + imageWidth * 1.5f - colorButtonSize / 2;
             }
         };
         buttons[2] = new Button(
@@ -117,8 +127,11 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("marx");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
+                arrowXPosition = characterSpace * 3 + imageWidth * 2.5f - colorButtonSize / 2;
             }
         };
         buttons[3] = new Button(
@@ -132,103 +145,67 @@ public class CharacterSelection extends MyScreen {
             @Override
             public void onTouchUp() {
                 BoardGame.firebaseInterface.verifyCharacter("smith");
-                loadingText = "Loading...";
+                loadingText = "Cargando...";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
                 Listener.setLoading(true);
+                arrowXPosition = characterSpace * 4 + imageWidth * 3.5f - colorButtonSize / 2;
             }
         };
-        //------------
-        //   PIECES
-        //------------
+        // Refresh button
         buttons[4] = new Button(
-                new TextureRegion(Assets.player),
-                characterSpace + imageWidth / 2 - colorButtonSize / 2,
-                imageYPos - colorButtonSize * 2,
-                colorButtonSize,
-                colorButtonSize,
-                Color.ORANGE
-        ) {
-            @Override
-            public void onTouchUp() {
-
-            }
-        };
-        buttons[5] = new Button(
-                new TextureRegion(Assets.player),
-                characterSpace * 2 + imageWidth + imageWidth / 2 - colorButtonSize / 2,
-                imageYPos - colorButtonSize * 2,
-                colorButtonSize,
-                colorButtonSize,
-                Color.CYAN
-        ) {
-            @Override
-            public void onTouchUp() {
-
-            }
-        };
-        buttons[6] = new Button(
-                new TextureRegion(Assets.player),
-                characterSpace * 3 + imageWidth * 2 + imageWidth / 2 - colorButtonSize / 2,
-                imageYPos - colorButtonSize * 2,
-                colorButtonSize,
-                colorButtonSize,
-                Color.YELLOW
-        ) {
-            @Override
-            public void onTouchUp() {
-
-            }
-        };
-        buttons[7] = new Button(
-                new TextureRegion(Assets.player),
-                characterSpace * 4 + imageWidth * 3 + imageWidth / 2 - colorButtonSize / 2,
-                imageYPos - colorButtonSize * 2,
-                colorButtonSize,
-                colorButtonSize,
+                Assets.button1,
+                Metrics.phoneWidth / 2 - imageWidth * 0.5f / 2,
+                imageYPos - colorButtonSize * 4,
+                imageWidth * 0.5f,
+                imageWidth * 0.5f,
                 Color.GREEN
         ) {
             @Override
             public void onTouchUp() {
-
+                loadingText = "Actualizando";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
+                BoardGame.firebaseInterface.refreshCharacterSelection();
+                if (PlayerManager.getInstance().getPlayers()[PlayerManager.getInstance().getPlayerIndex()].getCharacter().equals("none")) {
+                    loadingText = "Sin personaje";
+                    loadingWidth = Text.getTextWidth(0, loadingText);
+                    loadingHeight = Text.getTextHeight(0, loadingText);
+                }
             }
         };
-        //------------
-        //    START
-        //------------
-        buttons[8] = new Button(
-                Assets.button5,
-                Metrics.phoneWidth / 2 - imageWidth,
-                imageYPos - colorButtonSize * 4,
-                imageWidth * 2,
-                imageWidth * 2 / 5,
-                Color.WHITE
-        ) {
-            @Override
-            public void onTouchUp() {
-                ScreenManager.setCurrentScreen(Game.getInstance());
-            }
-        };
+        buttons[4].setImage(new TextureRegion(Assets.refresh));
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        Text.setScale(true, 0.25f);
+        Text.setScale(0, 0.25f);
         Text.bordered.setColor(Color.PURPLE);
         Text.bordered.draw(
                 batch,
                 chooseText,
-                Metrics.phoneWidth / 2 - Text.getTextWidth(true, chooseText) / 2,
+                Metrics.phoneWidth / 2 - Text.getTextWidth(0, chooseText) / 2,
                 Metrics.phoneHeight - textSpaceHeight
         );
         for (Button b : buttons) {
             b.draw(true, batch);
         }
-        Text.setScale(true, 0.2f);
+        // Draws text
+        Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);
         Text.bordered.draw(
                 batch,
                 loadingText,
                 Gdx.graphics.getWidth() - loadingWidth - loadingHeight,
                 loadingHeight * 2
+        );
+
+        batch.draw(
+                Assets.arrow,
+                arrowXPosition,
+                imageYPos - colorButtonSize * 2,
+                colorButtonSize,
+                colorButtonSize
         );
     }
 
@@ -239,7 +216,51 @@ public class CharacterSelection extends MyScreen {
             loadingText = "";
         } else {
             Listener.setLoading(false);
-            loadingText = "No disponible";
+            if (characterIndex == PlayerManager.getInstance().getPlayerIndex()) {
+                loadingText = "Tu personaje";
+            } else {
+                loadingText = "No disponible";
+            }
+            loadingWidth = Text.getTextWidth(0, loadingText);
+            loadingHeight = Text.getTextHeight(0, loadingText);
         }
+    }
+
+    public void doneRefreshing() {
+        boolean gameStarted = true;
+        for (int i = 0; i < 4; i++) {
+            if (PlayerManager.getInstance().getPlayers()[i].getCharacter().equals("none")) {
+                loadingText = "Faltan jugadores";
+                loadingWidth = Text.getTextWidth(0, loadingText);
+                loadingHeight = Text.getTextHeight(0, loadingText);
+                gameStarted = false;
+            }
+        }
+        if (gameStarted) {
+            BoardGame.firebaseInterface.gameStartedAdvice(true);
+        } else {
+            BoardGame.firebaseInterface.gameStartedAdvice(false);
+        }
+    }
+
+    public void doneGettingGameStarted(boolean gameStarted) {
+        if (gameStarted) {
+            BoardGame.firebaseInterface.refreshCurrentActionIndexes();
+        }
+    }
+
+    public void doneRefreshingActionIndexes(int actionIndex) {
+        switch (actionIndex) {
+            case 0:
+                ActionsTab.getInstance().setCurrentAction(WaitAction.getInstance());
+                break;
+            case 1:
+                ActionsTab.getInstance().setCurrentAction(ThrowDiceAction.getInstance());
+                break;
+            case 2:
+                ActionsTab.getInstance().setCurrentAction(BuyFactorsAction.getInstance());
+                break;
+        }
+        ScreenManager.setCurrentScreen(Game.getInstance());
     }
 }
