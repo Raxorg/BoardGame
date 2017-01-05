@@ -116,7 +116,7 @@ public class Board {
 
     /**
      * Getter of x position of the board
-     * @return x position
+     * @return x position of the board
      */
     public float getX() {
         return x;

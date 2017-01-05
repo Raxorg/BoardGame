@@ -35,7 +35,7 @@ public class Dice {
         regions[4] = Assets.dice5;
         regions[5] = Assets.dice6;
         currentRegion = regions[0];
-        animation = new Animation(0.025f * speed, regions);
+        animation = new Animation(0.025f * speed, regions); //sets the speed of animation
         time = 0f;
     }
 
