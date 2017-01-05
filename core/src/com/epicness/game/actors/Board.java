@@ -1,3 +1,4 @@
+
 package com.epicness.game.actors;
 
 import com.badlogic.gdx.Gdx;
@@ -12,16 +13,20 @@ import static com.epicness.game.actors.Board.Sector.NATURAL_RESOURCES;
 import static com.epicness.game.actors.Board.Sector.TECHNOLOGY;
 
 /**
- * Created by Groxar on 07/12/2016.
- * :D
+ * This class will draw cells for each sector
+ * @author Luis Frontanilla, Lucia Paredes
+ *
  */
-
 public class Board {
+
     private Texture texture = null;
     private float x = 0, y = 0, side = 0;
     private static Board instance = new Board();
     private Cell[] cells = null;
 
+    /*
+    Enumerates each sector
+     */
     enum Sector {
         HUMAN_DEVELOPMENT,
         INFRASTRUCTURE,
@@ -29,6 +34,9 @@ public class Board {
         TECHNOLOGY,
     }
 
+    /**
+     * Private constructor for the Board class, initializes the board image and its position
+     */
     private Board() {
         texture = Assets.board;
         side = Metrics.tabHeight * 0.95f;
@@ -37,6 +45,9 @@ public class Board {
         makeCells();
     }
 
+    /**
+     * Creates 17 cells for the board, gives each cell a sector
+     */
     private void makeCells() {
         cells = new Cell[17];
         for (int i = 0; i < cells.length; i++) {
@@ -61,14 +72,28 @@ public class Board {
         cells[16].setSector(NATURAL_RESOURCES);
     }
 
+    /**
+     * Getter of a board instance
+     * @return instance of board
+     */
     public static Board getInstance() {
         return instance;
     }
 
+    /**
+     * Getter of a cell board
+     * @param index is the index of the cells array
+     * @return a cell
+     */
     public Cell getCell(int index) {
         return cells[index];
     }
 
+    /**
+     *
+     * @param left indicates if what we are drawing is in the left tab, else in right tab
+     * @param batch allow to draw
+     */
     public void draw(boolean left, SpriteBatch batch) {
         float offset = 0;
         offset = left ? 0 : Gdx.graphics.getWidth() / 2;
@@ -81,34 +106,65 @@ public class Board {
         );
     }
 
+    /**
+     * Getter of side of the board
+     * @return side of the board
+     */
     public float getSide() {
         return side;
     }
 
+    /**
+     * Getter of x position of the board
+     * @return x position
+     */
     public float getX() {
         return x;
     }
 
+    /**
+     * Getter of y position of the board
+     * @return y position
+     */
     public float getY() {
         return y;
     }
 
+    /**
+     * The Cell class creates a cell of the board with a sector and an angle
+     */
     public class Cell {
         private Sector sector;
         private float angle;
 
+        /**
+         * Initializes cell's angle
+         * @param angle of cell
+         */
         public Cell(float angle) {
             this.angle = angle;
         }
 
+        /**
+         * Getter of angle
+         * @return angle of the cell
+         */
         public float getAngle() {
             return angle;
         }
 
+        /**
+         * Setter for the sector
+         * @param sector of a cell
+         */
         public void setSector(Sector sector) {
             this.sector = sector;
         }
 
+        /**
+         * This functions returns a sector's index
+         * @return sector index
+         */
         public int getSectorIndex() {
             switch (sector) {
                 case HUMAN_DEVELOPMENT:

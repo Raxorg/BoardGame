@@ -18,11 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by Groxar on 09/11/2016.
- * Hello :D
- */
 
+/**
+ * This class will draw cells for each sector
+ * @author Luis Frontanilla
+ *
+ */
 class FirebaseConnection implements FirebaseInterface {
 
     private DatabaseReference gameStartedReference;

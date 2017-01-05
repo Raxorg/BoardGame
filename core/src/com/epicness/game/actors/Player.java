@@ -8,11 +8,12 @@ import com.epicness.game.firebase.SetterManager;
 import com.epicness.game.organizers.Assets;
 import com.epicness.game.organizers.PlayerManager;
 
-/**
- * Created by Groxar on 02/12/2016.
- * :D
- */
 
+/**
+ * This class draws the player and assigns its values
+ * @author Luis Frontanilla, Lucia Paredes
+ *
+ */
 public class Player {
 
     private TextureRegion texture;
