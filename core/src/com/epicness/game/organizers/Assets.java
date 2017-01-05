@@ -1,6 +1,7 @@
 package com.epicness.game.organizers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -18,6 +19,7 @@ public class Assets {
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
             minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
             chart, refresh, next, factorCard, factorCardFG, factorCardBG;
+    public static Sound buttonSound, pageSound, diceSound;
 
     public static void load() {
         if (!loaded) {
@@ -97,6 +99,10 @@ public class Assets {
             keynes = new TextureRegion(characters, 300, 0, 300, 400);
             marx = new TextureRegion(characters, 0, 400, 300, 400);
             smith = new TextureRegion(characters, 300, 400, 300, 400);
+            // Sounds
+            buttonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/button.wav"));
+            pageSound = Gdx.audio.newSound(Gdx.files.internal("sounds/page.wav"));
+            diceSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shakedice.wav"));
         }
         loaded = true;
     }
