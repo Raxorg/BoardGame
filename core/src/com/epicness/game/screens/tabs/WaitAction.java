@@ -61,8 +61,7 @@ public class WaitAction extends Action {
     }
 
     public void draw(boolean left, float delta, SpriteBatch batch) {
-        float offset;
-        offset = left ? 0 : Gdx.graphics.getWidth() / 2;
+        float offset = left ? 0 : Metrics.phoneWidth / 2;
         // Draws the title
         Text.setScale(0, 0.2f);
         Text.bordered.setColor(Color.WHITE);

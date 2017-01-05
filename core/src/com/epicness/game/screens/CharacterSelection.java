@@ -15,6 +15,7 @@ import com.epicness.game.screens.tabs.ActionsTab;
 import com.epicness.game.screens.tabs.BuyFactorsAction;
 import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
 import com.epicness.game.screens.tabs.ThrowFirstDiceAction;
+import com.epicness.game.screens.tabs.UpgradeCardsAction;
 import com.epicness.game.screens.tabs.WaitAction;
 import com.epicness.game.ui.buttons.Button;
 
@@ -268,6 +269,9 @@ public class CharacterSelection extends MyScreen {
                 break;
             case 3:
                 ActionsTab.getInstance().setCurrentAction(BuyFactorsAction.getInstance());
+                break;
+            case 4:
+                ActionsTab.getInstance().setCurrentAction(UpgradeCardsAction.getInstance());
                 break;
         }
         ScreenManager.setCurrentScreen(Game.getInstance());

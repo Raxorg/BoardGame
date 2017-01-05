@@ -24,11 +24,12 @@ public class ActionsTab extends Tab {
     }
 
     private void makeActions() {
-        actions = new Action[4];
+        actions = new Action[5];
         actions[0] = WaitAction.getInstance();
         actions[1] = ThrowFirstDiceAction.getInstance();
         actions[2] = ThrowDiceToMoveAction.getInstance();
         actions[3] = BuyFactorsAction.getInstance();
+        actions[4] = UpgradeCardsAction.getInstance();
         currentAction = actions[0];
     }
 

@@ -16,15 +16,15 @@ import com.epicness.game.ui.buttons.Button;
  * :D
  */
 
-public class BuyFactorsAction extends Action {
+public class UpgradeCardsAction extends Action {
 
     private String title;
     private float titleWidth, titleHeight;
     private float xSpace, buttonYSpace, buttonSize;
 
-    private static BuyFactorsAction instance = new BuyFactorsAction();
+    private static UpgradeCardsAction instance = new UpgradeCardsAction();
 
-    private BuyFactorsAction() {
+    private UpgradeCardsAction() {
         Text.setScale(0, 0.2f);
         title = "Comprar factores";
         titleWidth = Text.getTextWidth(0, title);
@@ -32,7 +32,7 @@ public class BuyFactorsAction extends Action {
         makeButtons();
     }
 
-    public static BuyFactorsAction getInstance() {
+    public static UpgradeCardsAction getInstance() {
         return instance;
     }
 
@@ -167,17 +167,12 @@ public class BuyFactorsAction extends Action {
                         PlayerManager.getInstance().getPlayerIndex(),
                         4
                 );
-                ActionsTab.getInstance().setCurrentAction(UpgradeCardsAction.getInstance().reset());
             }
         };
         buttons[3].setImage(new TextureRegion(Assets.next));
     }
 
     public void doneBuyingFactor() {
-        Text.setScale(0, 0.2f);
-        title = "Comprar factores";
-        titleWidth = Text.getTextWidth(0, title);
-        titleHeight = Text.getTextHeight(0, title);
         Listener.setLoading(false);
     }
 

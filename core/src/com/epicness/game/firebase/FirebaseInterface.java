@@ -82,4 +82,6 @@ public interface FirebaseInterface {
     void refreshCurrentActionIndexes();
 
     void refreshFactorCards(int player);
+
+    void buyFactor(int player, int factor);
 }

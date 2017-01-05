@@ -92,6 +92,7 @@ public class ThrowFirstDiceAction extends Action {
                         capitalDice.setStopped(false);
                     }
                     throwed = true;
+                    Assets.diceSound.loop();
                     Assets.diceSound.play();
                 } else {
                     int playerIndex = PlayerManager.getInstance().getPlayerIndex();
@@ -107,6 +108,7 @@ public class ThrowFirstDiceAction extends Action {
                                 capitalDice.getCurrentFace()
                         );
                     }
+                    Assets.diceSound.stop();
                 }
             }
         };

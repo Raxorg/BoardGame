@@ -65,6 +65,7 @@ public class ThrowDiceToMoveAction extends Action {
                         dice.setStopped(false);
                     }
                     throwed = true;
+                    Assets.diceSound.loop();
                     Assets.diceSound.play();
                 } else {
                     int playerIndex = PlayerManager.getInstance().getPlayerIndex();
@@ -76,6 +77,7 @@ public class ThrowDiceToMoveAction extends Action {
                                 dice.getCurrentFace()
                         );
                     }
+                    Assets.diceSound.stop();
                 }
             }
         };

@@ -18,7 +18,7 @@ public class Assets {
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
             minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
-            chart, refresh, next, factorCard, factorCardFG, factorCardBG;
+            chart, refresh, next, plus, factorCard, factorCardFG, factorCardBG;
     public static Sound buttonSound, pageSound, diceSound;
 
     public static void load() {
@@ -67,6 +67,8 @@ public class Assets {
             next.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             refresh = new Texture(Gdx.files.internal("images/refresh.png"));
             refresh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            plus = new Texture(Gdx.files.internal("images/plus.png"));
+            plus.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             infocard = new Texture(Gdx.files.internal("infocard.png"));
             infocard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Production factors

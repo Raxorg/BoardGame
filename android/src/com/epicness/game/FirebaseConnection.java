@@ -6,6 +6,7 @@ import com.epicness.game.firebase.FirebaseInterface;
 import com.epicness.game.organizers.PlayerManager;
 import com.epicness.game.screens.CharacterSelection;
 import com.epicness.game.screens.MainMenu;
+import com.epicness.game.screens.tabs.BuyFactorsAction;
 import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.ThrowDiceToMoveAction;
 import com.epicness.game.screens.tabs.ThrowFirstDiceAction;
@@ -483,7 +484,7 @@ class FirebaseConnection implements FirebaseInterface {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int DBPosition = dataSnapshot.getValue(Integer.class);
-                int finalPosition = 0;
+                int finalPosition;
                 if (diceResult + DBPosition >= 17) {
                     finalPosition = diceResult + DBPosition - 17;
                 } else {
@@ -644,5 +645,114 @@ class FirebaseConnection implements FirebaseInterface {
                 }
             });
         }
+    }
+
+    @Override
+    public void buyFactor(final int player, final int factor) {
+        moneyReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int money = dataSnapshot.getValue(Integer.class);
+                PlayerManager.getInstance().moneyDBUpdate(player, money);
+                if (money >= 100) {
+                    PlayerManager.getInstance().updateMoney(player, money - 100);
+                    moneyReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            switch (factor) {
+                                // workforce
+                                case 0:
+                                    workforceReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            int DBWorkforce = dataSnapshot.getValue(Integer.class);
+                                            PlayerManager.getInstance().updateWorkforce(player, DBWorkforce + 1);
+                                            workforceReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    BuyFactorsAction.getInstance().doneBuyingFactor();
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    break;
+                                // land
+                                case 1:
+                                    landReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            int DBLand = dataSnapshot.getValue(Integer.class);
+                                            PlayerManager.getInstance().updateWorkforce(player, DBLand + 1);
+                                            landReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    BuyFactorsAction.getInstance().doneBuyingFactor();
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    break;
+                                // capital
+                                case 2:
+                                    capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            int DBCapital = dataSnapshot.getValue(Integer.class);
+                                            PlayerManager.getInstance().updateWorkforce(player, DBCapital + 1);
+                                            capitalReferences[player].addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    BuyFactorsAction.getInstance().doneBuyingFactor();
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
