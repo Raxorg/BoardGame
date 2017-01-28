@@ -17,9 +17,9 @@ public class Assets {
     public static TextureRegion button1, button2, button3, button4, button5;
     public static TextureRegion hayek, keynes, marx, smith;
     public static Texture bg, board, player, tab, infocard, miniplayer, miniboard, characters,
-            minichart, minicard, miniactions, arrow, workforceIcon, landIcon, capitalIcon,
+            minichart, minicard, miniactions, minitable, arrow, workforceIcon, landIcon, capitalIcon,
             chart, refresh, next, plus, factorCard, factorCardFG, factorCardBG,
-            humanDevelopment, infrastructure, naturalResources, technology;
+            humanDevelopment, infrastructure, naturalResources, technology, tabla1, tabla2;
     public static Sound buttonSound, pageSound, diceSound;
 
     public static void load() {
@@ -93,6 +93,10 @@ public class Assets {
             naturalResources.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             technology = new Texture(Gdx.files.internal("T.png"));
             technology.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            tabla1 = new Texture(Gdx.files.internal("images/tabla1.png"));
+            tabla1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            tabla2 = new Texture(Gdx.files.internal("images/tabla2.png"));
+            tabla2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Tab images
             miniplayer = new Texture(Gdx.files.internal("images/miniplayer.png"));
             miniplayer.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -104,6 +108,8 @@ public class Assets {
             minicard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             miniactions = new Texture(Gdx.files.internal("images/miniactions.png"));
             miniactions.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            minitable = new Texture(Gdx.files.internal("images/minitable.png"));
+            minitable.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             // Characters
             characters = new Texture(Gdx.files.internal("images/characters.jpg"));
             hayek = new TextureRegion(characters, 0, 0, 300, 400);

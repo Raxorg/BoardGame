@@ -14,6 +14,7 @@ import com.epicness.game.screens.tabs.InfoTab;
 import com.epicness.game.screens.tabs.InnerBoardTab;
 import com.epicness.game.screens.tabs.FactorsTab;
 import com.epicness.game.screens.tabs.Tab;
+import com.epicness.game.screens.tabs.TablesTab;
 import com.epicness.game.ui.buttons.Button;
 
 /**
@@ -285,7 +286,26 @@ public class Game extends MyScreen {
                 }
             }
         };
-        buttons[9].setImage(new TextureRegion(Assets.minichart));
+        buttons[9].setImage(new TextureRegion(Assets.minicard));
+        buttons[10] = new Button(
+                tab,
+                Metrics.phoneWidth / 2 + 4 * Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 12,
+                Gdx.graphics.getHeight() / 6,
+                Gdx.graphics.getHeight() / 12,
+                Color.WHITE
+        ) {
+            @Override
+            public void onTouchUp() {
+                if (!TablesTab.getInstance().isActive()) {
+                    rightTab.setActive(false);
+                    rightTab = TablesTab.getInstance().setLeft(false).setActive(true);
+                    updateButtons();
+                    Assets.pageSound.play();
+                }
+            }
+        };
+        buttons[10].setImage(new TextureRegion(Assets.minichart));
     }
 
     @Override
