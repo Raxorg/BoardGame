@@ -257,6 +257,7 @@ public class Game extends MyScreen {
                 Gdx.graphics.getHeight() / 12,
                 Color.WHITE
         ) {
+            //
             @Override
             public void onTouchUp() {
                 if (!FactorsTab.getInstance().isActive()) {
